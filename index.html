@@ -5,42 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TBH：塔斯克巴·英雄 攻略站</title>
 <style>
-:root{--bg:#0f0f23;--card:#1a1a2e;--hd:#16213e;--ac:#e94560;--tx:#eee;--mu:#888;--bl:#3498db;--gn:#2ecc71}
+:root{--bg:#f5f5f5;--card:#fff;--hd:#e8e8e8;--ac:#e94560;--tx:#333;--mu:#666;--bl:#3498db;--gn:#2ecc71}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
 .c{max-width:1200px;margin:0 auto;padding:16px}
-header{background:linear-gradient(135deg,var(--hd),#0f3460);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
-header h1{color:var(--ac);font-size:1.8em}
-header p{color:var(--mu);font-size:.85em;margin-top:4px}
-nav{background:var(--hd);padding:10px;border-radius:10px;margin-bottom:20px;position:sticky;top:8px;z-index:100}
+header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
+header h1{color:#fff;font-size:1.8em}
+header p{color:rgba(255,255,255,.8);font-size:.85em;margin-top:4px}
+nav{background:var(--card);padding:10px;border-radius:10px;margin-bottom:20px;position:sticky;top:8px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
-nav a{color:var(--tx);padding:5px 12px;background:rgba(15,52,96,.7);border-radius:5px;font-size:.8em;text-decoration:none}
-nav a:hover{background:var(--ac)}
-.s{background:var(--card);padding:18px;border-radius:10px;margin-bottom:18px}
+nav a{color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none}
+nav a:hover{background:var(--ac);color:#fff}
+.s{background:var(--card);padding:18px;border-radius:10px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
 .s h3{color:var(--bl);margin:14px 0 8px;font-size:1em}
 table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.8em}
-th,td{padding:6px 8px;border:1px solid rgba(52,152,219,.15);text-align:left}
-th{background:var(--hd);color:var(--ac)}
-tr:nth-child(even){background:rgba(15,52,96,.2)}
-.n{background:rgba(15,52,96,.4);padding:10px 14px;border-left:3px solid var(--ac);margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em}
-.n b{color:var(--ac)}
-.search{background:var(--hd);padding:16px;border-radius:10px;margin-bottom:20px}
-.search input{width:100%;padding:10px;border:1px solid var(--bl);border-radius:5px;background:var(--card);color:var(--tx);font-size:1em}
+th,td{padding:6px 8px;border:1px solid #ddd;text-align:left}
+th{background:var(--hd);color:var(--tx)}
+tr:nth-child(even){background:#f9f9f9}
+tr:hover{background:#f0f0f0}
+.n{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
+.n b{color:#856404}
+.search{background:var(--card);padding:16px;border-radius:10px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.search input{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;background:#fff;color:var(--tx);font-size:1em}
 .search input:focus{outline:none;border-color:var(--ac)}
-.result{background:rgba(15,52,96,.3);padding:12px;border-radius:8px;margin-top:10px}
+.result{background:#f8f9fa;padding:12px;border-radius:8px;margin-top:10px;border:1px solid #ddd}
 footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
 /* 稀有度颜色 - 游戏内纹理提取 */
-.c-common{color:#b0b0b0}
-.c-uncommon{color:#3b7b1d}
-.c-rare{color:#21528e}
-.c-legendary{color:#904503}
-.c-immortal{color:#8c1818}
-.c-arcana{color:#652284}
-.c-beyond{color:#8f1e45}
-.c-celestial{color:#2ae2fd}
-.c-divine{color:#f4e5bf}
-.c-cosmic{color:#6c2f1f}
+.c-common{color:#888}
+.c-uncommon{color:#2d7d0f}
+.c-rare{color:#1a4d8c}
+.c-legendary{color:#b85a00}
+.c-immortal{color:#c0392b}
+.c-arcana{color:#8e44ad}
+.c-beyond{color:#c0392b}
+.c-celestial{color:#00bcd4}
+.c-divine{color:#d4a017}
+.c-cosmic{color:#8b4513}
 @media(max-width:768px){nav ul{flex-direction:column;align-items:center}table{font-size:.7em}}
 </style>
 </head>
