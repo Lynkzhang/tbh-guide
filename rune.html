@@ -9,21 +9,30 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);padding:20px}
 h1{color:var(--ac);text-align:center;margin-bottom:10px}
-.subtitle{text-align:center;color:var(--mu);margin-bottom:20px;font-size:.9em}
+.subtitle{text-align:center;color:var(--mu);margin-bottom:15px;font-size:.9em}
 .back{display:inline-block;margin-bottom:15px;color:var(--bl);text-decoration:none}
 .back:hover{text-decoration:underline}
-.container{background:var(--card);padding:20px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:auto;text-align:center}
+.tabs{display:flex;justify-content:center;gap:10px;margin-bottom:15px}
+.tab{padding:8px 20px;background:var(--card);border:1px solid #ddd;border-radius:6px;cursor:pointer;font-size:.9em}
+.tab.active{background:var(--ac);color:#fff;border-color:var(--ac)}
+.container{background:var(--card);padding:20px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:auto}
 svg{max-width:100%;height:auto}
-.legend{background:var(--card);padding:15px;border-radius:10px;margin-top:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.legend-item{display:inline-block;margin:5px 10px;font-size:.85em}
-.legend-color{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.legend{background:var(--card);padding:12px;border-radius:10px;margin-top:15px;box-shadow:0 1px 4px rgba(0,0,0,.08);text-align:center}
+.legend-item{display:inline-block;margin:4px 8px;font-size:.8em}
+.legend-color{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
 .tooltip{position:absolute;background:#333;color:#fff;padding:8px 12px;border-radius:6px;font-size:.8em;pointer-events:none;z-index:100;white-space:nowrap}
+.list-view{display:none}
+.rune-table{width:100%;border-collapse:collapse;font-size:.8em}
+.rune-table th,.rune-table td{padding:6px 8px;border:1px solid #ddd;text-align:left}
+.rune-table th{background:#e8e8e8}
+.rune-table tr:hover{background:#f5f5f5}
+.cat-header{background:#f0f0f0;font-weight:bold}
 </style>
 </head>
 <body>
 <a href="index.html" class="back">← 返回攻略站</a>
 <h1>TBH 符文树</h1>
-<p class="subtitle">全局加点系统 | 共174个节点 | 悬停查看效果</p>
+<p class="subtitle">全局加点系统 | 共174个节点</p>
 
 <div class="legend">
 <b>效果：</b>
@@ -35,535 +44,731 @@ svg{max-width:100%;height:auto}
 <div class="legend-item"><span class="legend-color" style="background:#1abc9c"></span>功能</div>
 </div>
 
-<div class="container">
+<div class="tabs">
+<div class="tab active" onclick="showView('tree')">符文图</div>
+<div class="tab" onclick="showView('list')">符文列表</div>
+</div>
+
+<div class="container tree-view">
 <svg width="1200" height="1200" viewBox="0 0 1200 1200">
-<line x1="712.3" y1="641.5" x2="712.3" y2="584.1" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="584.1" x2="653.0" y2="538.7" stroke="#ccc" stroke-width="2"/>
-<line x1="653.0" y1="538.7" x2="593.9" y2="550.6" stroke="#ccc" stroke-width="2"/>
-<line x1="593.9" y1="550.6" x2="569.7" y2="532.0" stroke="#ccc" stroke-width="2"/>
-<line x1="569.7" y1="532.0" x2="517.9" y2="560.9" stroke="#ccc" stroke-width="2"/>
-<line x1="517.9" y1="560.9" x2="489.6" y2="549.2" stroke="#ccc" stroke-width="2"/>
-<line x1="489.6" y1="549.2" x2="445.9" y2="588.5" stroke="#ccc" stroke-width="2"/>
-<line x1="445.9" y1="588.5" x2="410.1" y2="634.9" stroke="#ccc" stroke-width="2"/>
-<line x1="410.1" y1="634.9" x2="379.5" y2="634.2" stroke="#ccc" stroke-width="2"/>
-<line x1="379.5" y1="634.2" x2="351.5" y2="685.3" stroke="#ccc" stroke-width="2"/>
-<line x1="351.5" y1="685.3" x2="330.6" y2="739.7" stroke="#ccc" stroke-width="2"/>
-<line x1="330.6" y1="739.7" x2="316.8" y2="796.1" stroke="#ccc" stroke-width="2"/>
-<line x1="316.8" y1="796.1" x2="309.5" y2="853.7" stroke="#ccc" stroke-width="2"/>
-<line x1="309.5" y1="853.7" x2="308.4" y2="911.7" stroke="#ccc" stroke-width="2"/>
-<line x1="308.4" y1="911.7" x2="313.2" y2="969.4" stroke="#ccc" stroke-width="2"/>
-<line x1="308.4" y1="911.7" x2="256.9" y2="885.2" stroke="#ccc" stroke-width="2"/>
-<line x1="309.5" y1="853.7" x2="261.1" y2="821.8" stroke="#ccc" stroke-width="2"/>
-<line x1="316.8" y1="796.1" x2="272.4" y2="758.7" stroke="#ccc" stroke-width="2"/>
-<line x1="330.6" y1="739.7" x2="291.2" y2="697.0" stroke="#ccc" stroke-width="2"/>
-<line x1="351.5" y1="685.3" x2="318.2" y2="637.5" stroke="#ccc" stroke-width="2"/>
-<line x1="379.5" y1="634.2" x2="353.7" y2="581.9" stroke="#ccc" stroke-width="2"/>
-<line x1="445.9" y1="588.5" x2="415.9" y2="582.5" stroke="#ccc" stroke-width="2"/>
-<line x1="415.9" y1="582.5" x2="385.8" y2="576.5" stroke="#ccc" stroke-width="2"/>
-<line x1="385.8" y1="576.5" x2="349.3" y2="622.0" stroke="#ccc" stroke-width="2"/>
-<line x1="349.3" y1="622.0" x2="319.4" y2="671.9" stroke="#ccc" stroke-width="2"/>
-<line x1="319.4" y1="671.9" x2="295.9" y2="725.1" stroke="#ccc" stroke-width="2"/>
-<line x1="295.9" y1="725.1" x2="278.7" y2="780.5" stroke="#ccc" stroke-width="2"/>
-<line x1="278.7" y1="780.5" x2="249.6" y2="789.9" stroke="#ccc" stroke-width="2"/>
-<line x1="249.6" y1="789.9" x2="220.5" y2="799.2" stroke="#ccc" stroke-width="2"/>
-<line x1="295.9" y1="725.1" x2="265.9" y2="731.1" stroke="#ccc" stroke-width="2"/>
-<line x1="265.9" y1="731.1" x2="235.9" y2="737.1" stroke="#ccc" stroke-width="2"/>
-<line x1="295.9" y1="725.1" x2="258.7" y2="680.6" stroke="#ccc" stroke-width="2"/>
-<line x1="258.7" y1="680.6" x2="228.2" y2="683.2" stroke="#ccc" stroke-width="2"/>
-<line x1="319.4" y1="671.9" x2="288.0" y2="623.0" stroke="#ccc" stroke-width="2"/>
-<line x1="349.3" y1="622.0" x2="318.8" y2="620.4" stroke="#ccc" stroke-width="2"/>
-<line x1="349.3" y1="622.0" x2="324.9" y2="569.2" stroke="#ccc" stroke-width="2"/>
-<line x1="385.8" y1="576.5" x2="369.5" y2="520.5" stroke="#ccc" stroke-width="2"/>
-<line x1="369.5" y1="520.5" x2="340.7" y2="510.3" stroke="#ccc" stroke-width="2"/>
-<line x1="445.9" y1="588.5" x2="430.6" y2="531.9" stroke="#ccc" stroke-width="2"/>
-<line x1="430.6" y1="531.9" x2="402.1" y2="520.8" stroke="#ccc" stroke-width="2"/>
-<line x1="489.6" y1="549.2" x2="461.3" y2="537.5" stroke="#ccc" stroke-width="2"/>
-<line x1="461.3" y1="537.5" x2="433.1" y2="525.8" stroke="#ccc" stroke-width="2"/>
-<line x1="489.6" y1="549.2" x2="486.4" y2="490.5" stroke="#ccc" stroke-width="2"/>
-<line x1="486.4" y1="490.5" x2="461.0" y2="473.5" stroke="#ccc" stroke-width="2"/>
-<line x1="569.7" y1="532.0" x2="545.4" y2="513.3" stroke="#ccc" stroke-width="2"/>
-<line x1="569.7" y1="532.0" x2="584.2" y2="474.5" stroke="#ccc" stroke-width="2"/>
-<line x1="584.2" y1="474.5" x2="565.6" y2="450.2" stroke="#ccc" stroke-width="2"/>
-<line x1="653.0" y1="538.7" x2="637.7" y2="512.2" stroke="#ccc" stroke-width="2"/>
-<line x1="637.7" y1="512.2" x2="578.7" y2="521.1" stroke="#ccc" stroke-width="2"/>
-<line x1="637.7" y1="512.2" x2="674.9" y2="465.5" stroke="#ccc" stroke-width="2"/>
-<line x1="653.0" y1="538.7" x2="692.9" y2="493.5" stroke="#ccc" stroke-width="2"/>
-<line x1="692.9" y1="493.5" x2="688.9" y2="463.2" stroke="#ccc" stroke-width="2"/>
-<line x1="688.9" y1="463.2" x2="684.9" y2="432.8" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="584.1" x2="712.3" y2="522.8" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="522.8" x2="712.3" y2="492.2" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="492.2" x2="656.8" y2="470.4" stroke="#ccc" stroke-width="2"/>
-<line x1="656.8" y1="470.4" x2="597.7" y2="465.0" stroke="#ccc" stroke-width="2"/>
-<line x1="597.7" y1="465.0" x2="581.0" y2="439.3" stroke="#ccc" stroke-width="2"/>
-<line x1="581.0" y1="439.3" x2="522.8" y2="446.9" stroke="#ccc" stroke-width="2"/>
-<line x1="522.8" y1="446.9" x2="467.0" y2="464.8" stroke="#ccc" stroke-width="2"/>
-<line x1="467.0" y1="464.8" x2="415.1" y2="491.6" stroke="#ccc" stroke-width="2"/>
-<line x1="415.1" y1="491.6" x2="387.7" y2="477.8" stroke="#ccc" stroke-width="2"/>
-<line x1="387.7" y1="477.8" x2="340.2" y2="511.5" stroke="#ccc" stroke-width="2"/>
-<line x1="340.2" y1="511.5" x2="297.4" y2="550.8" stroke="#ccc" stroke-width="2"/>
-<line x1="297.4" y1="550.8" x2="259.4" y2="594.7" stroke="#ccc" stroke-width="2"/>
-<line x1="259.4" y1="594.7" x2="226.4" y2="642.3" stroke="#ccc" stroke-width="2"/>
-<line x1="226.4" y1="642.3" x2="198.3" y2="693.0" stroke="#ccc" stroke-width="2"/>
-<line x1="198.3" y1="693.0" x2="175.2" y2="746.1" stroke="#ccc" stroke-width="2"/>
-<line x1="175.2" y1="746.1" x2="145.2" y2="751.9" stroke="#ccc" stroke-width="2"/>
-<line x1="145.2" y1="751.9" x2="126.8" y2="806.7" stroke="#ccc" stroke-width="2"/>
-<line x1="126.8" y1="806.7" x2="112.8" y2="862.7" stroke="#ccc" stroke-width="2"/>
-<line x1="112.8" y1="862.7" x2="103.2" y2="919.6" stroke="#ccc" stroke-width="2"/>
-<line x1="112.8" y1="862.7" x2="84.1" y2="873.3" stroke="#ccc" stroke-width="2"/>
-<line x1="112.8" y1="862.7" x2="68.6" y2="825.7" stroke="#ccc" stroke-width="2"/>
-<line x1="126.8" y1="806.7" x2="97.3" y2="815.0" stroke="#ccc" stroke-width="2"/>
-<line x1="126.8" y1="806.7" x2="85.6" y2="766.2" stroke="#ccc" stroke-width="2"/>
-<line x1="145.2" y1="751.9" x2="107.6" y2="708.0" stroke="#ccc" stroke-width="2"/>
-<line x1="107.6" y1="708.0" x2="77.2" y2="711.4" stroke="#ccc" stroke-width="2"/>
-<line x1="198.3" y1="693.0" x2="167.9" y2="696.0" stroke="#ccc" stroke-width="2"/>
-<line x1="198.3" y1="693.0" x2="165.2" y2="645.6" stroke="#ccc" stroke-width="2"/>
-<line x1="226.4" y1="642.3" x2="195.8" y2="642.4" stroke="#ccc" stroke-width="2"/>
-<line x1="226.4" y1="642.3" x2="198.2" y2="591.7" stroke="#ccc" stroke-width="2"/>
-<line x1="259.4" y1="594.7" x2="236.8" y2="541.3" stroke="#ccc" stroke-width="2"/>
-<line x1="297.4" y1="550.8" x2="281.2" y2="495.0" stroke="#ccc" stroke-width="2"/>
-<line x1="340.2" y1="511.5" x2="311.3" y2="501.4" stroke="#ccc" stroke-width="2"/>
-<line x1="340.2" y1="511.5" x2="331.1" y2="454.1" stroke="#ccc" stroke-width="2"/>
-<line x1="387.7" y1="477.8" x2="386.6" y2="419.6" stroke="#ccc" stroke-width="2"/>
-<line x1="467.0" y1="464.8" x2="442.2" y2="447.0" stroke="#ccc" stroke-width="2"/>
-<line x1="467.0" y1="464.8" x2="475.9" y2="407.1" stroke="#ccc" stroke-width="2"/>
-<line x1="522.8" y1="446.9" x2="542.2" y2="391.6" stroke="#ccc" stroke-width="2"/>
-<line x1="581.0" y1="439.3" x2="611.7" y2="389.1" stroke="#ccc" stroke-width="2"/>
-<line x1="611.7" y1="389.1" x2="553.3" y2="384.4" stroke="#ccc" stroke-width="2"/>
-<line x1="553.3" y1="384.4" x2="537.2" y2="358.4" stroke="#ccc" stroke-width="2"/>
-<line x1="611.7" y1="389.1" x2="584.2" y2="367.7" stroke="#ccc" stroke-width="2"/>
-<line x1="611.7" y1="389.1" x2="616.8" y2="354.6" stroke="#ccc" stroke-width="2"/>
-<line x1="611.7" y1="389.1" x2="650.8" y2="345.5" stroke="#ccc" stroke-width="2"/>
-<line x1="656.8" y1="470.4" x2="701.3" y2="431.3" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="492.2" x2="767.9" y2="470.4" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="584.1" x2="771.6" y2="538.7" stroke="#ccc" stroke-width="2"/>
-<line x1="771.6" y1="538.7" x2="786.9" y2="512.2" stroke="#ccc" stroke-width="2"/>
-<line x1="786.9" y1="512.2" x2="802.2" y2="485.7" stroke="#ccc" stroke-width="2"/>
-<line x1="802.2" y1="485.7" x2="766.8" y2="438.2" stroke="#ccc" stroke-width="2"/>
-<line x1="766.8" y1="438.2" x2="774.7" y2="408.6" stroke="#ccc" stroke-width="2"/>
-<line x1="774.7" y1="408.6" x2="782.6" y2="379.0" stroke="#ccc" stroke-width="2"/>
-<line x1="782.6" y1="379.0" x2="790.6" y2="349.5" stroke="#ccc" stroke-width="2"/>
-<line x1="790.6" y1="349.5" x2="747.1" y2="310.4" stroke="#ccc" stroke-width="2"/>
-<line x1="747.1" y1="310.4" x2="750.3" y2="279.9" stroke="#ccc" stroke-width="2"/>
-<line x1="750.3" y1="279.9" x2="702.0" y2="247.5" stroke="#ccc" stroke-width="2"/>
-<line x1="702.0" y1="247.5" x2="701.2" y2="216.9" stroke="#ccc" stroke-width="2"/>
-<line x1="701.2" y1="216.9" x2="649.5" y2="190.5" stroke="#ccc" stroke-width="2"/>
-<line x1="649.5" y1="190.5" x2="645.3" y2="160.1" stroke="#ccc" stroke-width="2"/>
-<line x1="645.3" y1="160.1" x2="591.3" y2="139.3" stroke="#ccc" stroke-width="2"/>
-<line x1="591.3" y1="139.3" x2="584.1" y2="109.5" stroke="#ccc" stroke-width="2"/>
-<line x1="584.1" y1="109.5" x2="576.9" y2="79.8" stroke="#ccc" stroke-width="2"/>
-<line x1="576.9" y1="79.8" x2="569.7" y2="50.0" stroke="#ccc" stroke-width="2"/>
-<line x1="645.3" y1="160.1" x2="641.1" y2="129.8" stroke="#ccc" stroke-width="2"/>
-<line x1="645.3" y1="160.1" x2="691.6" y2="125.3" stroke="#ccc" stroke-width="2"/>
-<line x1="701.2" y1="216.9" x2="751.4" y2="187.8" stroke="#ccc" stroke-width="2"/>
-<line x1="750.3" y1="279.9" x2="804.3" y2="258.2" stroke="#ccc" stroke-width="2"/>
-<line x1="790.6" y1="349.5" x2="847.7" y2="337.3" stroke="#ccc" stroke-width="2"/>
-<line x1="802.2" y1="485.7" x2="861.1" y2="492.6" stroke="#ccc" stroke-width="2"/>
-<line x1="861.1" y1="492.6" x2="882.8" y2="471.0" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="641.5" x2="712.3" y2="698.8" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="698.8" x2="771.6" y2="744.2" stroke="#ccc" stroke-width="2"/>
-<line x1="771.6" y1="744.2" x2="830.7" y2="732.3" stroke="#ccc" stroke-width="2"/>
-<line x1="830.7" y1="732.3" x2="855.0" y2="750.9" stroke="#ccc" stroke-width="2"/>
-<line x1="855.0" y1="750.9" x2="879.3" y2="769.6" stroke="#ccc" stroke-width="2"/>
-<line x1="771.6" y1="744.2" x2="731.8" y2="789.4" stroke="#ccc" stroke-width="2"/>
-<line x1="731.8" y1="789.4" x2="735.8" y2="819.8" stroke="#ccc" stroke-width="2"/>
-<line x1="735.8" y1="819.8" x2="739.8" y2="850.1" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="698.8" x2="712.3" y2="760.1" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="760.1" x2="712.3" y2="790.7" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="790.7" x2="767.9" y2="812.5" stroke="#ccc" stroke-width="2"/>
-<line x1="767.9" y1="812.5" x2="777.4" y2="841.6" stroke="#ccc" stroke-width="2"/>
-<line x1="777.4" y1="841.6" x2="786.8" y2="870.7" stroke="#ccc" stroke-width="2"/>
-<line x1="786.8" y1="870.7" x2="796.3" y2="899.8" stroke="#ccc" stroke-width="2"/>
-<line x1="796.3" y1="899.8" x2="854.2" y2="908.4" stroke="#ccc" stroke-width="2"/>
-<line x1="854.2" y1="908.4" x2="868.6" y2="935.4" stroke="#ccc" stroke-width="2"/>
-<line x1="868.6" y1="935.4" x2="883.0" y2="962.4" stroke="#ccc" stroke-width="2"/>
-<line x1="883.0" y1="962.4" x2="941.2" y2="962.3" stroke="#ccc" stroke-width="2"/>
-<line x1="941.2" y1="962.3" x2="959.0" y2="987.2" stroke="#ccc" stroke-width="2"/>
-<line x1="959.0" y1="987.2" x2="976.7" y2="1012.2" stroke="#ccc" stroke-width="2"/>
-<line x1="976.7" y1="1012.2" x2="1034.3" y2="1005.4" stroke="#ccc" stroke-width="2"/>
-<line x1="1034.3" y1="1005.4" x2="1054.6" y2="1028.3" stroke="#ccc" stroke-width="2"/>
-<line x1="1054.6" y1="1028.3" x2="1074.9" y2="1051.3" stroke="#ccc" stroke-width="2"/>
-<line x1="1074.9" y1="1051.3" x2="1131.4" y2="1039.2" stroke="#ccc" stroke-width="2"/>
-<line x1="1074.9" y1="1051.3" x2="1056.0" y2="1105.9" stroke="#ccc" stroke-width="2"/>
-<line x1="976.7" y1="1012.2" x2="951.6" y2="1064.4" stroke="#ccc" stroke-width="2"/>
-<line x1="951.6" y1="1064.4" x2="966.7" y2="1091.0" stroke="#ccc" stroke-width="2"/>
-<line x1="883.0" y1="962.4" x2="850.4" y2="1010.6" stroke="#ccc" stroke-width="2"/>
-<line x1="796.3" y1="899.8" x2="754.4" y2="940.8" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="790.7" x2="656.8" y2="812.5" stroke="#ccc" stroke-width="2"/>
-<line x1="656.8" y1="812.5" x2="647.3" y2="841.6" stroke="#ccc" stroke-width="2"/>
-<line x1="712.3" y1="698.8" x2="653.0" y2="744.2" stroke="#ccc" stroke-width="2"/>
-<line x1="653.0" y1="744.2" x2="637.7" y2="770.7" stroke="#ccc" stroke-width="2"/>
-<line x1="637.7" y1="770.7" x2="622.4" y2="797.2" stroke="#ccc" stroke-width="2"/>
-<line x1="622.4" y1="797.2" x2="657.9" y2="844.7" stroke="#ccc" stroke-width="2"/>
-<line x1="657.9" y1="844.7" x2="649.9" y2="874.3" stroke="#ccc" stroke-width="2"/>
-<line x1="649.9" y1="874.3" x2="642.0" y2="903.9" stroke="#ccc" stroke-width="2"/>
-<line x1="642.0" y1="903.9" x2="686.0" y2="942.6" stroke="#ccc" stroke-width="2"/>
-<line x1="686.0" y1="942.6" x2="683.3" y2="973.1" stroke="#ccc" stroke-width="2"/>
-<line x1="683.3" y1="973.1" x2="732.5" y2="1004.4" stroke="#ccc" stroke-width="2"/>
-<line x1="732.5" y1="1004.4" x2="734.2" y2="1035.0" stroke="#ccc" stroke-width="2"/>
-<line x1="734.2" y1="1035.0" x2="786.8" y2="1059.6" stroke="#ccc" stroke-width="2"/>
-<line x1="786.8" y1="1059.6" x2="792.2" y2="1089.7" stroke="#ccc" stroke-width="2"/>
-<line x1="792.2" y1="1089.7" x2="797.6" y2="1119.9" stroke="#ccc" stroke-width="2"/>
-<line x1="797.6" y1="1119.9" x2="803.0" y2="1150.0" stroke="#ccc" stroke-width="2"/>
-<line x1="734.2" y1="1035.0" x2="684.6" y2="1065.3" stroke="#ccc" stroke-width="2"/>
-<line x1="683.3" y1="973.1" x2="629.4" y2="995.4" stroke="#ccc" stroke-width="2"/>
-<line x1="629.4" y1="995.4" x2="622.5" y2="1025.2" stroke="#ccc" stroke-width="2"/>
-<line x1="642.0" y1="903.9" x2="584.6" y2="915.4" stroke="#ccc" stroke-width="2"/>
-<line x1="622.4" y1="797.2" x2="563.5" y2="790.3" stroke="#ccc" stroke-width="2"/>
-<circle cx="712.3" cy="641.5" r="25" fill="#e74c3c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="712.3" y="641.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">战争</text>
-<circle cx="712.3" cy="584.1" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="712.3" y="584.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">财富</text>
-<circle cx="653.0" cy="538.7" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="653.0" y="538.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">扩张</text>
-<circle cx="593.9" cy="550.6" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="593.9" y="550.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">扩张</text>
-<circle cx="569.7" cy="532.0" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="569.7" y="532.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="517.9" cy="560.9" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="517.9" y="560.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="489.6" cy="549.2" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="489.6" y="549.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="445.9" cy="588.5" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="445.9" y="588.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="410.1" cy="634.9" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="410.1" y="634.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="379.5" cy="634.2" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="379.5" y="634.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="351.5" cy="685.3" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="351.5" y="685.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="330.6" cy="739.7" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="330.6" y="739.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="316.8" cy="796.1" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="316.8" y="796.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="309.5" cy="853.7" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="309.5" y="853.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="308.4" cy="911.7" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="308.4" y="911.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="313.2" cy="969.4" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="313.2" y="969.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="256.9" cy="885.2" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="256.9" y="885.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">训练</text>
-<circle cx="261.1" cy="821.8" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="261.1" y="821.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">储藏</text>
-<circle cx="272.4" cy="758.7" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="272.4" y="758.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">训练</text>
-<circle cx="291.2" cy="697.0" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="291.2" y="697.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">储藏</text>
-<circle cx="318.2" cy="637.5" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="318.2" y="637.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">训练</text>
-<circle cx="353.7" cy="581.9" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="353.7" y="581.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">储藏</text>
-<circle cx="415.9" cy="582.5" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="415.9" y="582.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="385.8" cy="576.5" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="385.8" y="576.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="349.3" cy="622.0" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="349.3" y="622.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="319.4" cy="671.9" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="319.4" y="671.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="295.9" cy="725.1" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="295.9" y="725.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="278.7" cy="780.5" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="278.7" y="780.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="249.6" cy="789.9" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="249.6" y="789.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="220.5" cy="799.2" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="220.5" y="799.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="265.9" cy="731.1" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="265.9" y="731.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">润滑</text>
-<circle cx="235.9" cy="737.1" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="235.9" y="737.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">润滑</text>
-<circle cx="258.7" cy="680.6" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="258.7" y="680.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">润滑</text>
-<circle cx="228.2" cy="683.2" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="228.2" y="683.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">润滑</text>
-<circle cx="288.0" cy="623.0" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="288.0" y="623.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">润滑</text>
-<circle cx="318.8" cy="620.4" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="318.8" y="620.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">润滑</text>
-<circle cx="324.9" cy="569.2" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="324.9" y="569.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">润滑</text>
-<circle cx="369.5" cy="520.5" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="369.5" y="520.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">发条</text>
-<circle cx="340.7" cy="510.3" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="340.7" y="510.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">润滑</text>
-<circle cx="430.6" cy="531.9" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="430.6" y="531.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">储存</text>
-<circle cx="402.1" cy="520.8" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="402.1" y="520.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">储存</text>
-<circle cx="461.3" cy="537.5" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="461.3" y="537.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">发条</text>
-<circle cx="433.1" cy="525.8" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="433.1" y="525.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">润滑</text>
-<circle cx="486.4" cy="490.5" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="486.4" y="490.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">储藏</text>
-<circle cx="461.0" cy="473.5" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="461.0" y="473.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">训练</text>
-<circle cx="545.4" cy="513.3" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="545.4" y="513.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">储存</text>
-<circle cx="584.2" cy="474.5" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="584.2" y="474.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">发条</text>
-<circle cx="565.6" cy="450.2" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="565.6" y="450.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">润滑</text>
-<circle cx="637.7" cy="512.2" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="637.7" y="512.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">安息</text>
-<circle cx="578.7" cy="521.1" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="578.7" y="521.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">储藏</text>
-<circle cx="674.9" cy="465.5" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="674.9" y="465.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">训练</text>
-<circle cx="692.9" cy="493.5" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="692.9" y="493.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">收纳</text>
-<circle cx="688.9" cy="463.2" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="688.9" y="463.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">金库</text>
-<circle cx="684.9" cy="432.8" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="684.9" y="432.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">无限</text>
-<circle cx="712.3" cy="522.8" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="712.3" y="522.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">探索</text>
-<circle cx="712.3" cy="492.2" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="712.3" y="492.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">征服</text>
-<circle cx="656.8" cy="470.4" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="656.8" y="470.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
-<circle cx="597.7" cy="465.0" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="597.7" y="465.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">征服</text>
-<circle cx="581.0" cy="439.3" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="581.0" y="439.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
-<circle cx="522.8" cy="446.9" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="522.8" y="446.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">征服</text>
-<circle cx="467.0" cy="464.8" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="467.0" y="464.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
-<circle cx="415.1" cy="491.6" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="415.1" y="491.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">征服</text>
-<circle cx="387.7" cy="477.8" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="387.7" y="477.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
-<circle cx="340.2" cy="511.5" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="340.2" y="511.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">征服</text>
-<circle cx="297.4" cy="550.8" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="297.4" y="550.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
-<circle cx="259.4" cy="594.7" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="259.4" y="594.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">征服</text>
-<circle cx="226.4" cy="642.3" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="226.4" y="642.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
-<circle cx="198.3" cy="693.0" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="198.3" y="693.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">征服</text>
-<circle cx="175.2" cy="746.1" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="175.2" y="746.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
-<circle cx="145.2" cy="751.9" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="145.2" y="751.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">征服</text>
-<circle cx="126.8" cy="806.7" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="126.8" y="806.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
-<circle cx="112.8" cy="862.7" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="112.8" y="862.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">征服</text>
-<circle cx="103.2" cy="919.6" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="103.2" y="919.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
-<circle cx="84.1" cy="873.3" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="84.1" y="873.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">金库</text>
-<circle cx="68.6" cy="825.7" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="68.6" y="825.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">无限</text>
-<circle cx="97.3" cy="815.0" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="97.3" y="815.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">缩短</text>
-<circle cx="85.6" cy="766.2" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="85.6" y="766.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">金库</text>
-<circle cx="107.6" cy="708.0" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="107.6" y="708.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="77.2" cy="711.4" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="77.2" y="711.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="167.9" cy="696.0" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="167.9" y="696.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">金库</text>
-<circle cx="165.2" cy="645.6" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="165.2" y="645.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="195.8" cy="642.4" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="195.8" y="642.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="198.2" cy="591.7" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="198.2" y="591.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">金库</text>
-<circle cx="236.8" cy="541.3" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="236.8" y="541.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="281.2" cy="495.0" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="281.2" y="495.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">金库</text>
-<circle cx="311.3" cy="501.4" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="311.3" y="501.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="331.1" cy="454.1" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="331.1" y="454.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">金库</text>
-<circle cx="386.6" cy="419.6" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="386.6" y="419.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="442.2" cy="447.0" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="442.2" y="447.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">金库</text>
-<circle cx="475.9" cy="407.1" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="475.9" y="407.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="542.2" cy="391.6" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="542.2" y="391.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="611.7" cy="389.1" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="611.7" y="389.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="553.3" cy="384.4" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="553.3" y="384.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="537.2" cy="358.4" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="537.2" y="358.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="584.2" cy="367.7" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="584.2" y="367.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
-<circle cx="616.8" cy="354.6" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="616.8" y="354.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">开启</text>
-<circle cx="650.8" cy="345.5" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="650.8" y="345.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">无限</text>
-<circle cx="701.3" cy="431.3" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="701.3" y="431.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">收纳</text>
-<circle cx="767.9" cy="470.4" r="20" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="767.9" y="470.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">开启</text>
-<circle cx="771.6" cy="538.7" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="771.6" y="538.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">财富</text>
-<circle cx="786.9" cy="512.2" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="786.9" y="512.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">财富</text>
-<circle cx="802.2" cy="485.7" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="802.2" y="485.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="766.8" cy="438.2" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="766.8" y="438.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="774.7" cy="408.6" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="774.7" y="408.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="782.6" cy="379.0" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="782.6" y="379.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="790.6" cy="349.5" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="790.6" y="349.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="747.1" cy="310.4" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="747.1" y="310.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="750.3" cy="279.9" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="750.3" y="279.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="702.0" cy="247.5" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="702.0" y="247.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="701.2" cy="216.9" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="701.2" y="216.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="649.5" cy="190.5" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="649.5" y="190.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="645.3" cy="160.1" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="645.3" y="160.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="591.3" cy="139.3" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="591.3" y="139.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="584.1" cy="109.5" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="584.1" y="109.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="576.9" cy="79.8" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="576.9" y="79.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="569.7" cy="50.0" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="569.7" y="50.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="641.1" cy="129.8" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="641.1" y="129.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">炼金</text>
-<circle cx="691.6" cy="125.3" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="691.6" y="125.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">组合</text>
-<circle cx="751.4" cy="187.8" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="751.4" y="187.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="804.3" cy="258.2" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="804.3" y="258.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="847.7" cy="337.3" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="847.7" y="337.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
-<circle cx="861.1" cy="492.6" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="861.1" y="492.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">炼金</text>
-<circle cx="882.8" cy="471.0" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="882.8" y="471.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">组合</text>
-<circle cx="712.3" cy="698.8" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="712.3" y="698.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">成长</text>
-<circle cx="771.6" cy="744.2" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="771.6" y="744.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">指挥</text>
-<circle cx="830.7" cy="732.3" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="830.7" y="732.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">扩张</text>
-<circle cx="855.0" cy="750.9" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="855.0" y="750.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
-<circle cx="879.3" cy="769.6" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="879.3" y="769.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">指挥</text>
-<circle cx="731.8" cy="789.4" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="731.8" y="789.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">财富</text>
-<circle cx="735.8" cy="819.8" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="735.8" y="819.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="739.8" cy="850.1" r="20" fill="#1abc9c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="739.8" y="850.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">觉醒</text>
-<circle cx="712.3" cy="760.1" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="712.3" y="760.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">成长</text>
-<circle cx="712.3" cy="790.7" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="712.3" y="790.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">成长</text>
-<circle cx="767.9" cy="812.5" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="767.9" y="812.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="777.4" cy="841.6" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="777.4" y="841.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="786.8" cy="870.7" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="786.8" y="870.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="796.3" cy="899.8" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="796.3" y="899.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="854.2" cy="908.4" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="854.2" y="908.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="868.6" cy="935.4" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="868.6" y="935.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="883.0" cy="962.4" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="883.0" y="962.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="941.2" cy="962.3" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="941.2" y="962.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="959.0" cy="987.2" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="959.0" y="987.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="976.7" cy="1012.2" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="976.7" y="1012.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="1034.3" cy="1005.4" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="1034.3" y="1005.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="1054.6" cy="1028.3" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="1054.6" y="1028.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="1074.9" cy="1051.3" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="1074.9" y="1051.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="1131.4" cy="1039.2" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="1131.4" y="1039.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="1056.0" cy="1105.9" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="1056.0" y="1105.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="951.6" cy="1064.4" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="951.6" y="1064.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">组合</text>
-<circle cx="966.7" cy="1091.0" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="966.7" y="1091.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">炼金</text>
-<circle cx="850.4" cy="1010.6" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="850.4" y="1010.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="754.4" cy="940.8" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="754.4" y="940.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
-<circle cx="656.8" cy="812.5" r="20" fill="#2ecc71" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="656.8" y="812.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">组合</text>
-<circle cx="647.3" cy="841.6" r="20" fill="#f39c12" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="647.3" y="841.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">炼金</text>
-<circle cx="653.0" cy="744.2" r="20" fill="#3498db" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="653.0" y="744.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">盾之</text>
-<circle cx="637.7" cy="770.7" r="20" fill="#3498db" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="637.7" y="770.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">疾风</text>
-<circle cx="622.4" cy="797.2" r="20" fill="#3498db" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="622.4" y="797.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">盾之</text>
-<circle cx="657.9" cy="844.7" r="20" fill="#3498db" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="657.9" y="844.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">疾风</text>
-<circle cx="649.9" cy="874.3" r="20" fill="#e74c3c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="649.9" y="874.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">战争</text>
-<circle cx="642.0" cy="903.9" r="20" fill="#3498db" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="642.0" y="903.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">疾风</text>
-<circle cx="686.0" cy="942.6" r="20" fill="#3498db" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="686.0" y="942.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">盾之</text>
-<circle cx="683.3" cy="973.1" r="20" fill="#e74c3c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="683.3" y="973.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">战争</text>
-<circle cx="732.5" cy="1004.4" r="20" fill="#e74c3c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="732.5" y="1004.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">狂暴</text>
-<circle cx="734.2" cy="1035.0" r="20" fill="#3498db" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="734.2" y="1035.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">盾之</text>
-<circle cx="786.8" cy="1059.6" r="20" fill="#e74c3c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="786.8" y="1059.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">战争</text>
-<circle cx="792.2" cy="1089.7" r="20" fill="#3498db" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="792.2" y="1089.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">盾之</text>
-<circle cx="797.6" cy="1119.9" r="20" fill="#e74c3c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="797.6" y="1119.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">战争</text>
-<circle cx="803.0" cy="1150.0" r="20" fill="#e74c3c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="803.0" y="1150.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">狂暴</text>
-<circle cx="684.6" cy="1065.3" r="20" fill="#3498db" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="684.6" y="1065.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">疾风</text>
-<circle cx="629.4" cy="995.4" r="20" fill="#e74c3c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="629.4" y="995.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">战争</text>
-<circle cx="622.5" cy="1025.2" r="20" fill="#3498db" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="622.5" y="1025.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">疾风</text>
-<circle cx="584.6" cy="915.4" r="20" fill="#e74c3c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="584.6" y="915.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">狂暴</text>
-<circle cx="563.5" cy="790.3" r="20" fill="#e74c3c" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="563.5" y="790.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">战争</text>
-<circle cx="712.3" cy="641.5" r="25" fill="#9b59b6" stroke="#fff" stroke-width="2" opacity="0.9"/>
-<text x="712.3" y="641.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="11" font-weight="bold">无限</text>
+<line x1="674.9" y1="627.2" x2="674.9" y2="573.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="573.1" x2="620.8" y2="533.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="620.8" y1="533.5" x2="564.0" y2="542.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="564.0" y1="542.1" x2="539.0" y2="522.9" stroke="#ddd" stroke-width="1.5"/>
+<line x1="539.0" y1="522.9" x2="487.4" y2="549.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="487.4" y1="549.5" x2="458.3" y2="537.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="458.3" y1="537.5" x2="413.9" y2="575.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="413.9" y1="575.3" x2="377.3" y2="620.7" stroke="#ddd" stroke-width="1.5"/>
+<line x1="377.3" y1="620.7" x2="345.8" y2="620.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="345.8" y1="620.0" x2="317.1" y2="673.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="317.1" y1="673.3" x2="297.6" y2="735.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="297.6" y1="735.0" x2="289.2" y2="803.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="289.2" y1="803.3" x2="293.4" y2="876.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="293.4" y1="876.2" x2="311.4" y2="951.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="311.4" y1="951.4" x2="343.7" y2="1026.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="311.4" y1="951.4" x2="240.6" y2="910.7" stroke="#ddd" stroke-width="1.5"/>
+<line x1="293.4" y1="876.2" x2="231.8" y2="829.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="289.2" y1="803.3" x2="236.9" y2="752.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="297.6" y1="735.0" x2="254.4" y2="681.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="317.1" y1="673.3" x2="282.6" y2="618.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="345.8" y1="620.0" x2="319.4" y2="565.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="413.9" y1="575.3" x2="383.0" y2="569.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="383.0" y1="569.1" x2="352.0" y2="563.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="352.0" y1="563.0" x2="314.5" y2="610.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="314.5" y1="610.5" x2="284.6" y2="667.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="284.6" y1="667.8" x2="264.5" y2="733.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="264.5" y1="733.6" x2="256.0" y2="806.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="256.0" y1="806.1" x2="227.0" y2="818.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="227.0" y1="818.5" x2="197.9" y2="830.9" stroke="#ddd" stroke-width="1.5"/>
+<line x1="264.5" y1="733.6" x2="234.0" y2="741.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="234.0" y1="741.5" x2="203.4" y2="749.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="264.5" y1="733.6" x2="221.8" y2="674.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="221.8" y1="674.3" x2="190.4" y2="677.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="284.6" y1="667.8" x2="251.4" y2="607.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="314.5" y1="610.5" x2="283.0" y2="609.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="314.5" y1="610.5" x2="290.1" y2="550.7" stroke="#ddd" stroke-width="1.5"/>
+<line x1="352.0" y1="563.0" x2="335.5" y2="504.7" stroke="#ddd" stroke-width="1.5"/>
+<line x1="335.5" y1="504.7" x2="305.8" y2="494.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="413.9" y1="575.3" x2="397.5" y2="519.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="397.5" y1="519.3" x2="368.1" y2="507.9" stroke="#ddd" stroke-width="1.5"/>
+<line x1="458.3" y1="537.5" x2="429.1" y2="525.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="429.1" y1="525.4" x2="399.9" y2="513.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="458.3" y1="537.5" x2="453.7" y2="479.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="453.7" y1="479.4" x2="427.4" y2="461.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="539.0" y1="522.9" x2="513.9" y2="503.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="539.0" y1="522.9" x2="551.4" y2="466.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="551.4" y1="466.2" x2="532.2" y2="441.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="620.8" y1="533.5" x2="605.0" y2="506.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="605.0" y1="506.1" x2="547.6" y2="512.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="605.0" y1="506.1" x2="639.3" y2="459.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="620.8" y1="533.5" x2="656.7" y2="488.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="656.7" y1="488.6" x2="652.6" y2="457.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="652.6" y1="457.3" x2="648.5" y2="426.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="573.1" x2="674.9" y2="519.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="519.0" x2="674.9" y2="487.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="487.4" x2="622.0" y2="464.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="622.0" y1="464.2" x2="564.4" y2="457.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="564.4" y1="457.0" x2="547.2" y2="430.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="547.2" y1="430.5" x2="489.3" y2="436.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="489.3" y1="436.6" x2="433.3" y2="453.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="433.3" y1="453.3" x2="380.9" y2="479.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="380.9" y1="479.0" x2="352.7" y2="464.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="352.7" y1="464.8" x2="302.1" y2="504.9" stroke="#ddd" stroke-width="1.5"/>
+<line x1="302.1" y1="504.9" x2="256.9" y2="556.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="256.9" y1="556.8" x2="219.5" y2="619.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="219.5" y1="619.5" x2="192.1" y2="691.9" stroke="#ddd" stroke-width="1.5"/>
+<line x1="192.1" y1="691.9" x2="176.9" y2="772.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="176.9" y1="772.1" x2="175.5" y2="858.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="175.5" y1="858.2" x2="146.8" y2="871.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="146.8" y1="871.4" x2="162.9" y2="965.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="162.9" y1="965.0" x2="195.7" y2="1058.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="195.7" y1="1058.8" x2="245.5" y2="1150.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="195.7" y1="1058.8" x2="172.2" y2="1080.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="195.7" y1="1058.8" x2="110.2" y2="999.7" stroke="#ddd" stroke-width="1.5"/>
+<line x1="162.9" y1="965.0" x2="136.5" y2="982.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="162.9" y1="965.0" x2="89.5" y2="897.9" stroke="#ddd" stroke-width="1.5"/>
+<line x1="146.8" y1="871.4" x2="86.0" y2="798.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="86.0" y1="798.6" x2="55.6" y2="807.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="176.9" y1="772.1" x2="146.6" y2="780.9" stroke="#ddd" stroke-width="1.5"/>
+<line x1="176.9" y1="772.1" x2="129.5" y2="700.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="192.1" y1="691.9" x2="160.8" y2="696.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="192.1" y1="691.9" x2="156.3" y2="618.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="219.5" y1="619.5" x2="194.6" y2="546.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="256.9" y1="556.8" x2="242.1" y2="485.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="302.1" y1="504.9" x2="272.1" y2="495.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="302.1" y1="504.9" x2="296.3" y2="436.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="352.7" y1="464.8" x2="354.9" y2="400.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="433.3" y1="453.3" x2="407.7" y2="434.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="433.3" y1="453.3" x2="441.1" y2="395.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="489.3" y1="436.6" x2="507.4" y2="381.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="547.2" y1="430.5" x2="576.3" y2="380.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="576.3" y1="380.0" x2="518.3" y2="374.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="518.3" y1="374.1" x2="501.7" y2="347.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="576.3" y1="380.0" x2="548.7" y2="357.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="576.3" y1="380.0" x2="580.9" y2="344.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="576.3" y1="380.0" x2="614.3" y2="335.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="622.0" y1="464.2" x2="664.3" y2="424.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="487.4" x2="727.9" y2="464.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="573.1" x2="729.1" y2="533.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="729.1" y1="533.5" x2="744.9" y2="506.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="744.9" y1="506.1" x2="760.6" y2="478.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="760.6" y1="478.8" x2="727.5" y2="431.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="727.5" y1="431.2" x2="735.6" y2="400.7" stroke="#ddd" stroke-width="1.5"/>
+<line x1="735.6" y1="400.7" x2="743.8" y2="370.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="743.8" y1="370.2" x2="752.0" y2="339.7" stroke="#ddd" stroke-width="1.5"/>
+<line x1="752.0" y1="339.7" x2="709.4" y2="299.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="709.4" y1="299.8" x2="712.7" y2="268.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="712.7" y1="268.4" x2="657.2" y2="235.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="657.2" y1="235.2" x2="655.8" y2="203.7" stroke="#ddd" stroke-width="1.5"/>
+<line x1="655.8" y1="203.7" x2="586.5" y2="180.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="586.5" y1="180.3" x2="580.4" y2="149.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="580.4" y1="149.3" x2="499.4" y2="139.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="499.4" y1="139.1" x2="488.7" y2="109.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="488.7" y1="109.4" x2="478.0" y2="79.7" stroke="#ddd" stroke-width="1.5"/>
+<line x1="478.0" y1="79.7" x2="467.3" y2="50.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="580.4" y1="149.3" x2="574.3" y2="118.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="580.4" y1="149.3" x2="651.5" y2="109.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="655.8" y1="203.7" x2="722.6" y2="174.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="712.7" y1="268.4" x2="773.8" y2="247.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="752.0" y1="339.7" x2="808.9" y2="326.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="760.6" y1="478.8" x2="818.5" y2="483.7" stroke="#ddd" stroke-width="1.5"/>
+<line x1="818.5" y1="483.7" x2="840.8" y2="461.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="627.2" x2="674.9" y2="681.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="681.3" x2="729.1" y2="721.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="729.1" y1="721.0" x2="785.9" y2="712.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="785.9" y1="712.3" x2="810.9" y2="731.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="810.9" y1="731.5" x2="836.0" y2="750.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="729.1" y1="721.0" x2="693.2" y2="765.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="693.2" y1="765.8" x2="697.3" y2="797.1" stroke="#ddd" stroke-width="1.5"/>
+<line x1="697.3" y1="797.1" x2="701.4" y2="828.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="681.3" x2="674.9" y2="735.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="735.5" x2="674.9" y2="767.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="767.0" x2="727.9" y2="790.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="727.9" y1="790.2" x2="737.7" y2="820.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="737.7" y1="820.2" x2="747.4" y2="850.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="747.4" y1="850.3" x2="757.2" y2="880.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="757.2" y1="880.3" x2="814.7" y2="890.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="814.7" y1="890.0" x2="829.5" y2="917.9" stroke="#ddd" stroke-width="1.5"/>
+<line x1="829.5" y1="917.9" x2="844.3" y2="945.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="844.3" y1="945.8" x2="908.9" y2="942.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="908.9" y1="942.3" x2="927.7" y2="967.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="927.7" y1="967.6" x2="946.5" y2="993.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="946.5" y1="993.0" x2="1020.5" y2="970.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="1020.5" y1="970.5" x2="1042.9" y2="992.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="1042.9" y1="992.8" x2="1065.3" y2="1015.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="1065.3" y1="1015.0" x2="1144.4" y2="971.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="1065.3" y1="1015.0" x2="1021.8" y2="1094.4" stroke="#ddd" stroke-width="1.5"/>
+<line x1="946.5" y1="993.0" x2="903.6" y2="1057.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="903.6" y1="1057.3" x2="918.5" y2="1085.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="844.3" y1="945.8" x2="805.3" y2="997.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="757.2" y1="880.3" x2="716.4" y2="922.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="767.0" x2="622.0" y2="790.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="622.0" y1="790.2" x2="612.2" y2="820.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="674.9" y1="681.3" x2="620.8" y2="721.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="620.8" y1="721.0" x2="605.0" y2="748.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="605.0" y1="748.3" x2="589.2" y2="775.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="589.2" y1="775.6" x2="622.4" y2="823.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="622.4" y1="823.3" x2="614.2" y2="853.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="614.2" y1="853.8" x2="606.1" y2="884.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="606.1" y1="884.3" x2="649.0" y2="923.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="649.0" y1="923.8" x2="646.2" y2="955.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="646.2" y1="955.2" x2="697.6" y2="987.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="697.6" y1="987.3" x2="699.5" y2="1018.8" stroke="#ddd" stroke-width="1.5"/>
+<line x1="699.5" y1="1018.8" x2="764.5" y2="1041.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="764.5" y1="1041.6" x2="771.1" y2="1072.5" stroke="#ddd" stroke-width="1.5"/>
+<line x1="771.1" y1="1072.5" x2="777.8" y2="1103.3" stroke="#ddd" stroke-width="1.5"/>
+<line x1="777.8" y1="1103.3" x2="784.5" y2="1134.2" stroke="#ddd" stroke-width="1.5"/>
+<line x1="699.5" y1="1018.8" x2="638.0" y2="1049.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="646.2" y1="955.2" x2="590.1" y2="977.9" stroke="#ddd" stroke-width="1.5"/>
+<line x1="590.1" y1="977.9" x2="582.7" y2="1008.6" stroke="#ddd" stroke-width="1.5"/>
+<line x1="606.1" y1="884.3" x2="549.1" y2="897.0" stroke="#ddd" stroke-width="1.5"/>
+<line x1="589.2" y1="775.6" x2="531.4" y2="770.7" stroke="#ddd" stroke-width="1.5"/>
+<circle cx="674.9" cy="627.2" r="22" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="674.9" y="627.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">战争</text>
+<circle cx="674.9" cy="573.1" r="16" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="674.9" y="573.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
+<circle cx="620.8" cy="533.5" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="620.8" y="533.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">扩张</text>
+<circle cx="564.0" cy="542.1" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="564.0" y="542.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="539.0" cy="522.9" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="539.0" y="522.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="487.4" cy="549.5" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="487.4" y="549.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="458.3" cy="537.5" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="458.3" y="537.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="413.9" cy="575.3" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="413.9" y="575.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="377.3" cy="620.7" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="377.3" y="620.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="345.8" cy="620.0" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="345.8" y="620.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="317.1" cy="673.3" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="317.1" y="673.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="297.6" cy="735.0" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="297.6" y="735.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="289.2" cy="803.3" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="289.2" y="803.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="293.4" cy="876.2" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="293.4" y="876.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="311.4" cy="951.4" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="311.4" y="951.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="343.7" cy="1026.4" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="343.7" y="1026.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="240.6" cy="910.7" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="240.6" y="910.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">训练</text>
+<circle cx="231.8" cy="829.5" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="231.8" y="829.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">储藏</text>
+<circle cx="236.9" cy="752.3" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="236.9" y="752.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">训练</text>
+<circle cx="254.4" cy="681.4" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="254.4" y="681.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">储藏</text>
+<circle cx="282.6" cy="618.6" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="282.6" y="618.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">训练</text>
+<circle cx="319.4" cy="565.5" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="319.4" y="565.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">储藏</text>
+<circle cx="383.0" cy="569.1" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="383.0" y="569.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="352.0" cy="563.0" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="352.0" y="563.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="314.5" cy="610.5" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="314.5" y="610.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="284.6" cy="667.8" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="284.6" y="667.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="264.5" cy="733.6" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="264.5" y="733.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="256.0" cy="806.1" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="256.0" y="806.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="227.0" cy="818.5" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="227.0" y="818.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="197.9" cy="830.9" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="197.9" y="830.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="234.0" cy="741.5" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="234.0" y="741.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">润滑</text>
+<circle cx="203.4" cy="749.4" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="203.4" y="749.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">润滑</text>
+<circle cx="221.8" cy="674.3" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="221.8" y="674.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">润滑</text>
+<circle cx="190.4" cy="677.6" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="190.4" y="677.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">润滑</text>
+<circle cx="251.4" cy="607.6" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="251.4" y="607.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">润滑</text>
+<circle cx="283.0" cy="609.0" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="283.0" y="609.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">润滑</text>
+<circle cx="290.1" cy="550.7" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="290.1" y="550.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">润滑</text>
+<circle cx="335.5" cy="504.7" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="335.5" y="504.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">发条</text>
+<circle cx="305.8" cy="494.0" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="305.8" y="494.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">润滑</text>
+<circle cx="397.5" cy="519.3" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="397.5" y="519.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">储存</text>
+<circle cx="368.1" cy="507.9" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="368.1" y="507.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">储存</text>
+<circle cx="429.1" cy="525.4" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="429.1" y="525.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">发条</text>
+<circle cx="399.9" cy="513.3" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="399.9" y="513.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">润滑</text>
+<circle cx="453.7" cy="479.4" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="453.7" y="479.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">储藏</text>
+<circle cx="427.4" cy="461.8" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="427.4" y="461.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">训练</text>
+<circle cx="513.9" cy="503.6" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="513.9" y="503.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">储存</text>
+<circle cx="551.4" cy="466.2" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="551.4" y="466.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">发条</text>
+<circle cx="532.2" cy="441.1" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="532.2" y="441.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">润滑</text>
+<circle cx="605.0" cy="506.1" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="605.0" y="506.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">安息</text>
+<circle cx="547.6" cy="512.5" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="547.6" y="512.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">储藏</text>
+<circle cx="639.3" cy="459.6" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="639.3" y="459.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">训练</text>
+<circle cx="656.7" cy="488.6" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="656.7" y="488.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="652.6" cy="457.3" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="652.6" y="457.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">金库</text>
+<circle cx="648.5" cy="426.0" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="648.5" y="426.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">无限</text>
+<circle cx="674.9" cy="519.0" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="674.9" y="519.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">探索</text>
+<circle cx="674.9" cy="487.4" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="674.9" y="487.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">征服</text>
+<circle cx="622.0" cy="464.2" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="622.0" y="464.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">探索</text>
+<circle cx="564.4" cy="457.0" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="564.4" y="457.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">征服</text>
+<circle cx="547.2" cy="430.5" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="547.2" y="430.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">探索</text>
+<circle cx="489.3" cy="436.6" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="489.3" y="436.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">征服</text>
+<circle cx="433.3" cy="453.3" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="433.3" y="453.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">探索</text>
+<circle cx="380.9" cy="479.0" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="380.9" y="479.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">征服</text>
+<circle cx="352.7" cy="464.8" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="352.7" y="464.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">探索</text>
+<circle cx="302.1" cy="504.9" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="302.1" y="504.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">征服</text>
+<circle cx="256.9" cy="556.8" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="256.9" y="556.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">探索</text>
+<circle cx="219.5" cy="619.5" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="219.5" y="619.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">征服</text>
+<circle cx="192.1" cy="691.9" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="192.1" y="691.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">探索</text>
+<circle cx="176.9" cy="772.1" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="176.9" y="772.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">征服</text>
+<circle cx="175.5" cy="858.2" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="175.5" y="858.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">探索</text>
+<circle cx="146.8" cy="871.4" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="146.8" y="871.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">征服</text>
+<circle cx="162.9" cy="965.0" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="162.9" y="965.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">探索</text>
+<circle cx="195.7" cy="1058.8" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="195.7" y="1058.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">征服</text>
+<circle cx="245.5" cy="1150.0" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="245.5" y="1150.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">探索</text>
+<circle cx="172.2" cy="1080.0" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="172.2" y="1080.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">金库</text>
+<circle cx="110.2" cy="999.7" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="110.2" y="999.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">无限</text>
+<circle cx="136.5" cy="982.4" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="136.5" y="982.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">缩短</text>
+<circle cx="89.5" cy="897.9" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="89.5" y="897.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">金库</text>
+<circle cx="86.0" cy="798.6" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="86.0" y="798.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="55.6" cy="807.4" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="55.6" y="807.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="146.6" cy="780.9" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="146.6" y="780.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">金库</text>
+<circle cx="129.5" cy="700.2" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="129.5" y="700.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="160.8" cy="696.1" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="160.8" y="696.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="156.3" cy="618.5" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="156.3" y="618.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">金库</text>
+<circle cx="194.6" cy="546.3" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="194.6" y="546.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="242.1" cy="485.3" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="242.1" y="485.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">金库</text>
+<circle cx="272.1" cy="495.1" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="272.1" y="495.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="296.3" cy="436.4" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="296.3" y="436.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">金库</text>
+<circle cx="354.9" cy="400.2" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="354.9" y="400.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="407.7" cy="434.8" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="407.7" y="434.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">金库</text>
+<circle cx="441.1" cy="395.4" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="441.1" y="395.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="507.4" cy="381.1" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="507.4" y="381.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="576.3" cy="380.0" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="576.3" y="380.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="518.3" cy="374.1" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="518.3" y="374.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="501.7" cy="347.2" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="501.7" y="347.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="548.7" cy="357.6" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="548.7" y="357.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">探索</text>
+<circle cx="580.9" cy="344.8" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="580.9" y="344.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">开启</text>
+<circle cx="614.3" cy="335.8" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="614.3" y="335.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">无限</text>
+<circle cx="664.3" cy="424.5" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="664.3" y="424.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">收纳</text>
+<circle cx="727.9" cy="464.2" r="12" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="727.9" y="464.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">开启</text>
+<circle cx="729.1" cy="533.5" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="729.1" y="533.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">财富</text>
+<circle cx="744.9" cy="506.1" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="744.9" y="506.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="760.6" cy="478.8" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="760.6" y="478.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="727.5" cy="431.2" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="727.5" y="431.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="735.6" cy="400.7" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="735.6" y="400.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="743.8" cy="370.2" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="743.8" y="370.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="752.0" cy="339.7" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="752.0" y="339.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="709.4" cy="299.8" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="709.4" y="299.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="712.7" cy="268.4" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="712.7" y="268.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="657.2" cy="235.2" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="657.2" y="235.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="655.8" cy="203.7" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="655.8" y="203.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="586.5" cy="180.3" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="586.5" y="180.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="580.4" cy="149.3" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="580.4" y="149.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="499.4" cy="139.1" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="499.4" y="139.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="488.7" cy="109.4" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="488.7" y="109.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="478.0" cy="79.7" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="478.0" y="79.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="467.3" cy="50.0" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="467.3" y="50.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="574.3" cy="118.4" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="574.3" y="118.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">炼金</text>
+<circle cx="651.5" cy="109.0" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="651.5" y="109.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">组合</text>
+<circle cx="722.6" cy="174.2" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="722.6" y="174.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="773.8" cy="247.5" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="773.8" y="247.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="808.9" cy="326.4" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="808.9" y="326.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="818.5" cy="483.7" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="818.5" y="483.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">炼金</text>
+<circle cx="840.8" cy="461.4" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="840.8" y="461.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">组合</text>
+<circle cx="674.9" cy="681.3" r="16" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="674.9" y="681.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
+<circle cx="729.1" cy="721.0" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="729.1" y="721.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">指挥</text>
+<circle cx="785.9" cy="712.3" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="785.9" y="712.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="810.9" cy="731.5" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="810.9" y="731.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">扩张</text>
+<circle cx="836.0" cy="750.8" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="836.0" y="750.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">指挥</text>
+<circle cx="693.2" cy="765.8" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="693.2" y="765.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">财富</text>
+<circle cx="697.3" cy="797.1" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="697.3" y="797.1" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="701.4" cy="828.4" r="12" fill="#1abc9c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="701.4" y="828.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">觉醒</text>
+<circle cx="674.9" cy="735.5" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="674.9" y="735.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">成长</text>
+<circle cx="674.9" cy="767.0" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="674.9" y="767.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="727.9" cy="790.2" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="727.9" y="790.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="737.7" cy="820.2" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="737.7" y="820.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="747.4" cy="850.3" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="747.4" y="850.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="757.2" cy="880.3" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="757.2" y="880.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="814.7" cy="890.0" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="814.7" y="890.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="829.5" cy="917.9" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="829.5" y="917.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="844.3" cy="945.8" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="844.3" y="945.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="908.9" cy="942.3" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="908.9" y="942.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="927.7" cy="967.6" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="927.7" y="967.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="946.5" cy="993.0" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="946.5" y="993.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="1020.5" cy="970.5" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="1020.5" y="970.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="1042.9" cy="992.8" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="1042.9" y="992.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="1065.3" cy="1015.0" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="1065.3" y="1015.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="1144.4" cy="971.0" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="1144.4" y="971.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="1021.8" cy="1094.4" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="1021.8" y="1094.4" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="903.6" cy="1057.3" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="903.6" y="1057.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">组合</text>
+<circle cx="918.5" cy="1085.2" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="918.5" y="1085.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">炼金</text>
+<circle cx="805.3" cy="997.3" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="805.3" y="997.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="716.4" cy="922.0" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="716.4" y="922.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">成长</text>
+<circle cx="622.0" cy="790.2" r="12" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="622.0" y="790.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">组合</text>
+<circle cx="612.2" cy="820.2" r="12" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="612.2" y="820.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">炼金</text>
+<circle cx="620.8" cy="721.0" r="12" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="620.8" y="721.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="10" font-weight="bold">盾之</text>
+<circle cx="605.0" cy="748.3" r="12" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="605.0" y="748.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">疾风</text>
+<circle cx="589.2" cy="775.6" r="12" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="589.2" y="775.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">盾之</text>
+<circle cx="622.4" cy="823.3" r="12" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="622.4" y="823.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">疾风</text>
+<circle cx="614.2" cy="853.8" r="12" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="614.2" y="853.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">战争</text>
+<circle cx="606.1" cy="884.3" r="12" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="606.1" y="884.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">疾风</text>
+<circle cx="649.0" cy="923.8" r="12" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="649.0" y="923.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">盾之</text>
+<circle cx="646.2" cy="955.2" r="12" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="646.2" y="955.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">战争</text>
+<circle cx="697.6" cy="987.3" r="12" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="697.6" y="987.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">狂暴</text>
+<circle cx="699.5" cy="1018.8" r="12" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="699.5" y="1018.8" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">盾之</text>
+<circle cx="764.5" cy="1041.6" r="12" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="764.5" y="1041.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">战争</text>
+<circle cx="771.1" cy="1072.5" r="12" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="771.1" y="1072.5" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">盾之</text>
+<circle cx="777.8" cy="1103.3" r="12" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="777.8" y="1103.3" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">战争</text>
+<circle cx="784.5" cy="1134.2" r="12" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="784.5" y="1134.2" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">狂暴</text>
+<circle cx="638.0" cy="1049.6" r="12" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="638.0" y="1049.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">疾风</text>
+<circle cx="590.1" cy="977.9" r="12" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="590.1" y="977.9" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">战争</text>
+<circle cx="582.7" cy="1008.6" r="12" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="582.7" y="1008.6" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">疾风</text>
+<circle cx="549.1" cy="897.0" r="12" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="549.1" y="897.0" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">狂暴</text>
+<circle cx="531.4" cy="770.7" r="12" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.9"/>
+<text x="531.4" y="770.7" text-anchor="middle" dominant-baseline="central" fill="#fff" font-size="9" font-weight="bold">战争</text>
 </svg>
+</div>
+<div class="container list-view">
+<table class="rune-table">
+<thead><tr><th>名称</th><th>等级</th><th>效果</th><th>费用</th></tr></thead>
+<tbody>
+<tr class="cat-header"><td colspan="4">攻击符文 (10)</td></tr>
+<tr><td>战争符文</td><td>Lv1</td><td>攻击力+1</td><td>100</td></tr>
+<tr><td>战争符文</td><td>Lv10</td><td>攻击力%+20</td><td>15000</td></tr>
+<tr><td>战争符文</td><td>Lv5</td><td>攻击力%+30</td><td>20000</td></tr>
+<tr><td>狂暴符文</td><td>Lv5</td><td>AllHeroAttackSpeed+10</td><td>50000</td></tr>
+<tr><td>战争符文</td><td>Lv5</td><td>攻击力+1</td><td>80000</td></tr>
+<tr><td>战争符文</td><td>Lv5</td><td>攻击力%+50</td><td>200000</td></tr>
+<tr><td>狂暴符文</td><td>Lv5</td><td>AllHeroAttackSpeed+20</td><td>300000</td></tr>
+<tr><td>战争符文</td><td>Lv5</td><td>攻击力+1</td><td>50000</td></tr>
+<tr><td>狂暴符文</td><td>Lv3</td><td>AllHeroAttackSpeed+20</td><td>25000</td></tr>
+<tr><td>战争符文</td><td>Lv1</td><td>攻击力+1</td><td>30000</td></tr>
+<tr class="cat-header"><td colspan="4">防御符文 (10)</td></tr>
+<tr><td>盾之符文</td><td>Lv3</td><td>护甲+5</td><td>2000</td></tr>
+<tr><td>疾风符文</td><td>Lv3</td><td>移速+30</td><td>5000</td></tr>
+<tr><td>盾之符文</td><td>Lv10</td><td>护甲+5</td><td>2000</td></tr>
+<tr><td>疾风符文</td><td>Lv5</td><td>移速+20</td><td>20000</td></tr>
+<tr><td>疾风符文</td><td>Lv5</td><td>移速+20</td><td>20000</td></tr>
+<tr><td>盾之符文</td><td>Lv5</td><td>AllHeroArmorPercent+20</td><td>20000</td></tr>
+<tr><td>盾之符文</td><td>Lv5</td><td>护甲+5</td><td>50000</td></tr>
+<tr><td>盾之符文</td><td>Lv5</td><td>AllHeroArmorPercent+50</td><td>150000</td></tr>
+<tr><td>疾风符文</td><td>Lv5</td><td>移速+20</td><td>1000000</td></tr>
+<tr><td>疾风符文</td><td>Lv1</td><td>移速+50</td><td>5000000</td></tr>
+<tr class="cat-header"><td colspan="4">金币符文 (31)</td></tr>
+<tr><td>财富符文</td><td>Lv3</td><td>Boss金币+10</td><td>200</td></tr>
+<tr><td>储藏符文</td><td>Lv5</td><td>离线金币%+100</td><td>10000000</td></tr>
+<tr><td>储藏符文</td><td>Lv5</td><td>离线金币%+100</td><td>5000000</td></tr>
+<tr><td>储藏符文</td><td>Lv5</td><td>离线金币%+100</td><td>1000000</td></tr>
+<tr><td>储藏符文</td><td>Lv3</td><td>离线金币%+100</td><td>50000</td></tr>
+<tr><td>储藏符文</td><td>Lv3</td><td>离线金币%+100</td><td>500</td></tr>
+<tr><td>财富符文</td><td>Lv1</td><td>额外金币+1</td><td>1000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>金币%+100</td><td>1000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>Boss金币+30</td><td>2000</td></tr>
+<tr><td>财富符文</td><td>Lv1</td><td>怪物金币+1</td><td>20000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>ActBoss金币+500</td><td>10000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>金币%+50</td><td>30000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>Boss金币+100</td><td>50000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>金币%+50</td><td>150000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>Boss金币+500</td><td>200000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>金币%+50</td><td>500000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>Boss金币+1000</td><td>700000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>金币%+50</td><td>2000000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>Boss金币+2000</td><td>3000000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>金币%+50</td><td>20000000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>Boss金币+5000</td><td>50000000</td></tr>
+<tr><td>财富符文</td><td>Lv2</td><td>怪物金币+5</td><td>40000000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>ActBoss金币+50000</td><td>30000000</td></tr>
+<tr><td>炼金符文</td><td>Lv3</td><td>炼金金币%+100</td><td>5000000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>额外金币+1</td><td>1000000</td></tr>
+<tr><td>财富符文</td><td>Lv5</td><td>ActBoss金币+2000</td><td>300000</td></tr>
+<tr><td>财富符文</td><td>Lv1</td><td>怪物金币+1</td><td>100000</td></tr>
+<tr><td>炼金符文</td><td>Lv1</td><td>炼金金币%+100</td><td>20000</td></tr>
+<tr><td>财富符文</td><td>Lv3</td><td>金币%+50</td><td>500</td></tr>
+<tr><td>炼金符文</td><td>Lv5</td><td>炼金金币%+50</td><td>2000000</td></tr>
+<tr><td>炼金符文</td><td>Lv5</td><td>炼金金币%+40</td><td>10000</td></tr>
+<tr class="cat-header"><td colspan="4">经验符文 (30)</td></tr>
+<tr><td>训练符文</td><td>Lv5</td><td>离线经验%+100</td><td>10000000</td></tr>
+<tr><td>训练符文</td><td>Lv5</td><td>离线经验%+100</td><td>5000000</td></tr>
+<tr><td>训练符文</td><td>Lv5</td><td>离线经验%+100</td><td>1000000</td></tr>
+<tr><td>训练符文</td><td>Lv3</td><td>离线经验%+100</td><td>75000</td></tr>
+<tr><td>训练符文</td><td>Lv3</td><td>离线经验%+100</td><td>500</td></tr>
+<tr><td>组合符文</td><td>Lv5</td><td>炼金经验%+50</td><td>1000000</td></tr>
+<tr><td>组合符文</td><td>Lv5</td><td>炼金经验%+40</td><td>10000</td></tr>
+<tr><td>成长符文</td><td>Lv3</td><td>Boss经验+10</td><td>200</td></tr>
+<tr><td>成长符文</td><td>Lv3</td><td>经验%+50</td><td>5000</td></tr>
+<tr><td>成长符文</td><td>Lv1</td><td>额外经验+1</td><td>1000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>经验%+100</td><td>500</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>Boss经验+10</td><td>1000</td></tr>
+<tr><td>成长符文</td><td>Lv1</td><td>怪物经验+1</td><td>15000</td></tr>
+<tr><td>成长符文</td><td>Lv3</td><td>ActBoss经验+100</td><td>6000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>经验%+50</td><td>30000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>Boss经验+100</td><td>50000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>经验%+50</td><td>150000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>Boss经验+500</td><td>200000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>经验%+50</td><td>500000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>Boss经验+1000</td><td>700000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>经验%+50</td><td>2000000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>Boss经验+2000</td><td>3000000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>经验%+50</td><td>20000000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>Boss经验+5000</td><td>50000000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>额外经验+5</td><td>5000000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>ActBoss经验+2000</td><td>10000000</td></tr>
+<tr><td>组合符文</td><td>Lv5</td><td>炼金经验%+50</td><td>1000000</td></tr>
+<tr><td>成长符文</td><td>Lv1</td><td>怪物经验+1</td><td>1000000</td></tr>
+<tr><td>成长符文</td><td>Lv5</td><td>ActBoss经验+500</td><td>300000</td></tr>
+<tr><td>组合符文</td><td>Lv1</td><td>炼金经验%+100</td><td>35000</td></tr>
+<tr class="cat-header"><td colspan="4">宝箱符文 (59)</td></tr>
+<tr><td>润滑符文</td><td>Lv5</td><td>减少开箱时间+2</td><td>5000000</td></tr>
+<tr><td>润滑符文</td><td>Lv5</td><td>减少开箱时间+2</td><td>25000000</td></tr>
+<tr><td>润滑符文</td><td>Lv5</td><td>减少Boss开箱时间+4</td><td>5000000</td></tr>
+<tr><td>润滑符文</td><td>Lv5</td><td>减少Boss开箱时间+4</td><td>25000000</td></tr>
+<tr><td>润滑符文</td><td>Lv3</td><td>ReduceAutoOpenActBossChestTime+1</td><td>1500000</td></tr>
+<tr><td>润滑符文</td><td>Lv5</td><td>减少开箱时间+2</td><td>1000000</td></tr>
+<tr><td>润滑符文</td><td>Lv5</td><td>减少Boss开箱时间+4</td><td>1000000</td></tr>
+<tr><td>发条符文</td><td>Lv1</td><td>UnlockAutoOpenActBossChest+60</td><td>1000000</td></tr>
+<tr><td>润滑符文</td><td>Lv3</td><td>ReduceAutoOpenActBossChestTime+1</td><td>500000</td></tr>
+<tr><td>发条符文</td><td>Lv1</td><td>自动Boss开箱+600</td><td>200000</td></tr>
+<tr><td>润滑符文</td><td>Lv3</td><td>减少Boss开箱时间+5</td><td>100000</td></tr>
+<tr><td>发条符文</td><td>Lv1</td><td>自动开箱+300</td><td>10000</td></tr>
+<tr><td>润滑符文</td><td>Lv3</td><td>减少开箱时间+3</td><td>5000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>1000</td></tr>
+<tr><td>金库符文</td><td>Lv1</td><td>Boss宝箱上限+1</td><td>30000</td></tr>
+<tr><td>无限符文</td><td>Lv1</td><td>ActBoss宝箱上限+1</td><td>50000</td></tr>
+<tr><td>探索符文</td><td>Lv3</td><td>宝箱掉率%+100</td><td>500</td></tr>
+<tr><td>征服符文</td><td>Lv3</td><td>Boss掉率%+200</td><td>1000</td></tr>
+<tr><td>探索符文</td><td>Lv5</td><td>宝箱掉率%+70</td><td>3000</td></tr>
+<tr><td>征服符文</td><td>Lv5</td><td>Boss掉率%+150</td><td>8000</td></tr>
+<tr><td>探索符文</td><td>Lv5</td><td>宝箱掉率%+70</td><td>30000</td></tr>
+<tr><td>征服符文</td><td>Lv5</td><td>Boss掉率%+150</td><td>45000</td></tr>
+<tr><td>探索符文</td><td>Lv5</td><td>宝箱掉率%+50</td><td>60000</td></tr>
+<tr><td>征服符文</td><td>Lv5</td><td>Boss掉率%+100</td><td>150000</td></tr>
+<tr><td>探索符文</td><td>Lv5</td><td>宝箱掉率%+50</td><td>150000</td></tr>
+<tr><td>征服符文</td><td>Lv5</td><td>Boss掉率%+100</td><td>250000</td></tr>
+<tr><td>探索符文</td><td>Lv5</td><td>宝箱掉率%+50</td><td>500000</td></tr>
+<tr><td>征服符文</td><td>Lv5</td><td>Boss掉率%+100</td><td>700000</td></tr>
+<tr><td>探索符文</td><td>Lv5</td><td>宝箱掉率%+50</td><td>900000</td></tr>
+<tr><td>征服符文</td><td>Lv5</td><td>Boss掉率%+100</td><td>1300000</td></tr>
+<tr><td>探索符文</td><td>Lv5</td><td>宝箱掉率%+50</td><td>1950000</td></tr>
+<tr><td>征服符文</td><td>Lv5</td><td>Boss掉率%+100</td><td>2930000</td></tr>
+<tr><td>探索符文</td><td>Lv5</td><td>宝箱掉率%+50</td><td>4400000</td></tr>
+<tr><td>征服符文</td><td>Lv5</td><td>Boss掉率%+100</td><td>6600000</td></tr>
+<tr><td>探索符文</td><td>Lv5</td><td>宝箱掉率%+50</td><td>9900000</td></tr>
+<tr><td>金库符文</td><td>Lv1</td><td>Boss宝箱上限+1</td><td>50000000</td></tr>
+<tr><td>无限符文</td><td>Lv1</td><td>ActBoss宝箱上限+1</td><td>30000000</td></tr>
+<tr><td>金库符文</td><td>Lv1</td><td>Boss宝箱上限+1</td><td>10000000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>5000000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>7000000</td></tr>
+<tr><td>金库符文</td><td>Lv1</td><td>Boss宝箱上限+1</td><td>5000000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>3000000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>2000000</td></tr>
+<tr><td>金库符文</td><td>Lv1</td><td>Boss宝箱上限+1</td><td>3000000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>1000000</td></tr>
+<tr><td>金库符文</td><td>Lv1</td><td>Boss宝箱上限+1</td><td>1500000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>500000</td></tr>
+<tr><td>金库符文</td><td>Lv1</td><td>Boss宝箱上限+1</td><td>1000000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>300000</td></tr>
+<tr><td>金库符文</td><td>Lv1</td><td>Boss宝箱上限+1</td><td>500000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>200000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>100000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>50000</td></tr>
+<tr><td>探索符文</td><td>Lv3</td><td>宝箱掉率%+70</td><td>40000</td></tr>
+<tr><td>开启符文</td><td>Lv1</td><td>OpenAllTypeChestAllAtOnce+1</td><td>10000</td></tr>
+<tr><td>无限符文</td><td>Lv1</td><td>ActBoss宝箱上限+1</td><td>100000</td></tr>
+<tr><td>收纳符文</td><td>Lv1</td><td>宝箱上限+1</td><td>20000</td></tr>
+<tr><td>开启符文</td><td>Lv1</td><td>一键开箱+1</td><td>500</td></tr>
+<tr><td>无限符文</td><td>Lv1</td><td>ActBoss宝箱上限+1</td><td>5000000</td></tr>
+<tr class="cat-header"><td colspan="4">功能符文 (7)</td></tr>
+<tr><td>储存符文</td><td>Lv1</td><td>仓库页+1</td><td>3000000</td></tr>
+<tr><td>储存符文</td><td>Lv1</td><td>仓库页+1</td><td>50000000</td></tr>
+<tr><td>储存符文</td><td>Lv1</td><td>仓库页+1</td><td>10000</td></tr>
+<tr><td>安息符文</td><td>Lv1</td><td>离线奖励+1</td><td>100</td></tr>
+<tr><td>指挥符文</td><td>Lv1</td><td>编排槽+1</td><td>1000</td></tr>
+<tr><td>指挥符文</td><td>Lv1</td><td>编排槽+1</td><td>150000</td></tr>
+<tr><td>觉醒符文</td><td>Lv1</td><td>技能槽+1</td><td>50000</td></tr>
+<tr class="cat-header"><td colspan="4">其他符文 (27)</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>300</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>1000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>5000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>20000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>100000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>300000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>1000000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>1300000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>1690000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>2200000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>2860000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>3720000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>4840000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>6290000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>1000000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>1300000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>1690000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>2200000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>2860000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>3720000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>4840000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>6290000</td></tr>
+<tr><td>缩短符文</td><td>Lv1</td><td>WaveCountReduction+1</td><td>20000000</td></tr>
+<tr><td>扩张符文</td><td>Lv5</td><td>背包格+1</td><td>30000</td></tr>
+<tr><td>扩张符文</td><td>Lv5</td><td>背包格+1</td><td>100000</td></tr>
+<tr><td>扩张符文</td><td>Lv3</td><td>背包格+1</td><td>500</td></tr>
+<tr><td>扩张符文</td><td>Lv5</td><td>背包格+1</td><td>5000</td></tr>
+</tbody></table>
 </div>
 
 <div id="tooltip" class="tooltip" style="display:none"></div>
-
 <script>
-const nodes = [{id:"1",name:"战争符文",level:1,effect:"攻击力+1",x:712.3,y:641.5},{id:"10",name:"财富符文",level:3,effect:"Boss金币+10",x:712.3,y:584.1},{id:"11",name:"扩张符文",level:3,effect:"背包格+1",x:653.0,y:538.7},{id:"12",name:"扩张符文",level:3,effect:"背包格+1",x:593.9,y:550.6},{id:"13",name:"扩张符文",level:3,effect:"背包格+1",x:569.7,y:532.0},{id:"14",name:"扩张符文",level:3,effect:"背包格+1",x:517.9,y:560.9},{id:"15",name:"扩张符文",level:3,effect:"背包格+1",x:489.6,y:549.2},{id:"16",name:"扩张符文",level:3,effect:"背包格+1",x:445.9,y:588.5},{id:"1801",name:"扩张符文",level:3,effect:"背包格+1",x:410.1,y:634.9},{id:"1802",name:"扩张符文",level:3,effect:"背包格+1",x:379.5,y:634.2},{id:"1803",name:"扩张符文",level:3,effect:"背包格+1",x:351.5,y:685.3},{id:"1804",name:"扩张符文",level:3,effect:"背包格+1",x:330.6,y:739.7},{id:"1805",name:"扩张符文",level:3,effect:"背包格+1",x:316.8,y:796.1},{id:"1806",name:"扩张符文",level:3,effect:"背包格+1",x:309.5,y:853.7},{id:"1807",name:"扩张符文",level:3,effect:"背包格+1",x:308.4,y:911.7},{id:"1808",name:"扩张符文",level:3,effect:"背包格+1",x:313.2,y:969.4},{id:"180701",name:"训练符文",level:5,effect:"离线经验%+100",x:256.9,y:885.2},{id:"180601",name:"储藏符文",level:5,effect:"离线金币%+100",x:261.1,y:821.8},{id:"180501",name:"训练符文",level:5,effect:"离线经验%+100",x:272.4,y:758.7},{id:"180401",name:"储藏符文",level:5,effect:"离线金币%+100",x:291.2,y:697.0},{id:"180301",name:"训练符文",level:5,effect:"离线经验%+100",x:318.2,y:637.5},{id:"180201",name:"储藏符文",level:5,effect:"离线金币%+100",x:353.7,y:581.9},{id:"1901",name:"扩张符文",level:3,effect:"背包格+1",x:415.9,y:582.5},{id:"1902",name:"扩张符文",level:3,effect:"背包格+1",x:385.8,y:576.5},{id:"1903",name:"扩张符文",level:3,effect:"背包格+1",x:349.3,y:622.0},{id:"1904",name:"扩张符文",level:3,effect:"背包格+1",x:319.4,y:671.9},{id:"1905",name:"扩张符文",level:3,effect:"背包格+1",x:295.9,y:725.1},{id:"1906",name:"扩张符文",level:3,effect:"背包格+1",x:278.7,y:780.5},{id:"1907",name:"扩张符文",level:3,effect:"背包格+1",x:249.6,y:789.9},{id:"1908",name:"扩张符文",level:3,effect:"背包格+1",x:220.5,y:799.2},{id:"190501",name:"润滑符文",level:5,effect:"减少开箱时间+2",x:265.9,y:731.1},{id:"1905011",name:"润滑符文",level:5,effect:"减少开箱时间+2",x:235.9,y:737.1},{id:"190502",name:"润滑符文",level:5,effect:"减少Boss开箱时间+4",x:258.7,y:680.6},{id:"1905021",name:"润滑符文",level:5,effect:"减少Boss开箱时间+4",x:228.2,y:683.2},{id:"190401",name:"润滑符文",level:3,effect:"ReduceAutoOpenActBossChestTime+1",x:288.0,y:623.0},{id:"190301",name:"润滑符文",level:5,effect:"减少开箱时间+2",x:318.8,y:620.4},{id:"190302",name:"润滑符文",level:5,effect:"减少Boss开箱时间+4",x:324.9,y:569.2},{id:"1902001",name:"发条符文",level:1,effect:"UnlockAutoOpenActBossChest+60",x:369.5,y:520.5},{id:"19020011",name:"润滑符文",level:3,effect:"ReduceAutoOpenActBossChestTime+1",x:340.7,y:510.3},{id:"16001",name:"储存符文",level:1,effect:"仓库页+1",x:430.6,y:531.9},{id:"160011",name:"储存符文",level:1,effect:"仓库页+1",x:402.1,y:520.8},{id:"15001",name:"发条符文",level:1,effect:"自动Boss开箱+600",x:461.3,y:537.5},{id:"150011",name:"润滑符文",level:3,effect:"减少Boss开箱时间+5",x:433.1,y:525.8},{id:"15002",name:"储藏符文",level:3,effect:"离线金币%+100",x:486.4,y:490.5},{id:"150021",name:"训练符文",level:3,effect:"离线经验%+100",x:461.0,y:473.5},{id:"13001",name:"储存符文",level:1,effect:"仓库页+1",x:545.4,y:513.3},{id:"13002",name:"发条符文",level:1,effect:"自动开箱+300",x:584.2,y:474.5},{id:"130021",name:"润滑符文",level:3,effect:"减少开箱时间+3",x:565.6,y:450.2},{id:"11001",name:"安息符文",level:1,effect:"离线奖励+1",x:637.7,y:512.2},{id:"110011",name:"储藏符文",level:3,effect:"离线金币%+100",x:578.7,y:521.1},{id:"110012",name:"训练符文",level:3,effect:"离线经验%+100",x:674.9,y:465.5},{id:"11002",name:"收纳符文",level:1,effect:"宝箱上限+1",x:692.9,y:493.5},{id:"11003",name:"金库符文",level:1,effect:"Boss宝箱上限+1",x:688.9,y:463.2},{id:"11004",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",x:684.9,y:432.8},{id:"101",name:"探索符文",level:3,effect:"宝箱掉率%+100",x:712.3,y:522.8},{id:"102",name:"征服符文",level:3,effect:"Boss掉率%+200",x:712.3,y:492.2},{id:"103",name:"探索符文",level:5,effect:"宝箱掉率%+70",x:656.8,y:470.4},{id:"104",name:"征服符文",level:5,effect:"Boss掉率%+150",x:597.7,y:465.0},{id:"105",name:"探索符文",level:5,effect:"宝箱掉率%+70",x:581.0,y:439.3},{id:"106",name:"征服符文",level:5,effect:"Boss掉率%+150",x:522.8,y:446.9},{id:"107",name:"探索符文",level:5,effect:"宝箱掉率%+50",x:467.0,y:464.8},{id:"108",name:"征服符文",level:5,effect:"Boss掉率%+100",x:415.1,y:491.6},{id:"109",name:"探索符文",level:5,effect:"宝箱掉率%+50",x:387.7,y:477.8},{id:"110",name:"征服符文",level:5,effect:"Boss掉率%+100",x:340.2,y:511.5},{id:"111",name:"探索符文",level:5,effect:"宝箱掉率%+50",x:297.4,y:550.8},{id:"112",name:"征服符文",level:5,effect:"Boss掉率%+100",x:259.4,y:594.7},{id:"113",name:"探索符文",level:5,effect:"宝箱掉率%+50",x:226.4,y:642.3},{id:"114",name:"征服符文",level:5,effect:"Boss掉率%+100",x:198.3,y:693.0},{id:"115",name:"探索符文",level:5,effect:"宝箱掉率%+50",x:175.2,y:746.1},{id:"116",name:"征服符文",level:5,effect:"Boss掉率%+100",x:145.2,y:751.9},{id:"117",name:"探索符文",level:5,effect:"宝箱掉率%+50",x:126.8,y:806.7},{id:"118",name:"征服符文",level:5,effect:"Boss掉率%+100",x:112.8,y:862.7},{id:"119",name:"探索符文",level:5,effect:"宝箱掉率%+50",x:103.2,y:919.6},{id:"1181",name:"金库符文",level:1,effect:"Boss宝箱上限+1",x:84.1,y:873.3},{id:"1182",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",x:68.6,y:825.7},{id:"1171",name:"缩短符文",level:1,effect:"WaveCountReduction+1",x:97.3,y:815.0},{id:"1172",name:"金库符文",level:1,effect:"Boss宝箱上限+1",x:85.6,y:766.2},{id:"1161",name:"收纳符文",level:1,effect:"宝箱上限+1",x:107.6,y:708.0},{id:"11611",name:"收纳符文",level:1,effect:"宝箱上限+1",x:77.2,y:711.4},{id:"1141",name:"金库符文",level:1,effect:"Boss宝箱上限+1",x:167.9,y:696.0},{id:"1142",name:"收纳符文",level:1,effect:"宝箱上限+1",x:165.2,y:645.6},{id:"1131",name:"收纳符文",level:1,effect:"宝箱上限+1",x:195.8,y:642.4},{id:"1132",name:"金库符文",level:1,effect:"Boss宝箱上限+1",x:198.2,y:591.7},{id:"1121",name:"收纳符文",level:1,effect:"宝箱上限+1",x:236.8,y:541.3},{id:"1111",name:"金库符文",level:1,effect:"Boss宝箱上限+1",x:281.2,y:495.0},{id:"1101",name:"收纳符文",level:1,effect:"宝箱上限+1",x:311.3,y:501.4},{id:"1102",name:"金库符文",level:1,effect:"Boss宝箱上限+1",x:331.1,y:454.1},{id:"1091",name:"收纳符文",level:1,effect:"宝箱上限+1",x:386.6,y:419.6},{id:"1071",name:"金库符文",level:1,effect:"Boss宝箱上限+1",x:442.2,y:447.0},{id:"1072",name:"收纳符文",level:1,effect:"宝箱上限+1",x:475.9,y:407.1},{id:"1061",name:"收纳符文",level:1,effect:"宝箱上限+1",x:542.2,y:391.6},{id:"1051",name:"扩张符文",level:5,effect:"背包格+1",x:611.7,y:389.1},{id:"1052",name:"收纳符文",level:1,effect:"宝箱上限+1",x:553.3,y:384.4},{id:"1054",name:"扩张符文",level:5,effect:"背包格+1",x:537.2,y:358.4},{id:"1053",name:"探索符文",level:3,effect:"宝箱掉率%+70",x:584.2,y:367.7},{id:"1055",name:"开启符文",level:1,effect:"OpenAllTypeChestAllAtOnce+1",x:616.8,y:354.6},{id:"1056",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",x:650.8,y:345.5},{id:"1031",name:"收纳符文",level:1,effect:"宝箱上限+1",x:701.3,y:431.3},{id:"1021",name:"开启符文",level:1,effect:"一键开箱+1",x:767.9,y:470.4},{id:"201",name:"财富符文",level:1,effect:"额外金币+1",x:771.6,y:538.7},{id:"202",name:"财富符文",level:5,effect:"金币%+100",x:786.9,y:512.2},{id:"203",name:"财富符文",level:5,effect:"Boss金币+30",x:802.2,y:485.7},{id:"204",name:"财富符文",level:1,effect:"怪物金币+1",x:766.8,y:438.2},{id:"205",name:"财富符文",level:5,effect:"ActBoss金币+500",x:774.7,y:408.6},{id:"206",name:"财富符文",level:5,effect:"金币%+50",x:782.6,y:379.0},{id:"207",name:"财富符文",level:5,effect:"Boss金币+100",x:790.6,y:349.5},{id:"208",name:"财富符文",level:5,effect:"金币%+50",x:747.1,y:310.4},{id:"209",name:"财富符文",level:5,effect:"Boss金币+500",x:750.3,y:279.9},{id:"210",name:"财富符文",level:5,effect:"金币%+50",x:702.0,y:247.5},{id:"211",name:"财富符文",level:5,effect:"Boss金币+1000",x:701.2,y:216.9},{id:"212",name:"财富符文",level:5,effect:"金币%+50",x:649.5,y:190.5},{id:"213",name:"财富符文",level:5,effect:"Boss金币+2000",x:645.3,y:160.1},{id:"214",name:"财富符文",level:5,effect:"金币%+50",x:591.3,y:139.3},{id:"215",name:"财富符文",level:5,effect:"Boss金币+5000",x:584.1,y:109.5},{id:"2151",name:"财富符文",level:2,effect:"怪物金币+5",x:576.9,y:79.8},{id:"2152",name:"财富符文",level:5,effect:"ActBoss金币+50000",x:569.7,y:50.0},{id:"2131",name:"炼金符文",level:3,effect:"炼金金币%+100",x:641.1,y:129.8},{id:"2132",name:"组合符文",level:5,effect:"炼金经验%+50",x:691.6,y:125.3},{id:"2111",name:"财富符文",level:5,effect:"额外金币+1",x:751.4,y:187.8},{id:"2091",name:"财富符文",level:5,effect:"ActBoss金币+2000",x:804.3,y:258.2},{id:"2071",name:"财富符文",level:1,effect:"怪物金币+1",x:847.7,y:337.3},{id:"2031",name:"炼金符文",level:1,effect:"炼金金币%+100",x:861.1,y:492.6},{id:"2032",name:"组合符文",level:5,effect:"炼金经验%+40",x:882.8,y:471.0},{id:"20",name:"成长符文",level:3,effect:"Boss经验+10",x:712.3,y:698.8},{id:"21",name:"指挥符文",level:1,effect:"编排槽+1",x:771.6,y:744.2},{id:"22",name:"扩张符文",level:3,effect:"背包格+1",x:830.7,y:732.3},{id:"23",name:"扩张符文",level:5,effect:"背包格+1",x:855.0,y:750.9},{id:"24",name:"指挥符文",level:1,effect:"编排槽+1",x:879.3,y:769.6},{id:"25",name:"财富符文",level:3,effect:"金币%+50",x:731.8,y:789.4},{id:"26",name:"成长符文",level:3,effect:"经验%+50",x:735.8,y:819.8},{id:"27",name:"觉醒符文",level:1,effect:"技能槽+1",x:739.8,y:850.1},{id:"301",name:"成长符文",level:1,effect:"额外经验+1",x:712.3,y:760.1},{id:"302",name:"成长符文",level:5,effect:"经验%+100",x:712.3,y:790.7},{id:"303",name:"成长符文",level:5,effect:"Boss经验+10",x:767.9,y:812.5},{id:"304",name:"成长符文",level:1,effect:"怪物经验+1",x:777.4,y:841.6},{id:"305",name:"成长符文",level:3,effect:"ActBoss经验+100",x:786.8,y:870.7},{id:"306",name:"成长符文",level:5,effect:"经验%+50",x:796.3,y:899.8},{id:"307",name:"成长符文",level:5,effect:"Boss经验+100",x:854.2,y:908.4},{id:"308",name:"成长符文",level:5,effect:"经验%+50",x:868.6,y:935.4},{id:"309",name:"成长符文",level:5,effect:"Boss经验+500",x:883.0,y:962.4},{id:"310",name:"成长符文",level:5,effect:"经验%+50",x:941.2,y:962.3},{id:"311",name:"成长符文",level:5,effect:"Boss经验+1000",x:959.0,y:987.2},{id:"312",name:"成长符文",level:5,effect:"经验%+50",x:976.7,y:1012.2},{id:"313",name:"成长符文",level:5,effect:"Boss经验+2000",x:1034.3,y:1005.4},{id:"314",name:"成长符文",level:5,effect:"经验%+50",x:1054.6,y:1028.3},{id:"315",name:"成长符文",level:5,effect:"Boss经验+5000",x:1074.9,y:1051.3},{id:"3151",name:"成长符文",level:5,effect:"额外经验+5",x:1131.4,y:1039.2},{id:"3152",name:"成长符文",level:5,effect:"ActBoss经验+2000",x:1056.0,y:1105.9},{id:"3121",name:"组合符文",level:5,effect:"炼金经验%+50",x:951.6,y:1064.4},{id:"3122",name:"炼金符文",level:5,effect:"炼金金币%+50",x:966.7,y:1091.0},{id:"3091",name:"成长符文",level:1,effect:"怪物经验+1",x:850.4,y:1010.6},{id:"3061",name:"成长符文",level:5,effect:"ActBoss经验+500",x:754.4,y:940.8},{id:"3031",name:"组合符文",level:1,effect:"炼金经验%+100",x:656.8,y:812.5},{id:"3032",name:"炼金符文",level:5,effect:"炼金金币%+40",x:647.3,y:841.6},{id:"401",name:"盾之符文",level:3,effect:"护甲+5",x:653.0,y:744.2},{id:"402",name:"疾风符文",level:3,effect:"移速+30",x:637.7,y:770.7},{id:"403",name:"盾之符文",level:10,effect:"护甲+5",x:622.4,y:797.2},{id:"404",name:"疾风符文",level:5,effect:"移速+20",x:657.9,y:844.7},{id:"405",name:"战争符文",level:10,effect:"攻击力%+20",x:649.9,y:874.3},{id:"406",name:"疾风符文",level:5,effect:"移速+20",x:642.0,y:903.9},{id:"407",name:"盾之符文",level:5,effect:"AllHeroArmorPercent+20",x:686.0,y:942.6},{id:"408",name:"战争符文",level:5,effect:"攻击力%+30",x:683.3,y:973.1},{id:"409",name:"狂暴符文",level:5,effect:"AllHeroAttackSpeed+10",x:732.5,y:1004.4},{id:"410",name:"盾之符文",level:5,effect:"护甲+5",x:734.2,y:1035.0},{id:"411",name:"战争符文",level:5,effect:"攻击力+1",x:786.8,y:1059.6},{id:"412",name:"盾之符文",level:5,effect:"AllHeroArmorPercent+50",x:792.2,y:1089.7},{id:"413",name:"战争符文",level:5,effect:"攻击力%+50",x:797.6,y:1119.9},{id:"414",name:"狂暴符文",level:5,effect:"AllHeroAttackSpeed+20",x:803.0,y:1150.0},{id:"4101",name:"疾风符文",level:5,effect:"移速+20",x:684.6,y:1065.3},{id:"4081",name:"战争符文",level:5,effect:"攻击力+1",x:629.4,y:995.4},{id:"4082",name:"疾风符文",level:1,effect:"移速+50",x:622.5,y:1025.2},{id:"4061",name:"狂暴符文",level:3,effect:"AllHeroAttackSpeed+20",x:584.6,y:915.4},{id:"4031",name:"战争符文",level:1,effect:"攻击力+1",x:563.5,y:790.3},{id:"1133",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",x:712.3,y:641.5}];
+const nodes = [{id:"1",name:"战争符文",level:1,effect:"攻击力+1",cost:100,x:674.9,y:627.2},{id:"10",name:"财富符文",level:3,effect:"Boss金币+10",cost:200,x:674.9,y:573.1},{id:"11",name:"扩张符文",level:3,effect:"背包格+1",cost:300,x:620.8,y:533.5},{id:"12",name:"扩张符文",level:3,effect:"背包格+1",cost:1000,x:564.0,y:542.1},{id:"13",name:"扩张符文",level:3,effect:"背包格+1",cost:5000,x:539.0,y:522.9},{id:"14",name:"扩张符文",level:3,effect:"背包格+1",cost:20000,x:487.4,y:549.5},{id:"15",name:"扩张符文",level:3,effect:"背包格+1",cost:100000,x:458.3,y:537.5},{id:"16",name:"扩张符文",level:3,effect:"背包格+1",cost:300000,x:413.9,y:575.3},{id:"1801",name:"扩张符文",level:3,effect:"背包格+1",cost:1000000,x:377.3,y:620.7},{id:"1802",name:"扩张符文",level:3,effect:"背包格+1",cost:1300000,x:345.8,y:620.0},{id:"1803",name:"扩张符文",level:3,effect:"背包格+1",cost:1690000,x:317.1,y:673.3},{id:"1804",name:"扩张符文",level:3,effect:"背包格+1",cost:2200000,x:297.6,y:735.0},{id:"1805",name:"扩张符文",level:3,effect:"背包格+1",cost:2860000,x:289.2,y:803.3},{id:"1806",name:"扩张符文",level:3,effect:"背包格+1",cost:3720000,x:293.4,y:876.2},{id:"1807",name:"扩张符文",level:3,effect:"背包格+1",cost:4840000,x:311.4,y:951.4},{id:"1808",name:"扩张符文",level:3,effect:"背包格+1",cost:6290000,x:343.7,y:1026.4},{id:"180701",name:"训练符文",level:5,effect:"离线经验%+100",cost:10000000,x:240.6,y:910.7},{id:"180601",name:"储藏符文",level:5,effect:"离线金币%+100",cost:10000000,x:231.8,y:829.5},{id:"180501",name:"训练符文",level:5,effect:"离线经验%+100",cost:5000000,x:236.9,y:752.3},{id:"180401",name:"储藏符文",level:5,effect:"离线金币%+100",cost:5000000,x:254.4,y:681.4},{id:"180301",name:"训练符文",level:5,effect:"离线经验%+100",cost:1000000,x:282.6,y:618.6},{id:"180201",name:"储藏符文",level:5,effect:"离线金币%+100",cost:1000000,x:319.4,y:565.5},{id:"1901",name:"扩张符文",level:3,effect:"背包格+1",cost:1000000,x:383.0,y:569.1},{id:"1902",name:"扩张符文",level:3,effect:"背包格+1",cost:1300000,x:352.0,y:563.0},{id:"1903",name:"扩张符文",level:3,effect:"背包格+1",cost:1690000,x:314.5,y:610.5},{id:"1904",name:"扩张符文",level:3,effect:"背包格+1",cost:2200000,x:284.6,y:667.8},{id:"1905",name:"扩张符文",level:3,effect:"背包格+1",cost:2860000,x:264.5,y:733.6},{id:"1906",name:"扩张符文",level:3,effect:"背包格+1",cost:3720000,x:256.0,y:806.1},{id:"1907",name:"扩张符文",level:3,effect:"背包格+1",cost:4840000,x:227.0,y:818.5},{id:"1908",name:"扩张符文",level:3,effect:"背包格+1",cost:6290000,x:197.9,y:830.9},{id:"190501",name:"润滑符文",level:5,effect:"减少开箱时间+2",cost:5000000,x:234.0,y:741.5},{id:"1905011",name:"润滑符文",level:5,effect:"减少开箱时间+2",cost:25000000,x:203.4,y:749.4},{id:"190502",name:"润滑符文",level:5,effect:"减少Boss开箱时间+4",cost:5000000,x:221.8,y:674.3},{id:"1905021",name:"润滑符文",level:5,effect:"减少Boss开箱时间+4",cost:25000000,x:190.4,y:677.6},{id:"190401",name:"润滑符文",level:3,effect:"ReduceAutoOpenActBossChestTime+1",cost:1500000,x:251.4,y:607.6},{id:"190301",name:"润滑符文",level:5,effect:"减少开箱时间+2",cost:1000000,x:283.0,y:609.0},{id:"190302",name:"润滑符文",level:5,effect:"减少Boss开箱时间+4",cost:1000000,x:290.1,y:550.7},{id:"1902001",name:"发条符文",level:1,effect:"UnlockAutoOpenActBossChest+60",cost:1000000,x:335.5,y:504.7},{id:"19020011",name:"润滑符文",level:3,effect:"ReduceAutoOpenActBossChestTime+1",cost:500000,x:305.8,y:494.0},{id:"16001",name:"储存符文",level:1,effect:"仓库页+1",cost:3000000,x:397.5,y:519.3},{id:"160011",name:"储存符文",level:1,effect:"仓库页+1",cost:50000000,x:368.1,y:507.9},{id:"15001",name:"发条符文",level:1,effect:"自动Boss开箱+600",cost:200000,x:429.1,y:525.4},{id:"150011",name:"润滑符文",level:3,effect:"减少Boss开箱时间+5",cost:100000,x:399.9,y:513.3},{id:"15002",name:"储藏符文",level:3,effect:"离线金币%+100",cost:50000,x:453.7,y:479.4},{id:"150021",name:"训练符文",level:3,effect:"离线经验%+100",cost:75000,x:427.4,y:461.8},{id:"13001",name:"储存符文",level:1,effect:"仓库页+1",cost:10000,x:513.9,y:503.6},{id:"13002",name:"发条符文",level:1,effect:"自动开箱+300",cost:10000,x:551.4,y:466.2},{id:"130021",name:"润滑符文",level:3,effect:"减少开箱时间+3",cost:5000,x:532.2,y:441.1},{id:"11001",name:"安息符文",level:1,effect:"离线奖励+1",cost:100,x:605.0,y:506.1},{id:"110011",name:"储藏符文",level:3,effect:"离线金币%+100",cost:500,x:547.6,y:512.5},{id:"110012",name:"训练符文",level:3,effect:"离线经验%+100",cost:500,x:639.3,y:459.6},{id:"11002",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:1000,x:656.7,y:488.6},{id:"11003",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:30000,x:652.6,y:457.3},{id:"11004",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:50000,x:648.5,y:426.0},{id:"101",name:"探索符文",level:3,effect:"宝箱掉率%+100",cost:500,x:674.9,y:519.0},{id:"102",name:"征服符文",level:3,effect:"Boss掉率%+200",cost:1000,x:674.9,y:487.4},{id:"103",name:"探索符文",level:5,effect:"宝箱掉率%+70",cost:3000,x:622.0,y:464.2},{id:"104",name:"征服符文",level:5,effect:"Boss掉率%+150",cost:8000,x:564.4,y:457.0},{id:"105",name:"探索符文",level:5,effect:"宝箱掉率%+70",cost:30000,x:547.2,y:430.5},{id:"106",name:"征服符文",level:5,effect:"Boss掉率%+150",cost:45000,x:489.3,y:436.6},{id:"107",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:60000,x:433.3,y:453.3},{id:"108",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:150000,x:380.9,y:479.0},{id:"109",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:150000,x:352.7,y:464.8},{id:"110",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:250000,x:302.1,y:504.9},{id:"111",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:500000,x:256.9,y:556.8},{id:"112",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:700000,x:219.5,y:619.5},{id:"113",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:900000,x:192.1,y:691.9},{id:"114",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:1300000,x:176.9,y:772.1},{id:"115",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:1950000,x:175.5,y:858.2},{id:"116",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:2930000,x:146.8,y:871.4},{id:"117",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:4400000,x:162.9,y:965.0},{id:"118",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:6600000,x:195.7,y:1058.8},{id:"119",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:9900000,x:245.5,y:1150.0},{id:"1181",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:50000000,x:172.2,y:1080.0},{id:"1182",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:30000000,x:110.2,y:999.7},{id:"1171",name:"缩短符文",level:1,effect:"WaveCountReduction+1",cost:20000000,x:136.5,y:982.4},{id:"1172",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:10000000,x:89.5,y:897.9},{id:"1161",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:5000000,x:86.0,y:798.6},{id:"11611",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:7000000,x:55.6,y:807.4},{id:"1141",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:5000000,x:146.6,y:780.9},{id:"1142",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:3000000,x:129.5,y:700.2},{id:"1131",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:2000000,x:160.8,y:696.1},{id:"1132",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:3000000,x:156.3,y:618.5},{id:"1121",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:1000000,x:194.6,y:546.3},{id:"1111",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:1500000,x:242.1,y:485.3},{id:"1101",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:500000,x:272.1,y:495.1},{id:"1102",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:1000000,x:296.3,y:436.4},{id:"1091",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:300000,x:354.9,y:400.2},{id:"1071",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:500000,x:407.7,y:434.8},{id:"1072",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:200000,x:441.1,y:395.4},{id:"1061",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:100000,x:507.4,y:381.1},{id:"1051",name:"扩张符文",level:5,effect:"背包格+1",cost:30000,x:576.3,y:380.0},{id:"1052",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:50000,x:518.3,y:374.1},{id:"1054",name:"扩张符文",level:5,effect:"背包格+1",cost:100000,x:501.7,y:347.2},{id:"1053",name:"探索符文",level:3,effect:"宝箱掉率%+70",cost:40000,x:548.7,y:357.6},{id:"1055",name:"开启符文",level:1,effect:"OpenAllTypeChestAllAtOnce+1",cost:10000,x:580.9,y:344.8},{id:"1056",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:100000,x:614.3,y:335.8},{id:"1031",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:20000,x:664.3,y:424.5},{id:"1021",name:"开启符文",level:1,effect:"一键开箱+1",cost:500,x:727.9,y:464.2},{id:"201",name:"财富符文",level:1,effect:"额外金币+1",cost:1000,x:729.1,y:533.5},{id:"202",name:"财富符文",level:5,effect:"金币%+100",cost:1000,x:744.9,y:506.1},{id:"203",name:"财富符文",level:5,effect:"Boss金币+30",cost:2000,x:760.6,y:478.8},{id:"204",name:"财富符文",level:1,effect:"怪物金币+1",cost:20000,x:727.5,y:431.2},{id:"205",name:"财富符文",level:5,effect:"ActBoss金币+500",cost:10000,x:735.6,y:400.7},{id:"206",name:"财富符文",level:5,effect:"金币%+50",cost:30000,x:743.8,y:370.2},{id:"207",name:"财富符文",level:5,effect:"Boss金币+100",cost:50000,x:752.0,y:339.7},{id:"208",name:"财富符文",level:5,effect:"金币%+50",cost:150000,x:709.4,y:299.8},{id:"209",name:"财富符文",level:5,effect:"Boss金币+500",cost:200000,x:712.7,y:268.4},{id:"210",name:"财富符文",level:5,effect:"金币%+50",cost:500000,x:657.2,y:235.2},{id:"211",name:"财富符文",level:5,effect:"Boss金币+1000",cost:700000,x:655.8,y:203.7},{id:"212",name:"财富符文",level:5,effect:"金币%+50",cost:2000000,x:586.5,y:180.3},{id:"213",name:"财富符文",level:5,effect:"Boss金币+2000",cost:3000000,x:580.4,y:149.3},{id:"214",name:"财富符文",level:5,effect:"金币%+50",cost:20000000,x:499.4,y:139.1},{id:"215",name:"财富符文",level:5,effect:"Boss金币+5000",cost:50000000,x:488.7,y:109.4},{id:"2151",name:"财富符文",level:2,effect:"怪物金币+5",cost:40000000,x:478.0,y:79.7},{id:"2152",name:"财富符文",level:5,effect:"ActBoss金币+50000",cost:30000000,x:467.3,y:50.0},{id:"2131",name:"炼金符文",level:3,effect:"炼金金币%+100",cost:5000000,x:574.3,y:118.4},{id:"2132",name:"组合符文",level:5,effect:"炼金经验%+50",cost:1000000,x:651.5,y:109.0},{id:"2111",name:"财富符文",level:5,effect:"额外金币+1",cost:1000000,x:722.6,y:174.2},{id:"2091",name:"财富符文",level:5,effect:"ActBoss金币+2000",cost:300000,x:773.8,y:247.5},{id:"2071",name:"财富符文",level:1,effect:"怪物金币+1",cost:100000,x:808.9,y:326.4},{id:"2031",name:"炼金符文",level:1,effect:"炼金金币%+100",cost:20000,x:818.5,y:483.7},{id:"2032",name:"组合符文",level:5,effect:"炼金经验%+40",cost:10000,x:840.8,y:461.4},{id:"20",name:"成长符文",level:3,effect:"Boss经验+10",cost:200,x:674.9,y:681.3},{id:"21",name:"指挥符文",level:1,effect:"编排槽+1",cost:1000,x:729.1,y:721.0},{id:"22",name:"扩张符文",level:3,effect:"背包格+1",cost:500,x:785.9,y:712.3},{id:"23",name:"扩张符文",level:5,effect:"背包格+1",cost:5000,x:810.9,y:731.5},{id:"24",name:"指挥符文",level:1,effect:"编排槽+1",cost:150000,x:836.0,y:750.8},{id:"25",name:"财富符文",level:3,effect:"金币%+50",cost:500,x:693.2,y:765.8},{id:"26",name:"成长符文",level:3,effect:"经验%+50",cost:5000,x:697.3,y:797.1},{id:"27",name:"觉醒符文",level:1,effect:"技能槽+1",cost:50000,x:701.4,y:828.4},{id:"301",name:"成长符文",level:1,effect:"额外经验+1",cost:1000,x:674.9,y:735.5},{id:"302",name:"成长符文",level:5,effect:"经验%+100",cost:500,x:674.9,y:767.0},{id:"303",name:"成长符文",level:5,effect:"Boss经验+10",cost:1000,x:727.9,y:790.2},{id:"304",name:"成长符文",level:1,effect:"怪物经验+1",cost:15000,x:737.7,y:820.2},{id:"305",name:"成长符文",level:3,effect:"ActBoss经验+100",cost:6000,x:747.4,y:850.3},{id:"306",name:"成长符文",level:5,effect:"经验%+50",cost:30000,x:757.2,y:880.3},{id:"307",name:"成长符文",level:5,effect:"Boss经验+100",cost:50000,x:814.7,y:890.0},{id:"308",name:"成长符文",level:5,effect:"经验%+50",cost:150000,x:829.5,y:917.9},{id:"309",name:"成长符文",level:5,effect:"Boss经验+500",cost:200000,x:844.3,y:945.8},{id:"310",name:"成长符文",level:5,effect:"经验%+50",cost:500000,x:908.9,y:942.3},{id:"311",name:"成长符文",level:5,effect:"Boss经验+1000",cost:700000,x:927.7,y:967.6},{id:"312",name:"成长符文",level:5,effect:"经验%+50",cost:2000000,x:946.5,y:993.0},{id:"313",name:"成长符文",level:5,effect:"Boss经验+2000",cost:3000000,x:1020.5,y:970.5},{id:"314",name:"成长符文",level:5,effect:"经验%+50",cost:20000000,x:1042.9,y:992.8},{id:"315",name:"成长符文",level:5,effect:"Boss经验+5000",cost:50000000,x:1065.3,y:1015.0},{id:"3151",name:"成长符文",level:5,effect:"额外经验+5",cost:5000000,x:1144.4,y:971.0},{id:"3152",name:"成长符文",level:5,effect:"ActBoss经验+2000",cost:10000000,x:1021.8,y:1094.4},{id:"3121",name:"组合符文",level:5,effect:"炼金经验%+50",cost:1000000,x:903.6,y:1057.3},{id:"3122",name:"炼金符文",level:5,effect:"炼金金币%+50",cost:2000000,x:918.5,y:1085.2},{id:"3091",name:"成长符文",level:1,effect:"怪物经验+1",cost:1000000,x:805.3,y:997.3},{id:"3061",name:"成长符文",level:5,effect:"ActBoss经验+500",cost:300000,x:716.4,y:922.0},{id:"3031",name:"组合符文",level:1,effect:"炼金经验%+100",cost:35000,x:622.0,y:790.2},{id:"3032",name:"炼金符文",level:5,effect:"炼金金币%+40",cost:10000,x:612.2,y:820.2},{id:"401",name:"盾之符文",level:3,effect:"护甲+5",cost:2000,x:620.8,y:721.0},{id:"402",name:"疾风符文",level:3,effect:"移速+30",cost:5000,x:605.0,y:748.3},{id:"403",name:"盾之符文",level:10,effect:"护甲+5",cost:2000,x:589.2,y:775.6},{id:"404",name:"疾风符文",level:5,effect:"移速+20",cost:20000,x:622.4,y:823.3},{id:"405",name:"战争符文",level:10,effect:"攻击力%+20",cost:15000,x:614.2,y:853.8},{id:"406",name:"疾风符文",level:5,effect:"移速+20",cost:20000,x:606.1,y:884.3},{id:"407",name:"盾之符文",level:5,effect:"AllHeroArmorPercent+20",cost:20000,x:649.0,y:923.8},{id:"408",name:"战争符文",level:5,effect:"攻击力%+30",cost:20000,x:646.2,y:955.2},{id:"409",name:"狂暴符文",level:5,effect:"AllHeroAttackSpeed+10",cost:50000,x:697.6,y:987.3},{id:"410",name:"盾之符文",level:5,effect:"护甲+5",cost:50000,x:699.5,y:1018.8},{id:"411",name:"战争符文",level:5,effect:"攻击力+1",cost:80000,x:764.5,y:1041.6},{id:"412",name:"盾之符文",level:5,effect:"AllHeroArmorPercent+50",cost:150000,x:771.1,y:1072.5},{id:"413",name:"战争符文",level:5,effect:"攻击力%+50",cost:200000,x:777.8,y:1103.3},{id:"414",name:"狂暴符文",level:5,effect:"AllHeroAttackSpeed+20",cost:300000,x:784.5,y:1134.2},{id:"4101",name:"疾风符文",level:5,effect:"移速+20",cost:1000000,x:638.0,y:1049.6},{id:"4081",name:"战争符文",level:5,effect:"攻击力+1",cost:50000,x:590.1,y:977.9},{id:"4082",name:"疾风符文",level:1,effect:"移速+50",cost:5000000,x:582.7,y:1008.6},{id:"4061",name:"狂暴符文",level:3,effect:"AllHeroAttackSpeed+20",cost:25000,x:549.1,y:897.0},{id:"4031",name:"战争符文",level:1,effect:"攻击力+1",cost:30000,x:531.4,y:770.7}];
+
+function showView(view) {
+    document.querySelector('.tree-view').style.display = view === 'tree' ? 'block' : 'none';
+    document.querySelector('.list-view').style.display = view === 'list' ? 'block' : 'none';
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+}
 
 const tooltip = document.getElementById('tooltip');
 const svgEl = document.querySelector('svg');
@@ -574,30 +779,23 @@ svgEl.addEventListener('mousemove', function(e) {
     const scaleY = svgEl.viewBox.baseVal.height / rect.height;
     const mx = (e.clientX - rect.left) * scaleX;
     const my = (e.clientY - rect.top) * scaleY;
-    
     let found = null;
     for (const n of nodes) {
         const dx = mx - n.x;
         const dy = my - n.y;
-        if (dx*dx + dy*dy < 625) {
-            found = n;
-            break;
-        }
+        if (dx*dx + dy*dy < 400) { found = n; break; }
     }
-    
     if (found) {
         tooltip.style.display = 'block';
         tooltip.style.left = (e.clientX + 10) + 'px';
         tooltip.style.top = (e.clientY + 10) + 'px';
-        tooltip.innerHTML = '<b>' + found.name + '</b> Lv' + found.level + '<br>' + found.effect;
+        tooltip.innerHTML = '<b>' + found.name + '</b> Lv' + found.level + '<br>' + found.effect + '<br>费用: ' + found.cost;
     } else {
         tooltip.style.display = 'none';
     }
 });
 
-svgEl.addEventListener('mouseleave', function() {
-    tooltip.style.display = 'none';
-});
+svgEl.addEventListener('mouseleave', function() { tooltip.style.display = 'none'; });
 </script>
 </body>
 </html>
