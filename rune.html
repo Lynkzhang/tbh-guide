@@ -5,32 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>符文树 - TBH攻略站</title>
 <style>
-:root{--bg:#f5f5f5;--card:#fff;--hd:#e8e8e8;--ac:#e94560;--tx:#333;--mu:#666;--bl:#3498db;--gn:#2ecc71}
+:root{--bg:#f5f5f5;--card:#fff;--hd:#e8e8e8;--ac:#e94560;--tx:#333;--mu:#666;--bl:#3498db}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;padding:20px}
-h1{color:var(--ac);text-align:center;margin-bottom:20px}
-h2{color:var(--bl);margin:20px 0 10px;border-bottom:2px solid var(--hd);padding-bottom:5px}
+body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);padding:20px}
+h1{color:var(--ac);text-align:center;margin-bottom:10px}
+.subtitle{text-align:center;color:var(--mu);margin-bottom:20px;font-size:.9em}
 .back{display:inline-block;margin-bottom:15px;color:var(--bl);text-decoration:none}
 .back:hover{text-decoration:underline}
-.tree{background:var(--card);padding:20px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow-x:auto}
-.node{display:inline-block;background:var(--card);border:2px solid var(--hd);border-radius:8px;padding:8px 12px;margin:4px;font-size:.8em;position:relative;cursor:default;transition:all .2s}
-.node:hover{border-color:var(--ac);transform:scale(1.05)}
-.node .name{font-weight:bold;color:var(--tx)}
-.node .effect{color:var(--mu);font-size:.85em}
-.node .cost{color:var(--ac);font-size:.8em}
+.tree-container{background:var(--card);padding:30px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow-x:auto}
+.tree ul{list-style:none;padding-left:30px;position:relative}
+.tree li{position:relative;padding:5px 0 5px 20px}
+.tree li::before{content:'';position:absolute;left:0;top:0;border-left:1px dashed #ccc;height:100%}
+.tree li::after{content:'';position:absolute;left:0;top:20px;border-top:1px dashed #ccc;width:20px}
+.tree li:last-child::before{height:20px}
+.tree > ul{padding-left:0}
+.tree > ul > li::before,.tree > ul > li::after{display:none}
+.rune-node{display:inline-block;background:var(--card);border:1px solid var(--hd);border-radius:6px;padding:6px 10px;font-size:.8em;cursor:default;transition:all .2s;min-width:80px}
+.rune-node:hover{border-color:var(--ac);transform:scale(1.05);box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.rune-name{font-weight:bold;font-size:.9em}
+.rune-lv{color:var(--mu);font-size:.8em}
+.rune-effect{color:var(--bl);font-size:.8em}
+.rune-cost{color:var(--ac);font-size:.75em}
 .legend{background:var(--card);padding:15px;border-radius:10px;margin-top:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .legend-item{display:inline-block;margin:5px 10px;font-size:.85em}
 .legend-color{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:middle}
-.rune-list{background:var(--card);padding:15px;border-radius:10px;margin-top:15px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.rune-item{padding:5px 0;border-bottom:1px solid var(--hd);font-size:.85em}
-.rune-item:last-child{border-bottom:none}
-@media(max-width:768px){.node{font-size:.7em;padding:5px 8px}}
+@media(max-width:768px){.rune-node{font-size:.7em;padding:4px 6px}.tree ul{padding-left:20px}}
 </style>
 </head>
 <body>
 <a href="index.html" class="back">← 返回攻略站</a>
 <h1>TBH 符文树</h1>
-<p style="text-align:center;color:var(--mu);margin-bottom:20px">全局加成系统 | 共197个符文节点</p>
+<p class="subtitle">全局加成系统 | 共197个节点 | 悬停查看详情</p>
 
 <div class="legend">
 <b>效果类型：</b>
@@ -41,272 +46,11 @@ h2{color:var(--bl);margin:20px 0 10px;border-bottom:2px solid var(--hd);padding-
 <div class="legend-item"><span class="legend-color" style="background:#9b59b6"></span>宝箱</div>
 <div class="legend-item"><span class="legend-color" style="background:#1abc9c"></span>功能</div>
 </div>
-<h2>战争符文</h2>
-<div class="tree">
-<div class="node" style="border-color:#e74c3c;margin-left:0px"><div class="name">战争符文</div><div class="effect">全英雄攻击力 +1</div><div class="cost">Lv1 费用:100</div></div>
-<div class="node" style="border-color:#f39c12;margin-left:30px"><div class="name">财富符文</div><div class="effect">关卡Boss额外金币 +10</div><div class="cost">Lv3 费用:200</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:60px"><div class="name">扩张符文</div><div class="effect">最大背包格 +1</div><div class="cost">Lv3 费用:300</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:90px"><div class="name">扩张符文</div><div class="effect">最大背包格 +1</div><div class="cost">Lv3 费用:1000</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:120px"><div class="name">扩张符文</div><div class="effect">最大背包格 +1</div><div class="cost">Lv3 费用:5000</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:150px"><div class="name">扩张符文</div><div class="effect">最大背包格 +1</div><div class="cost">Lv3 费用:20000</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:180px"><div class="name">扩张符文</div><div class="effect">最大背包格 +1</div><div class="cost">Lv3 费用:100000</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:150px"><div class="name">储存符文</div><div class="effect">解锁仓库页 +1</div><div class="cost">Lv1 费用:10000</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:150px"><div class="name">发条符文</div><div class="effect">自动开普通宝箱(秒) +300</div><div class="cost">Lv1 费用:10000</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:180px"><div class="name">润滑符文</div><div class="effect">减少自动开箱时间 +3</div><div class="cost">Lv3 费用:5000</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:90px"><div class="name">安息符文</div><div class="effect">解锁离线奖励 +1</div><div class="cost">Lv1 费用:100</div></div>
-<div class="node" style="border-color:#f39c12;margin-left:120px"><div class="name">储藏符文</div><div class="effect">离线金币% +100</div><div class="cost">Lv3 费用:500</div></div>
-<div class="node" style="border-color:#2ecc71;margin-left:120px"><div class="name">训练符文</div><div class="effect">离线经验% +100</div><div class="cost">Lv3 费用:500</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:90px"><div class="name">收纳符文</div><div class="effect">普通宝箱上限 +1</div><div class="cost">Lv1 费用:1000</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:120px"><div class="name">金库符文</div><div class="effect">Boss宝箱上限 +1</div><div class="cost">Lv1 费用:30000</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:150px"><div class="name">无限符文</div><div class="effect">ActBoss宝箱上限 +1</div><div class="cost">Lv1 费用:50000</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:60px"><div class="name">探索符文</div><div class="effect">普通宝箱掉率% +100</div><div class="cost">Lv3 费用:500</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:90px"><div class="name">征服符文</div><div class="effect">Boss宝箱掉率% +200</div><div class="cost">Lv3 费用:1000</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:120px"><div class="name">探索符文</div><div class="effect">普通宝箱掉率% +70</div><div class="cost">Lv5 费用:3000</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:150px"><div class="name">征服符文</div><div class="effect">Boss宝箱掉率% +150</div><div class="cost">Lv5 费用:8000</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:180px"><div class="name">探索符文</div><div class="effect">普通宝箱掉率% +70</div><div class="cost">Lv5 费用:30000</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:150px"><div class="name">收纳符文</div><div class="effect">普通宝箱上限 +1</div><div class="cost">Lv1 费用:20000</div></div>
-<div class="node" style="border-color:#9b59b6;margin-left:120px"><div class="name">开启符文</div><div class="effect">一键开箱 +1</div><div class="cost">Lv1 费用:500</div></div>
-<div class="node" style="border-color:#f39c12;margin-left:60px"><div class="name">财富符文</div><div class="effect">额外金币 +1</div><div class="cost">Lv1 费用:1000</div></div>
-<div class="node" style="border-color:#f39c12;margin-left:90px"><div class="name">财富符文</div><div class="effect">金币获取% +100</div><div class="cost">Lv5 费用:1000</div></div>
-<div class="node" style="border-color:#f39c12;margin-left:120px"><div class="name">财富符文</div><div class="effect">关卡Boss额外金币 +30</div><div class="cost">Lv5 费用:2000</div></div>
-<div class="node" style="border-color:#f39c12;margin-left:150px"><div class="name">财富符文</div><div class="effect">普通怪额外金币 +1</div><div class="cost">Lv1 费用:20000</div></div>
-<div class="node" style="border-color:#f39c12;margin-left:180px"><div class="name">财富符文</div><div class="effect">ActBoss额外金币 +500</div><div class="cost">Lv5 费用:10000</div></div>
-<div class="node" style="border-color:#f39c12;margin-left:150px"><div class="name">炼金符文</div><div class="effect">炼金金币% +100</div><div class="cost">Lv1 费用:20000</div></div>
-<div class="node" style="border-color:#2ecc71;margin-left:180px"><div class="name">组合符文</div><div class="effect">炼金经验% +40</div><div class="cost">Lv5 费用:10000</div></div>
-<div class="node" style="border-color:#2ecc71;margin-left:30px"><div class="name">成长符文</div><div class="effect">关卡Boss额外经验 +10</div><div class="cost">Lv3 费用:200</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:60px"><div class="name">指挥符文</div><div class="effect">解锁编排槽 +1</div><div class="cost">Lv1 费用:1000</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:90px"><div class="name">扩张符文</div><div class="effect">最大背包格 +1</div><div class="cost">Lv3 费用:500</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:120px"><div class="name">扩张符文</div><div class="effect">最大背包格 +1</div><div class="cost">Lv5 费用:5000</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:150px"><div class="name">指挥符文</div><div class="effect">解锁编排槽 +1</div><div class="cost">Lv1 费用:150000</div></div>
-<div class="node" style="border-color:#f39c12;margin-left:90px"><div class="name">财富符文</div><div class="effect">金币获取% +50</div><div class="cost">Lv3 费用:500</div></div>
-<div class="node" style="border-color:#2ecc71;margin-left:120px"><div class="name">成长符文</div><div class="effect">经验获取% +50</div><div class="cost">Lv3 费用:5000</div></div>
-<div class="node" style="border-color:#1abc9c;margin-left:150px"><div class="name">觉醒符文</div><div class="effect">解锁技能槽 +1</div><div class="cost">Lv1 费用:50000</div></div>
-<div class="node" style="border-color:#2ecc71;margin-left:60px"><div class="name">成长符文</div><div class="effect">额外经验 +1</div><div class="cost">Lv1 费用:1000</div></div>
-<div class="node" style="border-color:#2ecc71;margin-left:90px"><div class="name">成长符文</div><div class="effect">经验获取% +100</div><div class="cost">Lv5 费用:500</div></div>
-<div class="node" style="border-color:#2ecc71;margin-left:120px"><div class="name">成长符文</div><div class="effect">关卡Boss额外经验 +10</div><div class="cost">Lv5 费用:1000</div></div>
-<div class="node" style="border-color:#2ecc71;margin-left:150px"><div class="name">成长符文</div><div class="effect">普通怪额外经验 +1</div><div class="cost">Lv1 费用:15000</div></div>
-<div class="node" style="border-color:#2ecc71;margin-left:180px"><div class="name">成长符文</div><div class="effect">ActBoss额外经验 +100</div><div class="cost">Lv3 费用:6000</div></div>
-<div class="node" style="border-color:#2ecc71;margin-left:120px"><div class="name">组合符文</div><div class="effect">炼金经验% +100</div><div class="cost">Lv1 费用:35000</div></div>
-<div class="node" style="border-color:#f39c12;margin-left:150px"><div class="name">炼金符文</div><div class="effect">炼金金币% +40</div><div class="cost">Lv5 费用:10000</div></div>
-<div class="node" style="border-color:#3498db;margin-left:60px"><div class="name">盾之符文</div><div class="effect">全英雄护甲 +5</div><div class="cost">Lv3 费用:2000</div></div>
-<div class="node" style="border-color:#3498db;margin-left:90px"><div class="name">疾风符文</div><div class="effect">全英雄移速 +30</div><div class="cost">Lv3 费用:5000</div></div>
-<div class="node" style="border-color:#3498db;margin-left:120px"><div class="name">盾之符文</div><div class="effect">全英雄护甲 +5</div><div class="cost">Lv10 费用:2000</div></div>
-<div class="node" style="border-color:#3498db;margin-left:150px"><div class="name">疾风符文</div><div class="effect">全英雄移速 +20</div><div class="cost">Lv5 费用:20000</div></div>
-<div class="node" style="border-color:#e74c3c;margin-left:180px"><div class="name">战争符文</div><div class="effect">全英雄攻击力% +20</div><div class="cost">Lv10 费用:15000</div></div>
-<div class="node" style="border-color:#e74c3c;margin-left:150px"><div class="name">战争符文</div><div class="effect">全英雄攻击力 +1</div><div class="cost">Lv1 费用:30000</div></div>
-</div>
-<h2>无限符文</h2>
-<div class="tree">
-<div class="node" style="border-color:#9b59b6;margin-left:0px"><div class="name">无限符文</div><div class="effect">ActBoss宝箱上限 +1</div><div class="cost">Lv1 费用:5000000</div></div>
-</div>
 
-<h2>全部符文列表</h2>
-<div class="rune-list">
-<h3 style="color:var(--bl);margin:10px 0 5px">攻击符文</h3>
-<div class="rune-item"><b>战争符文</b> (Lv1) - 全英雄攻击力 +1 - 费用:100</div>
-<div class="rune-item"><b>战争符文</b> (Lv10) - 全英雄攻击力% +20 - 费用:15000</div>
-<div class="rune-item"><b>战争符文</b> (Lv5) - 全英雄攻击力% +30 - 费用:20000</div>
-<div class="rune-item"><b>战争符文</b> (Lv5) - 全英雄攻击力 +1 - 费用:80000</div>
-<div class="rune-item"><b>战争符文</b> (Lv5) - 全英雄攻击力% +50 - 费用:200000</div>
-<div class="rune-item"><b>战争符文</b> (Lv1) - 全英雄攻击力 +1 - 费用:30000</div>
-<div class="rune-item"><b>战争符文</b> (Lv5) - 全英雄攻击力 +1 - 费用:50000</div>
-<div class="rune-item"><b>狂暴符文</b> (Lv5) - AllHeroAttackSpeed +10 - 费用:50000</div>
-<div class="rune-item"><b>狂暴符文</b> (Lv5) - AllHeroAttackSpeed +20 - 费用:300000</div>
-<div class="rune-item"><b>狂暴符文</b> (Lv3) - AllHeroAttackSpeed +20 - 费用:25000</div>
-<h3 style="color:var(--bl);margin:10px 0 5px">防御符文</h3>
-<div class="rune-item"><b>疾风符文</b> (Lv3) - 全英雄移速 +30 - 费用:5000</div>
-<div class="rune-item"><b>疾风符文</b> (Lv5) - 全英雄移速 +20 - 费用:20000</div>
-<div class="rune-item"><b>疾风符文</b> (Lv5) - 全英雄移速 +20 - 费用:20000</div>
-<div class="rune-item"><b>疾风符文</b> (Lv1) - 全英雄移速 +50 - 费用:5000000</div>
-<div class="rune-item"><b>疾风符文</b> (Lv5) - 全英雄移速 +20 - 费用:1000000</div>
-<div class="rune-item"><b>盾之符文</b> (Lv3) - 全英雄护甲 +5 - 费用:2000</div>
-<div class="rune-item"><b>盾之符文</b> (Lv10) - 全英雄护甲 +5 - 费用:2000</div>
-<div class="rune-item"><b>盾之符文</b> (Lv5) - AllHeroArmorPercent +20 - 费用:20000</div>
-<div class="rune-item"><b>盾之符文</b> (Lv5) - 全英雄护甲 +5 - 费用:50000</div>
-<div class="rune-item"><b>盾之符文</b> (Lv5) - AllHeroArmorPercent +50 - 费用:150000</div>
-<h3 style="color:var(--bl);margin:10px 0 5px">金币符文</h3>
-<div class="rune-item"><b>储藏符文</b> (Lv3) - 离线金币% +100 - 费用:500</div>
-<div class="rune-item"><b>储藏符文</b> (Lv3) - 离线金币% +100 - 费用:50000</div>
-<div class="rune-item"><b>储藏符文</b> (Lv5) - 离线金币% +100 - 费用:1000000</div>
-<div class="rune-item"><b>储藏符文</b> (Lv5) - 离线金币% +100 - 费用:5000000</div>
-<div class="rune-item"><b>储藏符文</b> (Lv5) - 离线金币% +100 - 费用:10000000</div>
-<div class="rune-item"><b>炼金符文</b> (Lv1) - 炼金金币% +100 - 费用:20000</div>
-<div class="rune-item"><b>炼金符文</b> (Lv3) - 炼金金币% +100 - 费用:5000000</div>
-<div class="rune-item"><b>炼金符文</b> (Lv5) - 炼金金币% +40 - 费用:10000</div>
-<div class="rune-item"><b>炼金符文</b> (Lv5) - 炼金金币% +50 - 费用:2000000</div>
-<div class="rune-item"><b>财富符文</b> (Lv3) - 关卡Boss额外金币 +10 - 费用:200</div>
-<div class="rune-item"><b>财富符文</b> (Lv3) - 金币获取% +50 - 费用:500</div>
-<div class="rune-item"><b>财富符文</b> (Lv1) - 额外金币 +1 - 费用:1000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 金币获取% +100 - 费用:1000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 关卡Boss额外金币 +30 - 费用:2000</div>
-<div class="rune-item"><b>财富符文</b> (Lv1) - 普通怪额外金币 +1 - 费用:20000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - ActBoss额外金币 +500 - 费用:10000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 金币获取% +50 - 费用:30000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 关卡Boss额外金币 +100 - 费用:50000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 金币获取% +50 - 费用:150000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 关卡Boss额外金币 +500 - 费用:200000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 金币获取% +50 - 费用:500000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 关卡Boss额外金币 +1000 - 费用:700000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 金币获取% +50 - 费用:2000000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 关卡Boss额外金币 +2000 - 费用:3000000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 金币获取% +50 - 费用:20000000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 关卡Boss额外金币 +5000 - 费用:50000000</div>
-<div class="rune-item"><b>财富符文</b> (Lv1) - 普通怪额外金币 +1 - 费用:100000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - ActBoss额外金币 +2000 - 费用:300000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - 额外金币 +1 - 费用:1000000</div>
-<div class="rune-item"><b>财富符文</b> (Lv2) - 普通怪额外金币 +5 - 费用:40000000</div>
-<div class="rune-item"><b>财富符文</b> (Lv5) - ActBoss额外金币 +50000 - 费用:30000000</div>
-<h3 style="color:var(--bl);margin:10px 0 5px">经验符文</h3>
-<div class="rune-item"><b>成长符文</b> (Lv3) - 关卡Boss额外经验 +10 - 费用:200</div>
-<div class="rune-item"><b>成长符文</b> (Lv3) - 经验获取% +50 - 费用:5000</div>
-<div class="rune-item"><b>成长符文</b> (Lv1) - 额外经验 +1 - 费用:1000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 经验获取% +100 - 费用:500</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 关卡Boss额外经验 +10 - 费用:1000</div>
-<div class="rune-item"><b>成长符文</b> (Lv1) - 普通怪额外经验 +1 - 费用:15000</div>
-<div class="rune-item"><b>成长符文</b> (Lv3) - ActBoss额外经验 +100 - 费用:6000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 经验获取% +50 - 费用:30000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 关卡Boss额外经验 +100 - 费用:50000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 经验获取% +50 - 费用:150000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 关卡Boss额外经验 +500 - 费用:200000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 经验获取% +50 - 费用:500000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 关卡Boss额外经验 +1000 - 费用:700000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 经验获取% +50 - 费用:2000000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 关卡Boss额外经验 +2000 - 费用:3000000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 经验获取% +50 - 费用:20000000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 关卡Boss额外经验 +5000 - 费用:50000000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - ActBoss额外经验 +500 - 费用:300000</div>
-<div class="rune-item"><b>成长符文</b> (Lv1) - 普通怪额外经验 +1 - 费用:1000000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - 额外经验 +5 - 费用:5000000</div>
-<div class="rune-item"><b>成长符文</b> (Lv5) - ActBoss额外经验 +2000 - 费用:10000000</div>
-<div class="rune-item"><b>组合符文</b> (Lv5) - 炼金经验% +40 - 费用:10000</div>
-<div class="rune-item"><b>组合符文</b> (Lv5) - 炼金经验% +50 - 费用:1000000</div>
-<div class="rune-item"><b>组合符文</b> (Lv1) - 炼金经验% +100 - 费用:35000</div>
-<div class="rune-item"><b>组合符文</b> (Lv5) - 炼金经验% +50 - 费用:1000000</div>
-<div class="rune-item"><b>训练符文</b> (Lv3) - 离线经验% +100 - 费用:500</div>
-<div class="rune-item"><b>训练符文</b> (Lv3) - 离线经验% +100 - 费用:75000</div>
-<div class="rune-item"><b>训练符文</b> (Lv5) - 离线经验% +100 - 费用:1000000</div>
-<div class="rune-item"><b>训练符文</b> (Lv5) - 离线经验% +100 - 费用:5000000</div>
-<div class="rune-item"><b>训练符文</b> (Lv5) - 离线经验% +100 - 费用:10000000</div>
-<h3 style="color:var(--bl);margin:10px 0 5px">宝箱符文</h3>
-<div class="rune-item"><b>发条符文</b> (Lv1) - 自动开普通宝箱(秒) +300 - 费用:10000</div>
-<div class="rune-item"><b>发条符文</b> (Lv1) - 自动开Boss宝箱(秒) +600 - 费用:200000</div>
-<div class="rune-item"><b>发条符文</b> (Lv1) - UnlockAutoOpenActBossChest +60 - 费用:1000000</div>
-<div class="rune-item"><b>开启符文</b> (Lv1) - 一键开箱 +1 - 费用:500</div>
-<div class="rune-item"><b>开启符文</b> (Lv1) - OpenAllTypeChestAllAtOnce +1 - 费用:10000</div>
-<div class="rune-item"><b>征服符文</b> (Lv3) - Boss宝箱掉率% +200 - 费用:1000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +150 - 费用:8000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +150 - 费用:45000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:150000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:250000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:700000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:1300000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:2930000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:6600000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:12870000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:28970000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:65190000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:146690000</div>
-<div class="rune-item"><b>征服符文</b> (Lv5) - Boss宝箱掉率% +100 - 费用:330060000</div>
-<div class="rune-item"><b>探索符文</b> (Lv3) - 普通宝箱掉率% +100 - 费用:500</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +70 - 费用:3000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +70 - 费用:30000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:60000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:150000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:500000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:900000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:1950000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:4400000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:9900000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:19310000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:43460000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:97790000</div>
-<div class="rune-item"><b>探索符文</b> (Lv5) - 普通宝箱掉率% +50 - 费用:220040000</div>
-<div class="rune-item"><b>探索符文</b> (Lv3) - 普通宝箱掉率% +70 - 费用:40000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:1000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:20000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:50000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:100000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:200000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:300000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:500000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:1000000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:2000000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:3000000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:5000000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:7000000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:10000000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:15000000</div>
-<div class="rune-item"><b>收纳符文</b> (Lv1) - 普通宝箱上限 +1 - 费用:20000000</div>
-<div class="rune-item"><b>无限符文</b> (Lv1) - ActBoss宝箱上限 +1 - 费用:50000</div>
-<div class="rune-item"><b>无限符文</b> (Lv1) - ActBoss宝箱上限 +1 - 费用:100000</div>
-<div class="rune-item"><b>无限符文</b> (Lv1) - ActBoss宝箱上限 +1 - 费用:5000000</div>
-<div class="rune-item"><b>无限符文</b> (Lv1) - ActBoss宝箱上限 +1 - 费用:30000000</div>
-<div class="rune-item"><b>无限符文</b> (Lv1) - ActBoss宝箱上限 +1 - 费用:50000000</div>
-<div class="rune-item"><b>无限符文</b> (Lv1) - ActBoss宝箱上限 +1 - 费用:60000000</div>
-<div class="rune-item"><b>无限符文</b> (Lv1) - ActBoss宝箱上限 +1 - 费用:70000000</div>
-<div class="rune-item"><b>无限符文</b> (Lv1) - ActBoss宝箱上限 +1 - 费用:80000000</div>
-<div class="rune-item"><b>无限符文</b> (Lv1) - ActBoss宝箱上限 +1 - 费用:90000000</div>
-<div class="rune-item"><b>无限符文</b> (Lv1) - ActBoss宝箱上限 +1 - 费用:100000000</div>
-<div class="rune-item"><b>润滑符文</b> (Lv3) - 减少自动开箱时间 +3 - 费用:5000</div>
-<div class="rune-item"><b>润滑符文</b> (Lv3) - 减少Boss开箱时间 +5 - 费用:100000</div>
-<div class="rune-item"><b>润滑符文</b> (Lv3) - ReduceAutoOpenActBossChestTime +1 - 费用:500000</div>
-<div class="rune-item"><b>润滑符文</b> (Lv5) - 减少自动开箱时间 +2 - 费用:1000000</div>
-<div class="rune-item"><b>润滑符文</b> (Lv5) - 减少Boss开箱时间 +4 - 费用:1000000</div>
-<div class="rune-item"><b>润滑符文</b> (Lv3) - ReduceAutoOpenActBossChestTime +1 - 费用:1500000</div>
-<div class="rune-item"><b>润滑符文</b> (Lv5) - 减少自动开箱时间 +2 - 费用:5000000</div>
-<div class="rune-item"><b>润滑符文</b> (Lv5) - 减少自动开箱时间 +2 - 费用:25000000</div>
-<div class="rune-item"><b>润滑符文</b> (Lv5) - 减少Boss开箱时间 +4 - 费用:5000000</div>
-<div class="rune-item"><b>润滑符文</b> (Lv5) - 减少Boss开箱时间 +4 - 费用:25000000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:30000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:500000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:1000000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:1500000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:3000000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:5000000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:10000000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:50000000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:70000000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:90000000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:100000000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:120000000</div>
-<div class="rune-item"><b>金库符文</b> (Lv1) - Boss宝箱上限 +1 - 费用:150000000</div>
-<h3 style="color:var(--bl);margin:10px 0 5px">功能符文</h3>
-<div class="rune-item"><b>储存符文</b> (Lv1) - 解锁仓库页 +1 - 费用:10000</div>
-<div class="rune-item"><b>储存符文</b> (Lv1) - 解锁仓库页 +1 - 费用:3000000</div>
-<div class="rune-item"><b>储存符文</b> (Lv1) - 解锁仓库页 +1 - 费用:50000000</div>
-<div class="rune-item"><b>安息符文</b> (Lv1) - 解锁离线奖励 +1 - 费用:100</div>
-<div class="rune-item"><b>指挥符文</b> (Lv1) - 解锁编排槽 +1 - 费用:1000</div>
-<div class="rune-item"><b>指挥符文</b> (Lv1) - 解锁编排槽 +1 - 费用:150000</div>
-<div class="rune-item"><b>觉醒符文</b> (Lv1) - 解锁技能槽 +1 - 费用:50000</div>
-<h3 style="color:var(--bl);margin:10px 0 5px">其他符文</h3>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:300</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:1000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:5000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:20000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:100000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:300000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:1000000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:1300000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:1690000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:2200000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:2860000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:3720000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:4840000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:6290000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:1000000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:1300000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:1690000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:2200000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:2860000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:3720000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:4840000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:6290000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv3) - 最大背包格 +1 - 费用:500</div>
-<div class="rune-item"><b>扩张符文</b> (Lv5) - 最大背包格 +1 - 费用:5000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv5) - 最大背包格 +1 - 费用:30000</div>
-<div class="rune-item"><b>扩张符文</b> (Lv5) - 最大背包格 +1 - 费用:100000</div>
-<div class="rune-item"><b>缩短符文</b> (Lv1) - WaveCountReduction +1 - 费用:20000000</div>
-
+<div class="tree-container">
+<div class="tree">
+<ul><li><div class="rune-node" style="border-left:3px solid #e74c3c"><div class="rune-name">战争符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">攻击力+1</div><div class="rune-cost">100</div></div><ul><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">财富符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">Boss金币+10</div><div class="rune-cost">200</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">背包格+1</div><div class="rune-cost">300</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">背包格+1</div><div class="rune-cost">1000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">背包格+1</div><div class="rune-cost">5000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">背包格+1</div><div class="rune-cost">20000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">背包格+1</div><div class="rune-cost">100000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">背包格+1</div><div class="rune-cost">300000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">背包格+1</div><div class="rune-cost">1000000</div></div></li><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">背包格+1</div><div class="rune-cost">1000000</div></div></li><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">储存符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">仓库页+1</div><div class="rune-cost">3000000</div></div></li></ul></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">发条符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">自动Boss开箱(秒)+600</div><div class="rune-cost">200000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">润滑符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">减少Boss开箱时间+5</div><div class="rune-cost">100000</div></div></li></ul></li><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">储藏符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">离线金币%+100</div><div class="rune-cost">50000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">训练符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">离线经验%+100</div><div class="rune-cost">75000</div></div></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">储存符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">仓库页+1</div><div class="rune-cost">10000</div></div></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">发条符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">自动开箱(秒)+300</div><div class="rune-cost">10000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">润滑符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">减少开箱时间+3</div><div class="rune-cost">5000</div></div></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">安息符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">离线奖励+1</div><div class="rune-cost">100</div></div><ul><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">储藏符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">离线金币%+100</div><div class="rune-cost">500</div></div></li><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">训练符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">离线经验%+100</div><div class="rune-cost">500</div></div></li></ul></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">收纳符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">普通宝箱上限+1</div><div class="rune-cost">1000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">金库符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">Boss宝箱上限+1</div><div class="rune-cost">30000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">无限符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">ActBoss宝箱上限+1</div><div class="rune-cost">50000</div></div></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">探索符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">普通宝箱掉率%+100</div><div class="rune-cost">500</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">征服符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">Boss宝箱掉率%+200</div><div class="rune-cost">1000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">探索符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">普通宝箱掉率%+70</div><div class="rune-cost">3000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">征服符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">Boss宝箱掉率%+150</div><div class="rune-cost">8000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">探索符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">普通宝箱掉率%+70</div><div class="rune-cost">30000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">征服符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">Boss宝箱掉率%+150</div><div class="rune-cost">45000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">探索符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">普通宝箱掉率%+50</div><div class="rune-cost">60000</div></div></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">收纳符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">普通宝箱上限+1</div><div class="rune-cost">100000</div></div></li></ul></li><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">背包格+1</div><div class="rune-cost">30000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">收纳符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">普通宝箱上限+1</div><div class="rune-cost">50000</div></div></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">探索符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">普通宝箱掉率%+70</div><div class="rune-cost">40000</div></div></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">开启符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">OpenAllTypeChestAllAtOnce+1</div><div class="rune-cost">10000</div></div></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">无限符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">ActBoss宝箱上限+1</div><div class="rune-cost">100000</div></div></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">收纳符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">普通宝箱上限+1</div><div class="rune-cost">20000</div></div></li></ul></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">开启符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">一键开箱+1</div><div class="rune-cost">500</div></div></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">财富符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">额外金币+1</div><div class="rune-cost">1000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">财富符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">金币%+100</div><div class="rune-cost">1000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">财富符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">Boss金币+30</div><div class="rune-cost">2000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">财富符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">怪物金币+1</div><div class="rune-cost">20000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">财富符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">ActBoss金币+500</div><div class="rune-cost">10000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">财富符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">金币%+50</div><div class="rune-cost">30000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">财富符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">Boss金币+100</div><div class="rune-cost">50000</div></div></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">炼金符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">炼金金币%+100</div><div class="rune-cost">20000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">组合符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">炼金经验%+40</div><div class="rune-cost">10000</div></div></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">成长符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">Boss经验+10</div><div class="rune-cost">200</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">指挥符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">编排槽+1</div><div class="rune-cost">1000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">背包格+1</div><div class="rune-cost">500</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">扩张符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">背包格+1</div><div class="rune-cost">5000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">指挥符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">编排槽+1</div><div class="rune-cost">150000</div></div></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">财富符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">金币%+50</div><div class="rune-cost">500</div></div><ul><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">成长符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">经验%+50</div><div class="rune-cost">5000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #1abc9c"><div class="rune-name">觉醒符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">技能槽+1</div><div class="rune-cost">50000</div></div></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">成长符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">额外经验+1</div><div class="rune-cost">1000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">成长符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">经验%+100</div><div class="rune-cost">500</div></div><ul><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">成长符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">Boss经验+10</div><div class="rune-cost">1000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">成长符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">怪物经验+1</div><div class="rune-cost">15000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">成长符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">ActBoss经验+100</div><div class="rune-cost">6000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">成长符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">经验%+50</div><div class="rune-cost">30000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">成长符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">Boss经验+100</div><div class="rune-cost">50000</div></div></li><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">成长符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">ActBoss经验+500</div><div class="rune-cost">300000</div></div></li></ul></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #2ecc71"><div class="rune-name">组合符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">炼金经验%+100</div><div class="rune-cost">35000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #f39c12"><div class="rune-name">炼金符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">炼金金币%+40</div><div class="rune-cost">10000</div></div></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #3498db"><div class="rune-name">盾之符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">护甲+5</div><div class="rune-cost">2000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #3498db"><div class="rune-name">疾风符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">移速+30</div><div class="rune-cost">5000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #3498db"><div class="rune-name">盾之符文</div><div class="rune-lv">Lv10</div><div class="rune-effect">护甲+5</div><div class="rune-cost">2000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #3498db"><div class="rune-name">疾风符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">移速+20</div><div class="rune-cost">20000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #e74c3c"><div class="rune-name">战争符文</div><div class="rune-lv">Lv10</div><div class="rune-effect">攻击力%+20</div><div class="rune-cost">15000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #3498db"><div class="rune-name">疾风符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">移速+20</div><div class="rune-cost">20000</div></div><ul><li><div class="rune-node" style="border-left:3px solid #3498db"><div class="rune-name">盾之符文</div><div class="rune-lv">Lv5</div><div class="rune-effect">AllHeroArmorPercent+20</div><div class="rune-cost">20000</div></div></li><li><div class="rune-node" style="border-left:3px solid #e74c3c"><div class="rune-name">狂暴符文</div><div class="rune-lv">Lv3</div><div class="rune-effect">AllHeroAttackSpeed+20</div><div class="rune-cost">25000</div></div></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #e74c3c"><div class="rune-name">战争符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">攻击力+1</div><div class="rune-cost">30000</div></div></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><div class="rune-node" style="border-left:3px solid #9b59b6"><div class="rune-name">无限符文</div><div class="rune-lv">Lv1</div><div class="rune-effect">ActBoss宝箱上限+1</div><div class="rune-cost">5000000</div></div></li></ul>
+</div>
 </div>
 </body>
 </html>
