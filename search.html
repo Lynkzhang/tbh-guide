@@ -47,7 +47,14 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 <div class="c">
 
 <header><h1>素材查询</h1><p>输入素材名，查看掉落来源和概率</p></header>
-
+<div class="s" id="search">
+<h2>素材去哪刷</h2>
+<div class="search">
+<input type="text" id="si" placeholder="输入素材名称，如：木材、铁锭、黑曜石碎片" onkeyup="doSearch()">
+<div id="sr" class="result" style="display:none"></div>
+</div>
+<div class="n"><b>使用方法</b>：输入素材中文名，显示掉落来源和概率。物品名颜色=稀有度。</div>
+</div>
 
 <footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-05</p></footer>
 </div>
