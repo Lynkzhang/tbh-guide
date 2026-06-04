@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>首页 - TBH攻略站</title>
+<title>素材查询 - TBH攻略站</title>
 <style>
 :root{--bg:#f5f5f5;--card:#fff;--hd:#e8e8e8;--ac:#e94560;--tx:#333;--mu:#666;--bl:#3498db;--gn:#2ecc71}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -43,28 +43,69 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </style>
 </head>
 <body>
-<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html" class="active">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav>
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html" class="active">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav>
 <div class="c">
 
-<header>
-<h1>TBH：塔斯克巴·英雄 攻略站</h1>
-<p>拆分为多子页面，减少首页体积与卡顿</p>
-</header>
-<div class="grid">
-  <a class="cardlink" href="search.html"><h3>素材查询</h3><p>查素材从哪刷，按概率展示掉落关卡。</p></a>
-  <a class="cardlink" href="craft.html"><h3>制作配方</h3><p>查看各部位各阶材料需求。</p></a>
-  <a class="cardlink" href="chest.html"><h3>宝箱掉落</h3><p>查看宝箱物品组、权重与内容。</p></a>
-  <a class="cardlink" href="pet.html"><h3>宠物</h3><p>宠物解锁条件、刷取地点与效果。</p></a>
-  <a class="cardlink" href="stage.html"><h3>关卡怪物</h3><p>关卡、怪物、Boss、宝箱一览。</p></a>
-  <a class="cardlink" href="rarity.html"><h3>稀有度</h3><p>品级、强化槽、炼金金币。</p></a>
-  <a class="cardlink" href="class.html"><h3>职业</h3><p>基础属性、职业天赋树与技能描述。</p></a>
-  <a class="cardlink" href="rune.html"><h3>符文树</h3><p>还原游戏内坐标的符文树页面。</p></a>
-  <a class="cardlink" href="cube.html"><h3>魔方</h3><p>魔方经验、升级与功能解锁。</p></a>
-  <a class="cardlink" href="damage.html"><h3>伤害公式</h3><p>伤害、暴击、抗性与 Buff 结算。</p></a>
-</div>
+<header><h1>素材查询</h1><p>输入素材名，查看掉落来源和概率</p></header>
+
 
 <footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-05</p></footer>
 </div>
+
+<script src="data_items.js"></script>
+<script src="data_search.js"></script>
+<script>
+function gc(g) {
+    var m={'COMMON':'c-common','UNCOMMON':'c-uncommon','RARE':'c-rare','LEGENDARY':'c-legendary','IMMORTAL':'c-immortal','ARCANA':'c-arcana','BEYOND':'c-beyond','CELESTIAL':'c-celestial','DIVINE':'c-divine','COSMIC':'c-cosmic'};
+    return m[g]||'';
+}
+var RARITY_CN={'COMMON':'普通','UNCOMMON':'罕见','RARE':'稀有','LEGENDARY':'传奇','IMMORTAL':'不朽','ARCANA':'至宝','BEYOND':'超凡','CELESTIAL':'天界','DIVINE':'神圣','COSMIC':'宇宙'};
+function cn(id,name) {
+    var c=gc(GRADES[id]);
+    return c?'<span class="'+c+'">'+name+'</span>':name;
+}
+function doSearch() {
+    var q=document.getElementById('si').value.toLowerCase().trim();
+    var r=document.getElementById('sr');
+    if(q.length<1){r.style.display='none';return;}
+    var ms=[];
+    for(var id in ITEMS){if(ITEMS[id].toLowerCase().includes(q))ms.push({id:id,name:ITEMS[id]});}
+    if(ms.length===0){r.innerHTML='<p>未找到</p>';r.style.display='block';return;}
+    var h='';
+    for(var i=0;i<Math.min(ms.length,10);i++){
+        var m=ms[i];
+        h+='<div style="margin:10px 0;padding:10px;background:#fff;border-radius:5px;border:1px solid #ddd">';
+        var rn=RARITY_CN[GRADES[m.id]]||'';
+        h+='<b>'+cn(m.id,m.name)+'</b>'+(rn?' <span style="font-size:0.8em;color:#888">['+rn+']</span>':'');
+        var drops=SEARCH_ITEMS[m.id];
+        if(drops&&drops.length>0){
+            h+='<br><b>掉落来源（按概率排序）：</b><table><thead><tr><th>关卡</th><th>等级</th><th>宝箱类型</th><th>概率</th></tr></thead><tbody>';
+            for(var j=0;j<Math.min(drops.length,15);j++){
+                var d=drops[j];
+                var stages=DROP_STAGES[d.dk];
+                if(stages){
+                    for(var k=0;k<Math.min(stages.length,3);k++){
+                        var s=stages[k];
+                        h+='<tr><td>'+s.stage+'</td><td>Lv'+s.level+'</td><td>'+s.type+'</td><td>'+d.pct+'%</td></tr>';
+                    }
+                }
+            }
+            h+='</tbody></table>';
+        }else{
+            h+='<br><span style="color:#888">暂无掉落数据</span>';
+        }
+        h+='</div>';
+    }
+    r.innerHTML=h;
+    r.style.display='block';
+}
+document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('.g').forEach(function(el){
+        var ik=el.getAttribute('data-ik');
+        if(ik&&GRADES[ik]){var c=gc(GRADES[ik]);if(c)el.className='g '+c;}
+    });
+});
+</script>
 
 </body>
 </html>
