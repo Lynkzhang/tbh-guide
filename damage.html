@@ -5,684 +5,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>伤害结算公式 - TBH攻略站</title>
 <style>
-:root{--bg:#f5f5f5;--card:#fff;--hd:#e8e8e8;--ac:#e94560;--tx:#333;--mu:#666;--bl:#3498db;--gn:#2ecc71}
+:root{--bg:#f6f3ef;--card:#fffdf9;--hd:#efe7de;--ac:#d94f70;--tx:#2f2a26;--mu:#74685d;--bl:#5d7fd6;--line:#e8ddd1}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
 .c{max-width:1200px;margin:0 auto;padding:16px}
-/* ===== 顶部导航栏 ===== */
-.topnav{background:linear-gradient(135deg,#2c2c3e,#1a1a2e);padding:0;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:0}
-.topnav .logo{color:#ffd700;font-weight:bold;font-size:.95em;padding:12px 20px;white-space:nowrap;text-decoration:none;border-right:1px solid rgba(255,255,255,.1)}
-.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:0;flex:1}
-.topnav ul li a{display:block;color:rgba(255,255,255,.75);padding:12px 16px;font-size:.85em;text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
-.topnav ul li a:hover,.topnav ul li a.active{background:rgba(255,255,255,.1);color:#ffd700}
-/* ===== 页面内容 ===== */
-header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
-header h1{color:#fff;font-size:1.8em}
-header p{color:rgba(255,255,255,.8);font-size:.85em;margin-top:4px}
-.s{background:var(--card);padding:18px;border-radius:10px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
-.s h3{color:var(--bl);margin:14px 0 8px;font-size:1em}
-.s h4{color:var(--mu);margin:10px 0 6px;font-size:.9em}
-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85em}
-th,td{padding:7px 10px;border:1px solid #ddd;text-align:left}
-th{background:var(--hd);color:var(--tx)}
-tr:nth-child(even){background:#f9f9f9}
-tr:hover{background:#f0f0f0}
-.note{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
-.note b{color:#856404}
-.tip{background:#d1ecf1;padding:10px 14px;border-left:3px solid #17a2b8;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#0c5460}
-.formula{background:#1a1a2e;color:#e0e0e0;padding:14px 18px;border-radius:8px;margin:12px 0;font-family:monospace;font-size:.9em;line-height:1.8;border:1px solid #3a3a5e}
-.formula .kw{color:#ffd700}
-.formula .val{color:#7ec8e3}
-.formula .cmt{color:#6a9955}
-.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75em;font-weight:bold;margin-right:4px;vertical-align:middle}
-.badge-atk{background:#c0392b;color:#fff}
-.badge-def{background:#2980b9;color:#fff}
-.badge-gold{background:#d4a017;color:#fff}
-.badge-exp{background:#27ae60;color:#fff}
-.badge-func{background:#16a085;color:#fff}
-.badge-chest{background:#8e44ad;color:#fff}
-/* 稀有度颜色 */
-.c-common{color:#888}.c-uncommon{color:#3b7b1d}.c-rare{color:#21528e}
-.c-legendary{color:#904503}.c-immortal{color:#8c1818}.c-arcana{color:#652284}
-.c-beyond{color:#8f1e45}.c-celestial{color:#0e9aa7}.c-divine{color:#d4a017}.c-cosmic{color:#6c2f1f}
-.search{background:var(--card);padding:16px;border-radius:10px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.search input{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;font-size:1em}
-.search input:focus{outline:none;border-color:var(--ac)}
-.result{background:#f8f9fa;padding:12px;border-radius:8px;margin-top:10px;border:1px solid #ddd}
-footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
-@media(max-width:768px){.topnav ul li a{padding:10px 10px;font-size:.8em}table{font-size:.75em}}
+.topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid #e8ddd1;border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
+.topnav .logo{color:#d94f70;font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid #e8ddd1;border-radius:12px}
+.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.topnav ul li a{display:block;color:#74685d;padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.topnav ul li a:hover{background:#fff;color:#d94f70;border-color:#e8ddd1;transform:translateY(-1px)}
+.topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
+@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}}
 </style>
 </head>
 <body>
 <nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html" class="active">伤害公式</a></li></ul></div></nav><div class="c">
 
-<header>
-<h1>伤害结算公式</h1>
-<p>基础伤害 · 暴击 · 抗性减免 · Buff/Debuff</p>
-</header>
+<header><h1>伤害结算公式</h1><p>重新整理为“已确认数据 / 待确认推导”两部分</p></header>
 
 <div class="s">
-<h2>总览：伤害结算流程</h2>
-<div class="formula">
-<span class="cmt"># 最终伤害 = 基础伤害 × 暴击倍率 × 属性加成 × 抗性减免 × Buff/Debuff倍率</span>
-
-<span class="kw">最终伤害</span> =
-  <span class="val">BaseDamage</span>
-  × <span class="val">CritMultiplier</span>
-  × <span class="val">ElementalBonus</span>
-  × <span class="val">ResistanceFactor</span>
-  × <span class="val">BuffMultiplier</span>
-</div>
-<div class="note"><b>注：</b>以下公式基于游戏代码结构分析（<code>StatModInfoData</code>、<code>BuffInfoData</code>、<code>HeroInfoData</code>）。
-FLAT = 直接加值；ADDITIVE = 百分比加法叠加后统一计算；MULTIPLICATIVE = 独立乘算。</div>
+<h2>先说结论</h2>
+<div class="note"><b>重要：</b>职业表里的 <code>CriticalChance</code> 与 <code>CriticalDamage</code> 是游戏数据表原始参数，<b>不能直接等同于角色面板显示的暴击率 / 暴伤百分比</b>。之前把它直接写成 25% / 40% / 50% 是不严谨的，这里已修正。</div>
+<div class="tip"><b>你反馈是对的：</b>如果你 40 级角色实际面板只有十几暴击，那么当前最稳的说法只能是“HeroInfoData 里存在暴击参数”，不能直接当成最终面板值。</div>
 </div>
 
 <div class="s">
-<h2>① 基础伤害</h2>
+<h2>伤害结算流程</h2>
 <div class="formula">
-<span class="cmt"># AttackDamage = 装备基础值 + FLAT附加 + 职业基础攻击</span>
-<span class="kw">AttackDamage</span> = BaseEquipAtk
-  + Σ(FLAT型词缀)
-  + HeroBaseAtk
-
-<span class="cmt"># 然后乘以所有 ADDITIVE 百分比加法总和</span>
-<span class="kw">AttackDamage_boosted</span> = AttackDamage × (1 + Σ ADDITIVE%)
-
-<span class="cmt"># 再乘以每个 MULTIPLICATIVE 独立乘算</span>
-<span class="kw">AttackDamage_final</span> = AttackDamage_boosted × Π(1 + MULTIPLICATIVE_i%)
+  <span class="cmt">已确认：词缀分为 FLAT / ADDITIVE / MULTIPLICATIVE 三种</span>
+  <span class="line"><span class="kw">基础伤害</span> = 装备基础值 + 固定值加成(FLAT) + 角色基础攻击参数</span>
+  <span class="line"><span class="kw">加法增伤后</span> = 基础伤害 × (1 + 所有 ADDITIVE 加成总和)</span>
+  <span class="line"><span class="kw">最终伤害</span> = 加法增伤后 × 所有 MULTIPLICATIVE 乘算项</span>
+  <span class="line"><span class="kw">元素/抗性</span> = 再叠加元素伤害加成与目标抗性修正</span>
+  <span class="line"><span class="kw">暴击</span> = 存在暴击参数，但“参数值 -> 面板暴击率”的换算仍待确认</span>
+</div>
 </div>
 
-<h3>职业基础属性</h3>
+<div class="s">
+<h2>职业原始参数（来自 HeroInfoData）</h2>
 <table>
-<thead><tr><th>职业</th><th>基础攻击</th><th>攻速</th><th>暴击率</th><th>暴伤</th><th>HP</th><th>护甲</th></tr></thead>
-<tbody>
-<tr><td>骑士</td><td>2</td><td>90</td><td>25%</td><td>1400%</td><td>130</td><td>45</td></tr>
-<tr><td>游侠</td><td>1</td><td>100</td><td>40%</td><td>1500%</td><td>60</td><td>8</td></tr>
-<tr><td>术士</td><td>2</td><td>55</td><td>50%</td><td>1650%</td><td>50</td><td>5</td></tr>
-<tr><td>牧师</td><td>1</td><td>90</td><td>20%</td><td>1400%</td><td>95</td><td>30</td></tr>
-<tr><td>猎人</td><td>2</td><td>70</td><td>45%</td><td>1550%</td><td>70</td><td>15</td></tr>
-<tr><td>屠杀者</td><td>2</td><td>70</td><td>25%</td><td>1800%</td><td>115</td><td>40</td></tr>
-</tbody>
+<thead><tr><th>职业</th><th>攻击参数</th><th>攻速参数</th><th>暴击参数</th><th>暴伤参数</th><th>HP参数</th><th>护甲参数</th></tr></thead>
+<tbody><tr><td>骑士</td><td>2</td><td>90</td><td>25</td><td>1400</td><td>130</td><td>45</td></tr><tr><td>游侠</td><td>1</td><td>100</td><td>40</td><td>1500</td><td>60</td><td>8</td></tr><tr><td>术士</td><td>2</td><td>55</td><td>50</td><td>1650</td><td>50</td><td>5</td></tr><tr><td>牧师</td><td>1</td><td>90</td><td>20</td><td>1400</td><td>95</td><td>30</td></tr><tr><td>猎人</td><td>2</td><td>70</td><td>45</td><td>1550</td><td>70</td><td>15</td></tr><tr><td>屠杀者</td><td>2</td><td>70</td><td>25</td><td>1800</td><td>115</td><td>40</td></tr></tbody>
+</table>
+<div class="note"><b>解释：</b>这里刻意写成“参数”而不是“百分比”，避免继续误导。后续如果能从代码或面板实测反推出换算关系，再单独补上。</div>
+</div>
+
+<div class="s">
+<h2>Buff / Debuff 影响方式</h2>
+<div class="formula">
+  <span class="line"><span class="kw">FLAT</span> 直接加到属性上</span>
+  <span class="line"><span class="kw">ADDITIVE</span> 先求和，再统一乘到基值上</span>
+  <span class="line"><span class="kw">MULTIPLICATIVE</span> 作为独立乘算项继续相乘</span>
+</div>
+<table>
+<thead><tr><th>BuffKey</th><th>类型</th><th>属性</th><th>方式</th><th>值</th></tr></thead>
+<tbody><tr><td>1011</td><td>Debuff</td><td>攻速</td><td>独立乘算</td><td>300</td></tr><tr><td>1012</td><td>Debuff</td><td>移速</td><td>独立乘算</td><td>300</td></tr><tr><td>1031</td><td>Debuff</td><td>FireDamageAddition</td><td>固定值</td><td>200</td></tr><tr><td>1041</td><td>Debuff</td><td>LightningDamageAddition</td><td>固定值</td><td>200</td></tr><tr><td>1051</td><td>Debuff</td><td>PhysicalDamageAddition</td><td>固定值</td><td>200</td></tr><tr><td>1061</td><td>Debuff</td><td>DamageAddition</td><td>固定值</td><td>100</td></tr><tr><td>105011</td><td>Buff</td><td>攻击伤害</td><td>加法叠加</td><td>500</td></tr><tr><td>204011</td><td>Buff</td><td>攻速</td><td>加法叠加</td><td>500</td></tr><tr><td>402011</td><td>Buff</td><td>攻击伤害</td><td>独立乘算</td><td>-</td></tr><tr><td>405011</td><td>Buff</td><td>火焰抗性</td><td>固定值</td><td>-</td></tr><tr><td>405012</td><td>Buff</td><td>冰冷抗性</td><td>固定值</td><td>-</td></tr><tr><td>405013</td><td>Buff</td><td>闪电抗性</td><td>固定值</td><td>-</td></tr><tr><td>503011</td><td>Buff</td><td>攻速</td><td>独立乘算</td><td>1000</td></tr><tr><td>603011</td><td>Buff</td><td>暴击参数</td><td>加法叠加</td><td>300</td></tr><tr><td>605011</td><td>Buff</td><td>移速</td><td>独立乘算</td><td>200</td></tr><tr><td>606011</td><td>Buff</td><td>攻击伤害</td><td>独立乘算</td><td>1000</td></tr><tr><td>2090211</td><td>Buff</td><td>攻速</td><td>独立乘算</td><td>1000</td></tr><tr><td>9100011</td><td>Debuff</td><td>火焰抗性</td><td>固定值</td><td>20</td></tr><tr><td>9100012</td><td>Debuff</td><td>冰冷抗性</td><td>固定值</td><td>20</td></tr><tr><td>9100013</td><td>Debuff</td><td>闪电抗性</td><td>固定值</td><td>20</td></tr><tr><td>9100014</td><td>Debuff</td><td>混沌抗性</td><td>固定值</td><td>20</td></tr><tr><td>9100021</td><td>Debuff</td><td>火焰抗性</td><td>固定值</td><td>40</td></tr><tr><td>9100022</td><td>Debuff</td><td>冰冷抗性</td><td>固定值</td><td>40</td></tr><tr><td>9100023</td><td>Debuff</td><td>闪电抗性</td><td>固定值</td><td>40</td></tr><tr><td>9100024</td><td>Debuff</td><td>混沌抗性</td><td>固定值</td><td>40</td></tr><tr><td>9100031</td><td>Debuff</td><td>火焰抗性</td><td>固定值</td><td>60</td></tr><tr><td>9100032</td><td>Debuff</td><td>冰冷抗性</td><td>固定值</td><td>60</td></tr><tr><td>9100033</td><td>Debuff</td><td>闪电抗性</td><td>固定值</td><td>60</td></tr><tr><td>9100034</td><td>Debuff</td><td>混沌抗性</td><td>固定值</td><td>60</td></tr></tbody>
 </table>
 </div>
 
 <div class="s">
-<h2>② 暴击结算</h2>
-<div class="formula">
-<span class="cmt"># 暴击判定</span>
-<span class="kw">IsCrit</span> = random(0,100) &lt; CriticalChance
-
-<span class="cmt"># 暴击伤害</span>
-<span class="kw">CritMultiplier</span> = IsCrit ? (CriticalDamage / 100) : 1.0
-
-<span class="cmt"># 暴击率上限 = 100%，暴击伤害无上限</span>
-<span class="cmt"># 暴击率 = 职业基础 + Σ装备词缀(CriticalChance) + 符文/技能加成</span>
-</div>
-<div class="tip"><b>示例：</b>术士基础暴击率50% + 装备+30% = 80%暴击率，基础暴伤1650%，暴击时造成 AttackDamage × 16.5 伤害。</div>
-</div>
-
-<div class="s">
-<h2>③ 属性伤害（元素加成）</h2>
-<div class="formula">
-<span class="cmt"># 元素伤害：技能描述中 物理/火焰/冰冷/闪电/混沌 伤害</span>
-<span class="kw">ElementalBonus</span> = 1 + ElementDamageAddition / 100
-
-<span class="cmt"># DamageAddition 全伤害类型加成（Buff Debuff 1061：+100 固定值）</span>
-<span class="kw">DmgAdd</span> = Σ FlatDamageAddition
-
-<span class="cmt"># 最终技能伤害 = (AttackDamage × SkillScaling%) × ElementalBonus</span>
-</div>
-<div class="note"><b>Debuff 说明：</b>
-<br>• Buff 1031：火焰伤害附加 +200（FLAT），使目标受到火焰伤害时额外承受200固定值。
-<br>• Buff 1041：闪电伤害附加 +200
-<br>• Buff 1051：物理伤害附加 +200
-<br>• Buff 1061：全伤害附加 +100
-</div>
-</div>
-
-<div class="s">
-<h2>④ 抗性减免</h2>
-<div class="formula">
-<span class="cmt"># 抗性：目标的火/冰/雷/混沌 Resistance（来自 Debuff 降低）</span>
-<span class="cmt"># Debuff 9100011~9100034：降低对应抗性 20/40/60 点</span>
-
-<span class="kw">ResistanceFactor</span> = max(0, 1 - EffectiveResistance / 100)
-
-<span class="cmt"># EffectiveResistance = 目标基础抗性 - Σ 抗性减少Debuff</span>
-<span class="cmt"># 抗性可以被降到负数（对应超额伤害加成）</span>
-</div>
+<h2>常见词缀（Tier 1 示例）</h2>
 <table>
-<thead><tr><th>Debuff</th><th>效果</th><th>降低量</th></tr></thead>
-<tbody>
-<tr><td>9100011~14</td><td>火/冰/雷/混沌 抗性 -20</td><td>-20</td></tr>
-<tr><td>9100021~24</td><td>火/冰/雷/混沌 抗性 -40</td><td>-40</td></tr>
-<tr><td>9100031~34</td><td>火/冰/雷/混沌 抗性 -60</td><td>-60</td></tr>
-</tbody>
+<thead><tr><th>词缀Key</th><th>属性</th><th>计算方式</th><th>T1范围</th></tr></thead>
+<tbody><tr><td>100101</td><td>攻击伤害</td><td>固定值</td><td>1 ~ 2</td></tr><tr><td>100102</td><td>攻击伤害</td><td>加法叠加</td><td>50 ~ 100</td></tr><tr><td>100301</td><td>暴击参数</td><td>固定值</td><td>3 ~ 5</td></tr><tr><td>100401</td><td>暴伤参数</td><td>固定值</td><td>100 ~ 150</td></tr><tr><td>100501</td><td>最大生命</td><td>固定值</td><td>10 ~ 30</td></tr><tr><td>100502</td><td>最大生命</td><td>加法叠加</td><td>50 ~ 80</td></tr><tr><td>100601</td><td>护甲</td><td>固定值</td><td>25 ~ 50</td></tr><tr><td>100602</td><td>护甲</td><td>加法叠加</td><td>100 ~ 150</td></tr><tr><td>100701</td><td>冷却缩减</td><td>固定值</td><td>10 ~ 25</td></tr><tr><td>100801</td><td>移速</td><td>加法叠加</td><td>100 ~ 150</td></tr><tr><td>100302</td><td>暴击参数</td><td>加法叠加</td><td>100 ~ 150</td></tr><tr><td>105202</td><td>移速</td><td>固定值</td><td>10 ~ 17</td></tr></tbody>
 </table>
 </div>
 
-<div class="s">
-<h2>⑤ Buff 乘算</h2>
-<div class="formula">
-<span class="cmt"># Buff 105011：攻击伤害 ADDITIVE +500（即+5%，值单位为万分比还是千分比需确认）</span>
-<span class="cmt"># Buff 606011：攻击伤害 MULTIPLICATIVE ×1000（即×10 或 +1000%？待确认单位）</span>
-<span class="cmt"># 根据 MODTYPE 区分：</span>
-
-<span class="kw">BuffMultiplier</span> =
-  Π(1 + MULTIPLICATIVE型Buff值 / 10000)  <span class="cmt"># 推测单位为 10000=100%</span>
+<footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-05</p></footer>
 </div>
-<div class="note"><b>单位说明（推测）：</b>游戏内属性值使用整数，1000 = 100%（千分比）或 10000 = 100%（万分比）。
-Buff 1011 攻速 Debuff 值=300，减速后攻速降低 30%（推测为 1000=100%）。具体系数建议实测验证。</div>
-
-<h3>Buff 列表（来自 BuffInfoData）</h3>
-<table>
-<thead><tr><th>BuffKey</th><th>类型</th><th>属性</th><th>计算方式</th><th>数值</th></tr></thead>
-<tbody><tr>
-<td>1011</td>
-<td>Debuff</td>
-<td>攻速</td>
-<td>乘法</td>
-<td>300</td>
-</tr><tr>
-<td>1012</td>
-<td>Debuff</td>
-<td>移速</td>
-<td>乘法</td>
-<td>300</td>
-</tr><tr>
-<td>1031</td>
-<td>Debuff</td>
-<td>火焰伤害附加</td>
-<td>固定值</td>
-<td>200</td>
-</tr><tr>
-<td>1041</td>
-<td>Debuff</td>
-<td>闪电伤害附加</td>
-<td>固定值</td>
-<td>200</td>
-</tr><tr>
-<td>1051</td>
-<td>Debuff</td>
-<td>物理伤害附加</td>
-<td>固定值</td>
-<td>200</td>
-</tr><tr>
-<td>1061</td>
-<td>Debuff</td>
-<td>伤害附加</td>
-<td>固定值</td>
-<td>100</td>
-</tr><tr>
-<td>105011</td>
-<td>Buff</td>
-<td>攻击伤害</td>
-<td>百分比加法</td>
-<td>500</td>
-</tr><tr>
-<td>204011</td>
-<td>Buff</td>
-<td>攻速</td>
-<td>百分比加法</td>
-<td>500</td>
-</tr><tr>
-<td>402011</td>
-<td>Buff</td>
-<td>攻击伤害</td>
-<td>乘法</td>
-<td>-</td>
-</tr><tr>
-<td>405011</td>
-<td>Buff</td>
-<td>火焰抗性</td>
-<td>固定值</td>
-<td>-</td>
-</tr><tr>
-<td>405012</td>
-<td>Buff</td>
-<td>冰冷抗性</td>
-<td>固定值</td>
-<td>-</td>
-</tr><tr>
-<td>405013</td>
-<td>Buff</td>
-<td>闪电抗性</td>
-<td>固定值</td>
-<td>-</td>
-</tr><tr>
-<td>503011</td>
-<td>Buff</td>
-<td>攻速</td>
-<td>乘法</td>
-<td>1000</td>
-</tr><tr>
-<td>603011</td>
-<td>Buff</td>
-<td>暴击率</td>
-<td>百分比加法</td>
-<td>300</td>
-</tr><tr>
-<td>605011</td>
-<td>Buff</td>
-<td>移速</td>
-<td>乘法</td>
-<td>200</td>
-</tr><tr>
-<td>606011</td>
-<td>Buff</td>
-<td>攻击伤害</td>
-<td>乘法</td>
-<td>1000</td>
-</tr><tr>
-<td>2090211</td>
-<td>Buff</td>
-<td>攻速</td>
-<td>乘法</td>
-<td>1000</td>
-</tr><tr>
-<td>9100011</td>
-<td>Debuff</td>
-<td>火焰抗性</td>
-<td>固定值</td>
-<td>20</td>
-</tr><tr>
-<td>9100012</td>
-<td>Debuff</td>
-<td>冰冷抗性</td>
-<td>固定值</td>
-<td>20</td>
-</tr><tr>
-<td>9100013</td>
-<td>Debuff</td>
-<td>闪电抗性</td>
-<td>固定值</td>
-<td>20</td>
-</tr><tr>
-<td>9100014</td>
-<td>Debuff</td>
-<td>混沌抗性</td>
-<td>固定值</td>
-<td>20</td>
-</tr><tr>
-<td>9100021</td>
-<td>Debuff</td>
-<td>火焰抗性</td>
-<td>固定值</td>
-<td>40</td>
-</tr><tr>
-<td>9100022</td>
-<td>Debuff</td>
-<td>冰冷抗性</td>
-<td>固定值</td>
-<td>40</td>
-</tr><tr>
-<td>9100023</td>
-<td>Debuff</td>
-<td>闪电抗性</td>
-<td>固定值</td>
-<td>40</td>
-</tr><tr>
-<td>9100024</td>
-<td>Debuff</td>
-<td>混沌抗性</td>
-<td>固定值</td>
-<td>40</td>
-</tr><tr>
-<td>9100031</td>
-<td>Debuff</td>
-<td>火焰抗性</td>
-<td>固定值</td>
-<td>60</td>
-</tr><tr>
-<td>9100032</td>
-<td>Debuff</td>
-<td>冰冷抗性</td>
-<td>固定值</td>
-<td>60</td>
-</tr><tr>
-<td>9100033</td>
-<td>Debuff</td>
-<td>闪电抗性</td>
-<td>固定值</td>
-<td>60</td>
-</tr><tr>
-<td>9100034</td>
-<td>Debuff</td>
-<td>混沌抗性</td>
-<td>固定值</td>
-<td>60</td>
-</tr></tbody>
-</table>
-</div>
-
-<div class="s">
-<h2>⑥ 词缀系统（StatMod）</h2>
-<div class="note"><b>词缀说明：</b>装备词缀分为 FLAT（固定值）和 ADDITIVE（百分比加法）以及 MULTIPLICATIVE（乘法）三种计算方式。
-同类型词缀先叠加再计算。</div>
-<div class="formula">
-<span class="cmt"># 最终伤害的词缀加成叠加方式：</span>
-FinalAtk = (BaseAtk + ΣFlat) × (1 + ΣADDITIVE/100) × Π(1 + MULTIPLICATIVE_i/100)
-</div>
-<table>
-<thead><tr><th>词缀Key</th><th>属性类型</th><th>计算方式</th><th>T1数值范围</th></tr></thead>
-<tbody><tr>
-<td>100101</td>
-<td>攻击伤害</td>
-<td>固定值</td>
-<td>1 ~ 2</td>
-</tr><tr>
-<td>100102</td>
-<td>攻击伤害</td>
-<td>百分比加法</td>
-<td>50 ~ 100</td>
-</tr><tr>
-<td>100201</td>
-<td>攻速</td>
-<td>百分比加法</td>
-<td>40 ~ 50</td>
-</tr><tr>
-<td>100301</td>
-<td>暴击率</td>
-<td>固定值</td>
-<td>3 ~ 5</td>
-</tr><tr>
-<td>100401</td>
-<td>CriticalDamage</td>
-<td>固定值</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>100501</td>
-<td>MaxHp</td>
-<td>固定值</td>
-<td>10 ~ 30</td>
-</tr><tr>
-<td>100502</td>
-<td>MaxHp</td>
-<td>百分比加法</td>
-<td>50 ~ 80</td>
-</tr><tr>
-<td>100601</td>
-<td>Armor</td>
-<td>固定值</td>
-<td>25 ~ 50</td>
-</tr><tr>
-<td>100602</td>
-<td>Armor</td>
-<td>百分比加法</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>100701</td>
-<td>CooldownReduction</td>
-<td>固定值</td>
-<td>10 ~ 25</td>
-</tr><tr>
-<td>100801</td>
-<td>移速</td>
-<td>百分比加法</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>100901</td>
-<td>AreaOfEffect</td>
-<td>百分比加法</td>
-<td>70 ~ 80</td>
-</tr><tr>
-<td>101001</td>
-<td>BaseAttackCountReduction</td>
-<td>固定值</td>
-<td>1 ~ 1</td>
-</tr><tr>
-<td>101101</td>
-<td>SkillRangeExpansion</td>
-<td>固定值</td>
-<td>30 ~ 40</td>
-</tr><tr>
-<td>101201</td>
-<td>火焰抗性</td>
-<td>固定值</td>
-<td>5 ~ 10</td>
-</tr><tr>
-<td>101301</td>
-<td>冰冷抗性</td>
-<td>固定值</td>
-<td>5 ~ 10</td>
-</tr><tr>
-<td>101401</td>
-<td>闪电抗性</td>
-<td>固定值</td>
-<td>5 ~ 10</td>
-</tr><tr>
-<td>101501</td>
-<td>混沌抗性</td>
-<td>固定值</td>
-<td>5 ~ 10</td>
-</tr><tr>
-<td>101601</td>
-<td>DodgeChance</td>
-<td>固定值</td>
-<td>25 ~ 35</td>
-</tr><tr>
-<td>101701</td>
-<td>BlockChance</td>
-<td>固定值</td>
-<td>25 ~ 35</td>
-</tr><tr>
-<td>101801</td>
-<td>MaxDodgeChance</td>
-<td>固定值</td>
-<td>5 ~ 10</td>
-</tr><tr>
-<td>101901</td>
-<td>MaxBlockChance</td>
-<td>固定值</td>
-<td>5 ~ 10</td>
-</tr><tr>
-<td>102001</td>
-<td>Multistrike</td>
-<td>固定值</td>
-<td>1 ~ 1</td>
-</tr><tr>
-<td>102101</td>
-<td>HpLeech</td>
-<td>固定值</td>
-<td>10 ~ 20</td>
-</tr><tr>
-<td>102201</td>
-<td>ProjectileCount</td>
-<td>固定值</td>
-<td>1 ~ 1</td>
-</tr><tr>
-<td>102301</td>
-<td>HpRegenPerSec</td>
-<td>固定值</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>102401</td>
-<td>PhysicalDamagePercent</td>
-<td>固定值</td>
-<td>100 ~ 200</td>
-</tr><tr>
-<td>102501</td>
-<td>FireDamagePercent</td>
-<td>固定值</td>
-<td>100 ~ 200</td>
-</tr><tr>
-<td>102601</td>
-<td>ColdDamagePercent</td>
-<td>固定值</td>
-<td>100 ~ 200</td>
-</tr><tr>
-<td>102701</td>
-<td>LightningDamagePercent</td>
-<td>固定值</td>
-<td>100 ~ 200</td>
-</tr><tr>
-<td>102801</td>
-<td>ChaosDamagePercent</td>
-<td>固定值</td>
-<td>100 ~ 200</td>
-</tr><tr>
-<td>102901</td>
-<td>MaxFireResistance</td>
-<td>固定值</td>
-<td>1 ~ 3</td>
-</tr><tr>
-<td>103001</td>
-<td>MaxColdResistance</td>
-<td>固定值</td>
-<td>1 ~ 3</td>
-</tr><tr>
-<td>103101</td>
-<td>MaxLightningResistance</td>
-<td>固定值</td>
-<td>1 ~ 3</td>
-</tr><tr>
-<td>103201</td>
-<td>MaxChaosResistance</td>
-<td>固定值</td>
-<td>1 ~ 3</td>
-</tr><tr>
-<td>103301</td>
-<td>AddHpPerHit</td>
-<td>固定值</td>
-<td>1 ~ 2</td>
-</tr><tr>
-<td>100302</td>
-<td>暴击率</td>
-<td>百分比加法</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>103401</td>
-<td>DamageReduction</td>
-<td>固定值</td>
-<td>10 ~ 20</td>
-</tr><tr>
-<td>103501</td>
-<td>PhysicalDamageReduction</td>
-<td>固定值</td>
-<td>10 ~ 25</td>
-</tr><tr>
-<td>103601</td>
-<td>FireDamageReduction</td>
-<td>固定值</td>
-<td>10 ~ 25</td>
-</tr><tr>
-<td>103701</td>
-<td>ColdDamageReduction</td>
-<td>固定值</td>
-<td>10 ~ 25</td>
-</tr><tr>
-<td>103801</td>
-<td>LightningDamageReduction</td>
-<td>固定值</td>
-<td>10 ~ 25</td>
-</tr><tr>
-<td>103901</td>
-<td>ChaosDamageReduction</td>
-<td>固定值</td>
-<td>10 ~ 25</td>
-</tr><tr>
-<td>104001</td>
-<td>DamageAbsorption</td>
-<td>固定值</td>
-<td>10 ~ 10</td>
-</tr><tr>
-<td>104101</td>
-<td>伤害附加</td>
-<td>固定值</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>104201</td>
-<td>物理伤害附加</td>
-<td>固定值</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>104301</td>
-<td>火焰伤害附加</td>
-<td>固定值</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>104401</td>
-<td>ColdDamageAddition</td>
-<td>固定值</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>104501</td>
-<td>闪电伤害附加</td>
-<td>固定值</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>104601</td>
-<td>ChaosDamageAddition</td>
-<td>固定值</td>
-<td>100 ~ 150</td>
-</tr><tr>
-<td>104701</td>
-<td>IncreaseExpAmount</td>
-<td>固定值</td>
-<td>10 ~ 19</td>
-</tr><tr>
-<td>104801</td>
-<td>AdditionalExp</td>
-<td>固定值</td>
-<td>10 ~ 20</td>
-</tr><tr>
-<td>104901</td>
-<td>CastSpeed</td>
-<td>百分比加法</td>
-<td>80 ~ 100</td>
-</tr><tr>
-<td>105201</td>
-<td>AllElementalResistance</td>
-<td>固定值</td>
-<td>5 ~ 7</td>
-</tr><tr>
-<td>105202</td>
-<td>移速</td>
-<td>固定值</td>
-<td>10 ~ 17</td>
-</tr><tr>
-<td>105301</td>
-<td>AddHpPerKill</td>
-<td>固定值</td>
-<td>2 ~ 4</td>
-</tr><tr>
-<td>105401</td>
-<td>IncreaseAreaOfEffectDamage</td>
-<td>百分比加法</td>
-<td>100 ~ 200</td>
-</tr><tr>
-<td>105501</td>
-<td>IncreaseMeleeDamage</td>
-<td>百分比加法</td>
-<td>100 ~ 200</td>
-</tr><tr>
-<td>105601</td>
-<td>IncreaseProjectileDamage</td>
-<td>百分比加法</td>
-<td>100 ~ 200</td>
-</tr><tr>
-<td>105701</td>
-<td>IncreaseSummonDamage</td>
-<td>百分比加法</td>
-<td>100 ~ 200</td>
-</tr><tr>
-<td>105801</td>
-<td>SkillDurationIncrease</td>
-<td>百分比加法</td>
-<td>34 ~ 80</td>
-</tr><tr>
-<td>105901</td>
-<td>SkillHealIncrease</td>
-<td>百分比加法</td>
-<td>34 ~ 80</td>
-</tr></tbody>
-</table>
-</div>
-
-<footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-04</p></footer>
-</div>
-
 </body>
 </html>

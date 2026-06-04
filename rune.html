@@ -36,21 +36,20 @@ svg{display:block}
 .rune-table tr:hover{background:#f5f5f5}
 .cat-header{background:#f0e8d8;font-weight:bold;color:#5a4a3a}
 .hint{text-align:center;margin-top:8px;font-size:.8em;color:#888}
-
-.topnav{background:linear-gradient(135deg,#2c2c3e,#1a1a2e);padding:0;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:0}
-.topnav .logo{color:#ffd700;font-weight:bold;font-size:.95em;padding:12px 20px;white-space:nowrap;text-decoration:none;border-right:1px solid rgba(255,255,255,.1)}
-.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:0;flex:1}
-.topnav ul li a{display:block;color:rgba(255,255,255,.75);padding:12px 16px;font-size:.85em;text-decoration:none;transition:background .15s,color .15s}
-.topnav ul li a:hover,.topnav ul li a.active{background:rgba(255,255,255,.1);color:#ffd700}
-
-
+.topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid #e8ddd1;border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
+.topnav .logo{color:#d94f70;font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid #e8ddd1;border-radius:12px}
+.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.topnav ul li a{display:block;color:#74685d;padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.topnav ul li a:hover{background:#fff;color:#d94f70;border-color:#e8ddd1;transform:translateY(-1px)}
+.topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
+@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}}
 </style>
 </head>
 <body>
-<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html" class="active">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav><h1>TBH 符文树</h1>
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html" class="active">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav>
+<h1>TBH 符文树</h1>
 <p class="subtitle">全局加点系统 | 共 197 个节点 | 布局还原游戏内</p>
-
 <div class="legend">
 <b>分类：</b>
 <div class="legend-item"><span class="legend-color" style="background:#c0392b"></span>攻击</div>
@@ -61,12 +60,10 @@ svg{display:block}
 <div class="legend-item"><span class="legend-color" style="background:#16a085"></span>功能</div>
 <div class="legend-item"><span class="legend-color" style="background:#7f8c8d"></span>其他</div>
 </div>
-
 <div class="tabs">
 <div class="tab active" onclick="showView(event,'tree')">符文图</div>
 <div class="tab" onclick="showView(event,'list')">符文列表</div>
 </div>
-
 <div class="tree-wrap tree-view">
   <div class="controls">
     <button onclick="zoom(1.2)" title="放大">＋</button>
@@ -481,7 +478,6 @@ svg{display:block}
   </div>
 </div>
 <div class="hint">滚轮缩放 · 拖动平移 · 双击重置 · 悬停查看详情</div>
-
 <div class="list-view">
 <table class="rune-table">
 <thead><tr><th>名称</th><th>等级</th><th>效果</th><th>费用</th></tr></thead>
@@ -693,27 +689,21 @@ svg{display:block}
 </tbody>
 </table>
 </div>
-
 <div id="tooltip" class="tooltip" style="display:none"></div>
-
 <script>
 const NODES = [{id:"1",name:"战争符文",level:1,effect:"攻击力+1",cost:100,x:726.0,y:564.0,cat:"攻击"},{id:"10",name:"财富符文",level:3,effect:"Boss金币+10",cost:200,x:726.0,y:510.0,cat:"金币"},{id:"20",name:"成长符文",level:3,effect:"Boss经验+10",cost:200,x:726.0,y:618.0,cat:"经验"},{id:"11",name:"扩张符文",level:3,effect:"背包格+1",cost:300,x:726.0,y:456.0,cat:"其他"},{id:"12",name:"扩张符文",level:3,effect:"背包格+1",cost:1000,x:726.0,y:402.0,cat:"其他"},{id:"13",name:"扩张符文",level:3,effect:"背包格+1",cost:5000,x:726.0,y:348.0,cat:"其他"},{id:"14",name:"扩张符文",level:3,effect:"背包格+1",cost:20000,x:726.0,y:294.0,cat:"其他"},{id:"15",name:"扩张符文",level:3,effect:"背包格+1",cost:100000,x:726.0,y:240.0,cat:"其他"},{id:"16",name:"扩张符文",level:3,effect:"背包格+1",cost:300000,x:726.0,y:186.0,cat:"其他"},{id:"1801",name:"扩张符文",level:3,effect:"背包格+1",cost:1000000,x:672.0,y:186.0,cat:"其他"},{id:"1802",name:"扩张符文",level:3,effect:"背包格+1",cost:1300000,x:618.0,y:186.0,cat:"其他"},{id:"1803",name:"扩张符文",level:3,effect:"背包格+1",cost:1690000,x:564.0,y:186.0,cat:"其他"},{id:"1804",name:"扩张符文",level:3,effect:"背包格+1",cost:2200000,x:510.0,y:186.0,cat:"其他"},{id:"1805",name:"扩张符文",level:3,effect:"背包格+1",cost:2860000,x:456.0,y:186.0,cat:"其他"},{id:"1806",name:"扩张符文",level:3,effect:"背包格+1",cost:3720000,x:402.0,y:186.0,cat:"其他"},{id:"1807",name:"扩张符文",level:3,effect:"背包格+1",cost:4840000,x:348.0,y:186.0,cat:"其他"},{id:"1808",name:"扩张符文",level:3,effect:"背包格+1",cost:6290000,x:294.0,y:186.0,cat:"其他"},{id:"1901",name:"扩张符文",level:3,effect:"背包格+1",cost:1000000,x:780.0,y:186.0,cat:"其他"},{id:"1902",name:"扩张符文",level:3,effect:"背包格+1",cost:1300000,x:834.0,y:186.0,cat:"其他"},{id:"1903",name:"扩张符文",level:3,effect:"背包格+1",cost:1690000,x:888.0,y:186.0,cat:"其他"},{id:"1904",name:"扩张符文",level:3,effect:"背包格+1",cost:2200000,x:942.0,y:186.0,cat:"其他"},{id:"1905",name:"扩张符文",level:3,effect:"背包格+1",cost:2860000,x:996.0,y:186.0,cat:"其他"},{id:"1906",name:"扩张符文",level:3,effect:"背包格+1",cost:3720000,x:1050.0,y:186.0,cat:"其他"},{id:"1907",name:"扩张符文",level:3,effect:"背包格+1",cost:4840000,x:1104.0,y:186.0,cat:"其他"},{id:"1908",name:"扩张符文",level:3,effect:"背包格+1",cost:6290000,x:1158.0,y:186.0,cat:"其他"},{id:"11001",name:"安息符文",level:1,effect:"离线奖励+1",cost:100,x:672.0,y:456.0,cat:"功能"},{id:"110011",name:"储藏符文",level:3,effect:"离线金币%+100",cost:500,x:618.0,y:456.0,cat:"金币"},{id:"110012",name:"训练符文",level:3,effect:"离线经验%+100",cost:500,x:618.0,y:402.0,cat:"经验"},{id:"11002",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:1000,x:780.0,y:456.0,cat:"宝箱"},{id:"11003",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:30000,x:834.0,y:402.0,cat:"宝箱"},{id:"11004",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:50000,x:888.0,y:348.0,cat:"宝箱"},{id:"13001",name:"储存符文",level:1,effect:"仓库页+1",cost:10000,x:672.0,y:348.0,cat:"功能"},{id:"13002",name:"发条符文",level:1,effect:"自动开箱+300",cost:10000,x:780.0,y:348.0,cat:"宝箱"},{id:"130021",name:"润滑符文",level:3,effect:"减少开箱时间+3",cost:5000,x:834.0,y:294.0,cat:"宝箱"},{id:"15001",name:"发条符文",level:1,effect:"自动Boss开箱+600",cost:200000,x:780.0,y:240.0,cat:"宝箱"},{id:"150011",name:"润滑符文",level:3,effect:"减少Boss开箱时间+5",cost:100000,x:834.0,y:240.0,cat:"宝箱"},{id:"15002",name:"储藏符文",level:3,effect:"离线金币%+100",cost:50000,x:672.0,y:240.0,cat:"金币"},{id:"150021",name:"训练符文",level:3,effect:"离线经验%+100",cost:75000,x:618.0,y:240.0,cat:"经验"},{id:"16001",name:"储存符文",level:1,effect:"仓库页+1",cost:3000000,x:726.0,y:132.0,cat:"功能"},{id:"160011",name:"储存符文",level:1,effect:"仓库页+1",cost:50000000,x:780.0,y:132.0,cat:"功能"},{id:"180201",name:"储藏符文",level:5,effect:"离线金币%+100",cost:1000000,x:618.0,y:132.0,cat:"金币"},{id:"180301",name:"训练符文",level:5,effect:"离线经验%+100",cost:1000000,x:564.0,y:132.0,cat:"经验"},{id:"180401",name:"储藏符文",level:5,effect:"离线金币%+100",cost:5000000,x:510.0,y:240.0,cat:"金币"},{id:"180501",name:"训练符文",level:5,effect:"离线经验%+100",cost:5000000,x:456.0,y:240.0,cat:"经验"},{id:"180601",name:"储藏符文",level:5,effect:"离线金币%+100",cost:10000000,x:402.0,y:132.0,cat:"金币"},{id:"180701",name:"训练符文",level:5,effect:"离线经验%+100",cost:10000000,x:348.0,y:132.0,cat:"经验"},{id:"1902001",name:"发条符文",level:1,effect:"UnlockAutoOpenActBossChest+60",cost:1000000,x:834.0,y:132.0,cat:"宝箱"},{id:"19020011",name:"润滑符文",level:3,effect:"ReduceAutoOpenActBossChestTime+1",cost:500000,x:888.0,y:132.0,cat:"宝箱"},{id:"190301",name:"润滑符文",level:5,effect:"减少开箱时间+2",cost:1000000,x:888.0,y:240.0,cat:"宝箱"},{id:"190302",name:"润滑符文",level:5,effect:"减少Boss开箱时间+4",cost:1000000,x:942.0,y:240.0,cat:"宝箱"},{id:"190401",name:"润滑符文",level:3,effect:"ReduceAutoOpenActBossChestTime+1",cost:1500000,x:942.0,y:132.0,cat:"宝箱"},{id:"190501",name:"润滑符文",level:5,effect:"减少开箱时间+2",cost:5000000,x:996.0,y:240.0,cat:"宝箱"},{id:"1905011",name:"润滑符文",level:5,effect:"减少开箱时间+2",cost:25000000,x:996.0,y:294.0,cat:"宝箱"},{id:"190502",name:"润滑符文",level:5,effect:"减少Boss开箱时间+4",cost:5000000,x:1050.0,y:240.0,cat:"宝箱"},{id:"1905021",name:"润滑符文",level:5,effect:"减少Boss开箱时间+4",cost:25000000,x:1050.0,y:294.0,cat:"宝箱"},{id:"21",name:"指挥符文",level:1,effect:"编排槽+1",cost:1000,x:726.0,y:672.0,cat:"功能"},{id:"22",name:"扩张符文",level:3,effect:"背包格+1",cost:500,x:672.0,y:726.0,cat:"其他"},{id:"23",name:"扩张符文",level:5,effect:"背包格+1",cost:5000,x:672.0,y:780.0,cat:"其他"},{id:"24",name:"指挥符文",level:1,effect:"编排槽+1",cost:150000,x:672.0,y:834.0,cat:"功能"},{id:"25",name:"财富符文",level:3,effect:"金币%+50",cost:500,x:780.0,y:726.0,cat:"金币"},{id:"26",name:"成长符文",level:3,effect:"经验%+50",cost:5000,x:780.0,y:780.0,cat:"经验"},{id:"27",name:"觉醒符文",level:1,effect:"技能槽+1",cost:50000,x:780.0,y:834.0,cat:"功能"},{id:"101",name:"探索符文",level:3,effect:"宝箱掉率%+100",cost:500,x:780.0,y:510.0,cat:"宝箱"},{id:"102",name:"征服符文",level:3,effect:"Boss掉率%+200",cost:1000,x:834.0,y:510.0,cat:"宝箱"},{id:"103",name:"探索符文",level:5,effect:"宝箱掉率%+70",cost:3000,x:888.0,y:510.0,cat:"宝箱"},{id:"104",name:"征服符文",level:5,effect:"Boss掉率%+150",cost:8000,x:942.0,y:510.0,cat:"宝箱"},{id:"105",name:"探索符文",level:5,effect:"宝箱掉率%+70",cost:30000,x:996.0,y:510.0,cat:"宝箱"},{id:"106",name:"征服符文",level:5,effect:"Boss掉率%+150",cost:45000,x:996.0,y:456.0,cat:"宝箱"},{id:"107",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:60000,x:996.0,y:402.0,cat:"宝箱"},{id:"108",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:150000,x:1050.0,y:402.0,cat:"宝箱"},{id:"109",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:150000,x:1104.0,y:402.0,cat:"宝箱"},{id:"110",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:250000,x:1158.0,y:402.0,cat:"宝箱"},{id:"111",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:500000,x:1158.0,y:348.0,cat:"宝箱"},{id:"112",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:700000,x:1212.0,y:348.0,cat:"宝箱"},{id:"113",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:900000,x:1266.0,y:348.0,cat:"宝箱"},{id:"114",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:1300000,x:1266.0,y:294.0,cat:"宝箱"},{id:"115",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:1950000,x:1320.0,y:294.0,cat:"宝箱"},{id:"116",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:2930000,x:1374.0,y:294.0,cat:"宝箱"},{id:"117",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:4400000,x:1374.0,y:240.0,cat:"宝箱"},{id:"118",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:6600000,x:1428.0,y:240.0,cat:"宝箱"},{id:"119",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:9900000,x:1482.0,y:240.0,cat:"宝箱"},{id:"120",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:12870000,x:1536.0,y:240.0,cat:"宝箱"},{id:"121",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:19310000,x:1536.0,y:186.0,cat:"宝箱"},{id:"122",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:28970000,x:1590.0,y:186.0,cat:"宝箱"},{id:"123",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:43460000,x:1644.0,y:186.0,cat:"宝箱"},{id:"124",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:65190000,x:1698.0,y:186.0,cat:"宝箱"},{id:"125",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:97790000,x:1752.0,y:186.0,cat:"宝箱"},{id:"126",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:146690000,x:1752.0,y:132.0,cat:"宝箱"},{id:"127",name:"探索符文",level:5,effect:"宝箱掉率%+50",cost:220040000,x:1806.0,y:132.0,cat:"宝箱"},{id:"128",name:"征服符文",level:5,effect:"Boss掉率%+100",cost:330060000,x:1860.0,y:132.0,cat:"宝箱"},{id:"1021",name:"开启符文",level:1,effect:"一键开箱+1",cost:500,x:834.0,y:564.0,cat:"宝箱"},{id:"1031",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:20000,x:888.0,y:456.0,cat:"宝箱"},{id:"1051",name:"扩张符文",level:5,effect:"背包格+1",cost:30000,x:1050.0,y:510.0,cat:"其他"},{id:"1052",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:50000,x:1104.0,y:510.0,cat:"宝箱"},{id:"1053",name:"探索符文",level:3,effect:"宝箱掉率%+70",cost:40000,x:1050.0,y:456.0,cat:"宝箱"},{id:"1054",name:"扩张符文",level:5,effect:"背包格+1",cost:100000,x:1104.0,y:456.0,cat:"其他"},{id:"1055",name:"开启符文",level:1,effect:"OpenAllTypeChestAllAtOnce+1",cost:10000,x:1050.0,y:564.0,cat:"宝箱"},{id:"1056",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:100000,x:1104.0,y:564.0,cat:"宝箱"},{id:"1061",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:100000,x:942.0,y:456.0,cat:"宝箱"},{id:"1071",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:500000,x:942.0,y:402.0,cat:"宝箱"},{id:"1072",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:200000,x:996.0,y:348.0,cat:"宝箱"},{id:"1091",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:300000,x:1104.0,y:348.0,cat:"宝箱"},{id:"1101",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:500000,x:1212.0,y:402.0,cat:"宝箱"},{id:"1102",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:1000000,x:1212.0,y:456.0,cat:"宝箱"},{id:"1111",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:1500000,x:1158.0,y:294.0,cat:"宝箱"},{id:"1121",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:1000000,x:1212.0,y:294.0,cat:"宝箱"},{id:"1131",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:2000000,x:1320.0,y:402.0,cat:"宝箱"},{id:"1132",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:3000000,x:1320.0,y:348.0,cat:"宝箱"},{id:"1133",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:5000000,x:1266.0,y:402.0,cat:"宝箱"},{id:"1141",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:5000000,x:1212.0,y:240.0,cat:"宝箱"},{id:"1142",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:3000000,x:1266.0,y:240.0,cat:"宝箱"},{id:"1161",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:5000000,x:1428.0,y:348.0,cat:"宝箱"},{id:"11611",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:7000000,x:1428.0,y:402.0,cat:"宝箱"},{id:"1171",name:"缩短符文",level:1,effect:"WaveCountReduction+1",cost:20000000,x:1320.0,y:186.0,cat:"其他"},{id:"1172",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:10000000,x:1374.0,y:186.0,cat:"宝箱"},{id:"1181",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:50000000,x:1428.0,y:294.0,cat:"宝箱"},{id:"1182",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:30000000,x:1428.0,y:186.0,cat:"宝箱"},{id:"1191",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:10000000,x:1482.0,y:186.0,cat:"宝箱"},{id:"1201",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:15000000,x:1536.0,y:294.0,cat:"宝箱"},{id:"1202",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:70000000,x:1590.0,y:294.0,cat:"宝箱"},{id:"1203",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:50000000,x:1590.0,y:240.0,cat:"宝箱"},{id:"1221",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:90000000,x:1536.0,y:132.0,cat:"宝箱"},{id:"1222",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:60000000,x:1590.0,y:132.0,cat:"宝箱"},{id:"1241",name:"收纳符文",level:1,effect:"宝箱上限+1",cost:20000000,x:1698.0,y:132.0,cat:"宝箱"},{id:"1251",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:100000000,x:1752.0,y:240.0,cat:"宝箱"},{id:"1252",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:70000000,x:1806.0,y:240.0,cat:"宝箱"},{id:"1261",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:120000000,x:1698.0,y:78.0,cat:"宝箱"},{id:"1262",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:80000000,x:1752.0,y:78.0,cat:"宝箱"},{id:"1281",name:"金库符文",level:1,effect:"Boss宝箱上限+1",cost:150000000,x:1860.0,y:186.0,cat:"宝箱"},{id:"1282",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:90000000,x:1860.0,y:78.0,cat:"宝箱"},{id:"12821",name:"无限符文",level:1,effect:"ActBoss宝箱上限+1",cost:100000000,x:1860.0,y:240.0,cat:"宝箱"},{id:"201",name:"财富符文",level:1,effect:"额外金币+1",cost:1000,x:672.0,y:510.0,cat:"金币"},{id:"202",name:"财富符文",level:5,effect:"金币%+100",cost:1000,x:618.0,y:510.0,cat:"金币"},{id:"203",name:"财富符文",level:5,effect:"Boss金币+30",cost:2000,x:564.0,y:510.0,cat:"金币"},{id:"204",name:"财富符文",level:1,effect:"怪物金币+1",cost:20000,x:510.0,y:510.0,cat:"金币"},{id:"205",name:"财富符文",level:5,effect:"ActBoss金币+500",cost:10000,x:456.0,y:510.0,cat:"金币"},{id:"206",name:"财富符文",level:5,effect:"金币%+50",cost:30000,x:456.0,y:456.0,cat:"金币"},{id:"207",name:"财富符文",level:5,effect:"Boss金币+100",cost:50000,x:456.0,y:402.0,cat:"金币"},{id:"208",name:"财富符文",level:5,effect:"金币%+50",cost:150000,x:402.0,y:402.0,cat:"金币"},{id:"209",name:"财富符文",level:5,effect:"Boss金币+500",cost:200000,x:348.0,y:402.0,cat:"金币"},{id:"210",name:"财富符文",level:5,effect:"金币%+50",cost:500000,x:294.0,y:402.0,cat:"金币"},{id:"211",name:"财富符文",level:5,effect:"Boss金币+1000",cost:700000,x:294.0,y:348.0,cat:"金币"},{id:"212",name:"财富符文",level:5,effect:"金币%+50",cost:2000000,x:240.0,y:348.0,cat:"金币"},{id:"213",name:"财富符文",level:5,effect:"Boss金币+2000",cost:3000000,x:186.0,y:348.0,cat:"金币"},{id:"214",name:"财富符文",level:5,effect:"金币%+50",cost:20000000,x:132.0,y:348.0,cat:"金币"},{id:"215",name:"财富符文",level:5,effect:"Boss金币+5000",cost:50000000,x:132.0,y:294.0,cat:"金币"},{id:"2031",name:"炼金符文",level:1,effect:"炼金金币%+100",cost:20000,x:564.0,y:456.0,cat:"金币"},{id:"2032",name:"组合符文",level:5,effect:"炼金经验%+40",cost:10000,x:564.0,y:402.0,cat:"经验"},{id:"2071",name:"财富符文",level:1,effect:"怪物金币+1",cost:100000,x:510.0,y:348.0,cat:"金币"},{id:"2091",name:"财富符文",level:5,effect:"ActBoss金币+2000",cost:300000,x:348.0,y:348.0,cat:"金币"},{id:"2111",name:"财富符文",level:5,effect:"额外金币+1",cost:1000000,x:294.0,y:294.0,cat:"金币"},{id:"2131",name:"炼金符文",level:3,effect:"炼金金币%+100",cost:5000000,x:186.0,y:402.0,cat:"金币"},{id:"2132",name:"组合符文",level:5,effect:"炼金经验%+50",cost:1000000,x:132.0,y:402.0,cat:"经验"},{id:"2151",name:"财富符文",level:2,effect:"怪物金币+5",cost:40000000,x:186.0,y:240.0,cat:"金币"},{id:"2152",name:"财富符文",level:5,effect:"ActBoss金币+50000",cost:30000000,x:240.0,y:240.0,cat:"金币"},{id:"301",name:"成长符文",level:1,effect:"额外经验+1",cost:1000,x:672.0,y:618.0,cat:"经验"},{id:"302",name:"成长符文",level:5,effect:"经验%+100",cost:500,x:618.0,y:618.0,cat:"经验"},{id:"303",name:"成长符文",level:5,effect:"Boss经验+10",cost:1000,x:564.0,y:618.0,cat:"经验"},{id:"304",name:"成长符文",level:1,effect:"怪物经验+1",cost:15000,x:510.0,y:618.0,cat:"经验"},{id:"305",name:"成长符文",level:3,effect:"ActBoss经验+100",cost:6000,x:456.0,y:618.0,cat:"经验"},{id:"306",name:"成长符文",level:5,effect:"经验%+50",cost:30000,x:402.0,y:618.0,cat:"经验"},{id:"307",name:"成长符文",level:5,effect:"Boss经验+100",cost:50000,x:402.0,y:672.0,cat:"经验"},{id:"308",name:"成长符文",level:5,effect:"经验%+50",cost:150000,x:402.0,y:726.0,cat:"经验"},{id:"309",name:"成长符文",level:5,effect:"Boss经验+500",cost:200000,x:348.0,y:726.0,cat:"经验"},{id:"310",name:"成长符文",level:5,effect:"经验%+50",cost:500000,x:294.0,y:726.0,cat:"经验"},{id:"311",name:"成长符文",level:5,effect:"Boss经验+1000",cost:700000,x:240.0,y:726.0,cat:"经验"},{id:"312",name:"成长符文",level:5,effect:"经验%+50",cost:2000000,x:240.0,y:780.0,cat:"经验"},{id:"313",name:"成长符文",level:5,effect:"Boss经验+2000",cost:3000000,x:186.0,y:780.0,cat:"经验"},{id:"314",name:"成长符文",level:5,effect:"经验%+50",cost:20000000,x:132.0,y:780.0,cat:"经验"},{id:"315",name:"成长符文",level:5,effect:"Boss经验+5000",cost:50000000,x:132.0,y:834.0,cat:"经验"},{id:"3031",name:"组合符文",level:1,effect:"炼金经验%+100",cost:35000,x:564.0,y:672.0,cat:"经验"},{id:"3032",name:"炼金符文",level:5,effect:"炼金金币%+40",cost:10000,x:564.0,y:726.0,cat:"金币"},{id:"3061",name:"成长符文",level:5,effect:"ActBoss经验+500",cost:300000,x:348.0,y:618.0,cat:"经验"},{id:"3091",name:"成长符文",level:1,effect:"怪物经验+1",cost:1000000,x:348.0,y:780.0,cat:"经验"},{id:"3121",name:"组合符文",level:5,effect:"炼金经验%+50",cost:1000000,x:294.0,y:834.0,cat:"经验"},{id:"3122",name:"炼金符文",level:5,effect:"炼金金币%+50",cost:2000000,x:294.0,y:888.0,cat:"金币"},{id:"3151",name:"成长符文",level:5,effect:"额外经验+5",cost:5000000,x:78.0,y:834.0,cat:"经验"},{id:"3152",name:"成长符文",level:5,effect:"ActBoss经验+2000",cost:10000000,x:186.0,y:888.0,cat:"经验"},{id:"401",name:"盾之符文",level:3,effect:"护甲+5",cost:2000,x:780.0,y:618.0,cat:"防御"},{id:"402",name:"疾风符文",level:3,effect:"移速+30",cost:5000,x:834.0,y:618.0,cat:"防御"},{id:"403",name:"盾之符文",level:10,effect:"护甲+5",cost:2000,x:888.0,y:618.0,cat:"防御"},{id:"404",name:"疾风符文",level:5,effect:"移速+20",cost:20000,x:942.0,y:618.0,cat:"防御"},{id:"405",name:"战争符文",level:10,effect:"攻击力%+20",cost:15000,x:996.0,y:618.0,cat:"攻击"},{id:"406",name:"疾风符文",level:5,effect:"移速+20",cost:20000,x:996.0,y:672.0,cat:"防御"},{id:"407",name:"盾之符文",level:5,effect:"AllHeroArmorPercent+20",cost:20000,x:1050.0,y:672.0,cat:"防御"},{id:"408",name:"战争符文",level:5,effect:"攻击力%+30",cost:20000,x:1104.0,y:672.0,cat:"攻击"},{id:"409",name:"狂暴符文",level:5,effect:"AllHeroAttackSpeed+10",cost:50000,x:1104.0,y:724.5,cat:"攻击"},{id:"410",name:"盾之符文",level:5,effect:"护甲+5",cost:50000,x:1104.0,y:780.0,cat:"防御"},{id:"411",name:"战争符文",level:5,effect:"攻击力+1",cost:80000,x:1158.0,y:780.0,cat:"攻击"},{id:"412",name:"盾之符文",level:5,effect:"AllHeroArmorPercent+50",cost:150000,x:1212.0,y:780.0,cat:"防御"},{id:"413",name:"战争符文",level:5,effect:"攻击力%+50",cost:200000,x:1266.0,y:780.0,cat:"攻击"},{id:"414",name:"狂暴符文",level:5,effect:"AllHeroAttackSpeed+20",cost:300000,x:1266.0,y:834.0,cat:"攻击"},{id:"4031",name:"战争符文",level:1,effect:"攻击力+1",cost:30000,x:888.0,y:672.0,cat:"攻击"},{id:"4061",name:"狂暴符文",level:3,effect:"AllHeroAttackSpeed+20",cost:25000,x:996.0,y:726.0,cat:"攻击"},{id:"4081",name:"战争符文",level:5,effect:"攻击力+1",cost:50000,x:1158.0,y:672.0,cat:"攻击"},{id:"4082",name:"疾风符文",level:1,effect:"移速+50",cost:5000000,x:1212.0,y:726.0,cat:"防御"},{id:"4101",name:"疾风符文",level:5,effect:"移速+20",cost:1000000,x:1104.0,y:834.0,cat:"防御"}];
 const NODE_MAP = {}; NODES.forEach(n => NODE_MAP[n.id] = n);
-
 function showView(e, view) {
   document.querySelector('.tree-view').style.display = view === 'tree' ? '' : 'none';
   document.querySelector('.list-view').style.display = view === 'list' ? 'block' : 'none';
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   e.target.classList.add('active');
 }
-
 const svg = document.getElementById('svg');
 const canvas = document.getElementById('canvas');
 const tooltip = document.getElementById('tooltip');
-
 let scale = 1, panX = 0, panY = 0;
 let isDragging = false, dragStartX, dragStartY;
-
 function fit() {
   const wrap = canvas.getBoundingClientRect();
   const sw = 1938, sh = 966;
@@ -724,12 +714,10 @@ function fit() {
   panY = (wrap.height - sh * scale) / 2;
   apply();
 }
-
 function apply() {
   svg.style.transform = `translate(${panX}px,${panY}px) scale(${scale})`;
   svg.style.transformOrigin = '0 0';
 }
-
 function zoom(k) {
   const wrap = canvas.getBoundingClientRect();
   const cx = wrap.width / 2, cy = wrap.height / 2;
@@ -739,9 +727,7 @@ function zoom(k) {
   scale = ns;
   apply();
 }
-
 function resetView() { fit(); }
-
 canvas.addEventListener('wheel', e => {
   e.preventDefault();
   const rect = canvas.getBoundingClientRect();
@@ -753,7 +739,6 @@ canvas.addEventListener('wheel', e => {
   scale = ns;
   apply();
 }, { passive: false });
-
 canvas.addEventListener('mousedown', e => {
   if (e.button !== 0) return;
   isDragging = true;
@@ -765,7 +750,6 @@ window.addEventListener('mousemove', e => {
 });
 window.addEventListener('mouseup', () => isDragging = false);
 canvas.addEventListener('dblclick', resetView);
-
 svg.addEventListener('mousemove', e => {
   if (isDragging) return;
   const target = e.target.closest('.node');
@@ -782,7 +766,6 @@ svg.addEventListener('mousemove', e => {
     + '<br><span style="color:#888">ID ' + n.id + '</span>';
 });
 svg.addEventListener('mouseleave', () => tooltip.style.display = 'none');
-
 let lastDist = 0, lastMid = null;
 canvas.addEventListener('touchstart', e => {
   if (e.touches.length === 1) {
@@ -821,7 +804,6 @@ canvas.addEventListener('touchmove', e => {
   }
 }, { passive: false });
 canvas.addEventListener('touchend', () => { isDragging = false; lastDist = 0; });
-
 window.addEventListener('resize', fit);
 fit();
 </script>

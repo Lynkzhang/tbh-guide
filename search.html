@@ -9,51 +9,34 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
 .c{max-width:1200px;margin:0 auto;padding:16px}
-.topnav{background:linear-gradient(135deg,#2c2c3e,#1a1a2e);padding:0;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:0}
-.topnav .logo{color:#ffd700;font-weight:bold;font-size:.95em;padding:12px 20px;white-space:nowrap;text-decoration:none;border-right:1px solid rgba(255,255,255,.1)}
-.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:0;flex:1}
-.topnav ul li a{display:block;color:rgba(255,255,255,.75);padding:12px 16px;font-size:.85em;text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
-.topnav ul li a:hover,.topnav ul li a.active{background:rgba(255,255,255,.1);color:#ffd700}
-header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
-header h1{color:#fff;font-size:1.8em}
-header p{color:rgba(255,255,255,.8);font-size:.85em;margin-top:4px}
-.s{background:var(--card);padding:18px;border-radius:10px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
-.s h3{color:var(--bl);margin:14px 0 8px;font-size:1em}
-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.8em}
-th,td{padding:6px 8px;border:1px solid #ddd;text-align:left}
-th{background:var(--hd);color:var(--tx)}
-tr:nth-child(even){background:#f9f9f9}
-tr:hover{background:#f0f0f0}
-.n{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
-.n b{color:#856404}
-.search{background:var(--card);padding:16px;border-radius:10px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.search input{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;background:#fff;color:var(--tx);font-size:1em}
-.search input:focus{outline:none;border-color:var(--ac)}
-.result{background:#f8f9fa;padding:12px;border-radius:8px;margin-top:10px;border:1px solid #ddd}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-.cardlink{display:block;background:var(--card);padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);text-decoration:none;color:var(--tx);border:1px solid transparent}
-.cardlink:hover{border-color:var(--ac);transform:translateY(-1px)}
-.cardlink h3{color:var(--ac);margin-bottom:6px;font-size:1.05em}
-.cardlink p{font-size:.85em;color:var(--mu)}
-footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
-.c-common{color:#888}.c-uncommon{color:#3b7b1d}.c-rare{color:#21528e}.c-legendary{color:#904503}.c-immortal{color:#8c1818}.c-arcana{color:#652284}.c-beyond{color:#8f1e45}.c-celestial{color:#0e9aa7}.c-divine{color:#d4a017}.c-cosmic{color:#6c2f1f}
-@media(max-width:768px){.topnav ul li a{padding:10px 10px;font-size:.8em}table{font-size:.7em}}
+.topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid #e8ddd1;border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
+.topnav .logo{color:#d94f70;font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid #e8ddd1;border-radius:12px}
+.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.topnav ul li a{display:block;color:#74685d;padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.topnav ul li a:hover{background:#fff;color:#d94f70;border-color:#e8ddd1;transform:translateY(-1px)}
+.topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
+@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}}
 </style>
 </head>
 <body>
-<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html" class="active">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav>
-<div class="c">
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html" class="active">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav><div class="c">
 
 <header><h1>素材查询</h1><p>输入素材名，查看掉落来源和概率</p></header>
-<div class="s" id="search">
-<h2>素材去哪刷</h2>
-<div class="search">
-<input type="text" id="si" placeholder="输入素材名称，如：木材、铁锭、黑曜石碎片" onkeyup="doSearch()">
-<div id="sr" class="result" style="display:none"></div>
-</div>
-<div class="n"><b>使用方法</b>：输入素材中文名，显示掉落来源和概率。物品名颜色=稀有度。</div>
+<div class="s" id="search">
+
+<h2>素材去哪刷</h2>
+
+<div class="search">
+
+<input type="text" id="si" placeholder="输入素材名称，如：木材、铁锭、黑曜石碎片" onkeyup="doSearch()">
+
+<div id="sr" class="result" style="display:none"></div>
+
+</div>
+
+<div class="n"><b>使用方法</b>：输入素材中文名，显示掉落来源和概率。物品名颜色=稀有度。</div>
+
 </div>
 
 <footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-05</p></footer>
@@ -87,6 +70,7 @@ function doSearch() {
         var drops=SEARCH_ITEMS[m.id];
         if(drops&&drops.length>0){
             h+='<br><b>掉落来源（按概率排序）：</b><table><thead><tr><th>关卡</th><th>等级</th><th>宝箱类型</th><th>概率</th></tr></thead><tbody>';
+            var added = 0;
             for(var j=0;j<Math.min(drops.length,15);j++){
                 var d=drops[j];
                 var stages=DROP_STAGES[d.dk];
@@ -94,8 +78,15 @@ function doSearch() {
                     for(var k=0;k<Math.min(stages.length,3);k++){
                         var s=stages[k];
                         h+='<tr><td>'+s.stage+'</td><td>Lv'+s.level+'</td><td>'+s.type+'</td><td>'+d.pct+'%</td></tr>';
+                        added++;
                     }
+                } else {
+                    h+='<tr><td>-</td><td>-</td><td>掉落表 '+d.dk+'</td><td>'+d.pct+'%</td></tr>';
+                    added++;
                 }
+            }
+            if(!added){
+                h+='<tr><td colspan="4" style="color:#888">该物品已找到，但掉落关卡映射缺失</td></tr>';
             }
             h+='</tbody></table>';
         }else{

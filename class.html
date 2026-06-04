@@ -10,85 +10,14 @@
 body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
 .c{max-width:1200px;margin:0 auto;padding:16px}
 /* ===== 顶部导航栏 ===== */
-.topnav{background:linear-gradient(135deg,#2c2c3e,#1a1a2e);padding:0;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:0}
-.topnav .logo{color:#ffd700;font-weight:bold;font-size:.95em;padding:12px 20px;white-space:nowrap;text-decoration:none;border-right:1px solid rgba(255,255,255,.1)}
-.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:0;flex:1}
-.topnav ul li a{display:block;color:rgba(255,255,255,.75);padding:12px 16px;font-size:.85em;text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
-.topnav ul li a:hover,.topnav ul li a.active{background:rgba(255,255,255,.1);color:#ffd700}
-/* ===== 页面内容 ===== */
-header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
-header h1{color:#fff;font-size:1.8em}
-header p{color:rgba(255,255,255,.8);font-size:.85em;margin-top:4px}
-.s{background:var(--card);padding:18px;border-radius:10px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
-.s h3{color:var(--bl);margin:14px 0 8px;font-size:1em}
-.s h4{color:var(--mu);margin:10px 0 6px;font-size:.9em}
-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85em}
-th,td{padding:7px 10px;border:1px solid #ddd;text-align:left}
-th{background:var(--hd);color:var(--tx)}
-tr:nth-child(even){background:#f9f9f9}
-tr:hover{background:#f0f0f0}
-.note{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
-.note b{color:#856404}
-.tip{background:#d1ecf1;padding:10px 14px;border-left:3px solid #17a2b8;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#0c5460}
-.formula{background:#1a1a2e;color:#e0e0e0;padding:14px 18px;border-radius:8px;margin:12px 0;font-family:monospace;font-size:.9em;line-height:1.8;border:1px solid #3a3a5e}
-.formula .kw{color:#ffd700}
-.formula .val{color:#7ec8e3}
-.formula .cmt{color:#6a9955}
-.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75em;font-weight:bold;margin-right:4px;vertical-align:middle}
-.badge-atk{background:#c0392b;color:#fff}
-.badge-def{background:#2980b9;color:#fff}
-.badge-gold{background:#d4a017;color:#fff}
-.badge-exp{background:#27ae60;color:#fff}
-.badge-func{background:#16a085;color:#fff}
-.badge-chest{background:#8e44ad;color:#fff}
-/* 稀有度颜色 */
-.c-common{color:#888}.c-uncommon{color:#3b7b1d}.c-rare{color:#21528e}
-.c-legendary{color:#904503}.c-immortal{color:#8c1818}.c-arcana{color:#652284}
-.c-beyond{color:#8f1e45}.c-celestial{color:#0e9aa7}.c-divine{color:#d4a017}.c-cosmic{color:#6c2f1f}
-.search{background:var(--card);padding:16px;border-radius:10px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.search input{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;font-size:1em}
-.search input:focus{outline:none;border-color:var(--ac)}
-.result{background:#f8f9fa;padding:12px;border-radius:8px;margin-top:10px;border:1px solid #ddd}
-footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
-@media(max-width:768px){.topnav ul li a{padding:10px 10px;font-size:.8em}table{font-size:.75em}}
-
-.class-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.class-tab{padding:8px 22px;border:2px solid #ddd;border-radius:6px;cursor:pointer;background:#fff;font-size:.9em;font-weight:bold;transition:all .15s}
-.class-tab:hover{border-color:var(--clr);color:var(--clr)}
-.class-tab.active{background:var(--clr);color:#fff;border-color:var(--clr)}
-.hero-header{padding:14px 16px;background:#f9f9f9;border-radius:8px;margin-bottom:12px}
-.hero-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.hero-name{font-size:1.4em;font-weight:bold}
-.hero-class{color:#888;font-size:.85em}
-.hero-tags{color:#666;font-size:.8em}
-.hero-desc{margin-top:8px;color:#555;font-size:.85em;line-height:1.6}
-.hero-stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.stat-item{background:#f0f0f0;padding:4px 10px;border-radius:4px;font-size:.82em}
-.stat-item b{color:#e94560}
-.talent-tree{display:flex;flex-direction:column;gap:0}
-.talent-row{border:1px solid #e0e0e0;border-radius:8px;margin-bottom:10px;overflow:hidden}
-.talent-row-header{background:#f5f0e8;padding:6px 14px;font-size:.8em;border-bottom:1px solid #e0e0e0;color:#7a6040;font-weight:bold}
-.talent-req{color:#9a7040}
-.talent-nodes{display:flex;flex-wrap:wrap;gap:0}
-.talent-node{flex:1;min-width:200px;padding:12px 14px;border-right:1px solid #eee;position:relative}
-.talent-node:last-child{border-right:none}
-.talent-passive{background:#fafffe}
-.talent-active{background:#fffaf8}
-.tnode-type{font-size:.7em;font-weight:bold;padding:1px 6px;border-radius:3px;display:inline-block;margin-bottom:5px}
-.talent-passive .tnode-type{background:#d1fae5;color:#065f46}
-.talent-active .tnode-type{background:#fee2e2;color:#991b1b}
-.tnode-name{font-weight:bold;font-size:.95em;margin-bottom:3px}
-.tnode-desc{font-size:.8em;color:#555;margin:4px 0;line-height:1.5}
-.tnode-effect{font-size:.85em;color:#2563eb;font-weight:bold}
-.tnode-trigger{font-size:.78em;color:#666;margin:4px 0}
-.tnode-params{font-size:.75em;color:#888;margin:2px 0}
-.tnode-meta{font-size:.73em;color:#aaa;margin-top:5px}
-.sk-lvtable{width:100%;font-size:.72em;margin:4px 0;border-collapse:collapse}
-.sk-lvtable th{background:#fee2e2;padding:2px 5px;border:1px solid #fca5a5;text-align:center}
-.sk-lvtable td{padding:2px 5px;border:1px solid #fca5a5;text-align:center}
-@media(max-width:768px){.talent-node{min-width:140px}.hero-stats{gap:4px}}
+.topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid #e8ddd1;border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
+.topnav .logo{color:#d94f70;font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid #e8ddd1;border-radius:12px}
+.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.topnav ul li a{display:block;color:#74685d;padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.topnav ul li a:hover{background:#fff;color:#d94f70;border-color:#e8ddd1;transform:translateY(-1px)}
+.topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
+@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}}
 </style>
 </head>
 <body>
@@ -113,8 +42,8 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </div><div class="hero-stats">
   <span class="stat-item">攻击 <b>2</b></span>
   <span class="stat-item">攻速 <b>90</b></span>
-  <span class="stat-item">暴击率 <b>25%</b></span>
-  <span class="stat-item">暴击伤害 <b>1400%</b></span>
+  <span class="stat-item">暴击参数 <b>25</b></span>
+  <span class="stat-item">暴伤参数 <b>1400</b></span>
   <span class="stat-item">HP <b>130</b></span>
   <span class="stat-item">护甲 <b>45</b></span>
   <span class="stat-item">移速 <b>950</b></span>
@@ -258,8 +187,8 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </div><div class="hero-stats">
   <span class="stat-item">攻击 <b>1</b></span>
   <span class="stat-item">攻速 <b>100</b></span>
-  <span class="stat-item">暴击率 <b>40%</b></span>
-  <span class="stat-item">暴击伤害 <b>1500%</b></span>
+  <span class="stat-item">暴击参数 <b>40</b></span>
+  <span class="stat-item">暴伤参数 <b>1500</b></span>
   <span class="stat-item">HP <b>60</b></span>
   <span class="stat-item">护甲 <b>8</b></span>
   <span class="stat-item">移速 <b>850</b></span>
@@ -403,8 +332,8 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </div><div class="hero-stats">
   <span class="stat-item">攻击 <b>2</b></span>
   <span class="stat-item">攻速 <b>55</b></span>
-  <span class="stat-item">暴击率 <b>50%</b></span>
-  <span class="stat-item">暴击伤害 <b>1650%</b></span>
+  <span class="stat-item">暴击参数 <b>50</b></span>
+  <span class="stat-item">暴伤参数 <b>1650</b></span>
   <span class="stat-item">HP <b>50</b></span>
   <span class="stat-item">护甲 <b>5</b></span>
   <span class="stat-item">移速 <b>770</b></span>
@@ -548,8 +477,8 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </div><div class="hero-stats">
   <span class="stat-item">攻击 <b>1</b></span>
   <span class="stat-item">攻速 <b>90</b></span>
-  <span class="stat-item">暴击率 <b>20%</b></span>
-  <span class="stat-item">暴击伤害 <b>1400%</b></span>
+  <span class="stat-item">暴击参数 <b>20</b></span>
+  <span class="stat-item">暴伤参数 <b>1400</b></span>
   <span class="stat-item">HP <b>95</b></span>
   <span class="stat-item">护甲 <b>30</b></span>
   <span class="stat-item">移速 <b>700</b></span>
@@ -693,8 +622,8 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </div><div class="hero-stats">
   <span class="stat-item">攻击 <b>2</b></span>
   <span class="stat-item">攻速 <b>70</b></span>
-  <span class="stat-item">暴击率 <b>45%</b></span>
-  <span class="stat-item">暴击伤害 <b>1550%</b></span>
+  <span class="stat-item">暴击参数 <b>45</b></span>
+  <span class="stat-item">暴伤参数 <b>1550</b></span>
   <span class="stat-item">HP <b>70</b></span>
   <span class="stat-item">护甲 <b>15</b></span>
   <span class="stat-item">移速 <b>750</b></span>
@@ -838,8 +767,8 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </div><div class="hero-stats">
   <span class="stat-item">攻击 <b>2</b></span>
   <span class="stat-item">攻速 <b>70</b></span>
-  <span class="stat-item">暴击率 <b>25%</b></span>
-  <span class="stat-item">暴击伤害 <b>1800%</b></span>
+  <span class="stat-item">暴击参数 <b>25</b></span>
+  <span class="stat-item">暴伤参数 <b>1800</b></span>
   <span class="stat-item">HP <b>115</b></span>
   <span class="stat-item">护甲 <b>40</b></span>
   <span class="stat-item">移速 <b>850</b></span>
