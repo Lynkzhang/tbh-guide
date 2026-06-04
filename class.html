@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>职业天赋 - TBH攻略站</title>
+<style>
+:root{--bg:#f5f5f5;--card:#fff;--hd:#e8e8e8;--ac:#e94560;--tx:#333;--mu:#666;--bl:#3498db;--gn:#2ecc71}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
+.c{max-width:1200px;margin:0 auto;padding:16px}
+/* ===== 顶部导航栏 ===== */
+.topnav{background:linear-gradient(135deg,#2c2c3e,#1a1a2e);padding:0;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:0}
+.topnav .logo{color:#ffd700;font-weight:bold;font-size:.95em;padding:12px 20px;white-space:nowrap;text-decoration:none;border-right:1px solid rgba(255,255,255,.1)}
+.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:0;flex:1}
+.topnav ul li a{display:block;color:rgba(255,255,255,.75);padding:12px 16px;font-size:.85em;text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.topnav ul li a:hover,.topnav ul li a.active{background:rgba(255,255,255,.1);color:#ffd700}
+/* ===== 页面内容 ===== */
+header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
+header h1{color:#fff;font-size:1.8em}
+header p{color:rgba(255,255,255,.8);font-size:.85em;margin-top:4px}
+.s{background:var(--card);padding:18px;border-radius:10px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
+.s h3{color:var(--bl);margin:14px 0 8px;font-size:1em}
+.s h4{color:var(--mu);margin:10px 0 6px;font-size:.9em}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85em}
+th,td{padding:7px 10px;border:1px solid #ddd;text-align:left}
+th{background:var(--hd);color:var(--tx)}
+tr:nth-child(even){background:#f9f9f9}
+tr:hover{background:#f0f0f0}
+.note{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
+.note b{color:#856404}
+.tip{background:#d1ecf1;padding:10px 14px;border-left:3px solid #17a2b8;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#0c5460}
+.formula{background:#1a1a2e;color:#e0e0e0;padding:14px 18px;border-radius:8px;margin:12px 0;font-family:monospace;font-size:.9em;line-height:1.8;border:1px solid #3a3a5e}
+.formula .kw{color:#ffd700}
+.formula .val{color:#7ec8e3}
+.formula .cmt{color:#6a9955}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75em;font-weight:bold;margin-right:4px;vertical-align:middle}
+.badge-atk{background:#c0392b;color:#fff}
+.badge-def{background:#2980b9;color:#fff}
+.badge-gold{background:#d4a017;color:#fff}
+.badge-exp{background:#27ae60;color:#fff}
+.badge-func{background:#16a085;color:#fff}
+.badge-chest{background:#8e44ad;color:#fff}
+/* 稀有度颜色 */
+.c-common{color:#888}.c-uncommon{color:#3b7b1d}.c-rare{color:#21528e}
+.c-legendary{color:#904503}.c-immortal{color:#8c1818}.c-arcana{color:#652284}
+.c-beyond{color:#8f1e45}.c-celestial{color:#0e9aa7}.c-divine{color:#d4a017}.c-cosmic{color:#6c2f1f}
+.search{background:var(--card);padding:16px;border-radius:10px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.search input{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;font-size:1em}
+.search input:focus{outline:none;border-color:var(--ac)}
+.result{background:#f8f9fa;padding:12px;border-radius:8px;margin-top:10px;border:1px solid #ddd}
+footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
+@media(max-width:768px){.topnav ul li a{padding:10px 10px;font-size:.8em}table{font-size:.75em}}
+
+.class-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.class-tab{padding:8px 22px;border:2px solid #ddd;border-radius:6px;cursor:pointer;background:#fff;font-size:.9em;font-weight:bold;transition:all .15s}
+.class-tab:hover{border-color:var(--clr);color:var(--clr)}
+.class-tab.active{background:var(--clr);color:#fff;border-color:var(--clr)}
+.hero-header{padding:14px 16px;background:#f9f9f9;border-radius:8px;margin-bottom:12px}
+.hero-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.hero-name{font-size:1.4em;font-weight:bold}
+.hero-class{color:#888;font-size:.85em}
+.hero-tags{color:#666;font-size:.8em}
+.hero-desc{margin-top:8px;color:#555;font-size:.85em;line-height:1.6}
+.hero-stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.stat-item{background:#f0f0f0;padding:4px 10px;border-radius:4px;font-size:.82em}
+.stat-item b{color:#e94560}
+.talent-tree{display:flex;flex-direction:column;gap:0}
+.talent-row{border:1px solid #e0e0e0;border-radius:8px;margin-bottom:10px;overflow:hidden}
+.talent-row-header{background:#f5f0e8;padding:6px 14px;font-size:.8em;border-bottom:1px solid #e0e0e0;color:#7a6040;font-weight:bold}
+.talent-req{color:#9a7040}
+.talent-nodes{display:flex;flex-wrap:wrap;gap:0}
+.talent-node{flex:1;min-width:200px;padding:12px 14px;border-right:1px solid #eee;position:relative}
+.talent-node:last-child{border-right:none}
+.talent-passive{background:#fafffe}
+.talent-active{background:#fffaf8}
+.tnode-type{font-size:.7em;font-weight:bold;padding:1px 6px;border-radius:3px;display:inline-block;margin-bottom:5px}
+.talent-passive .tnode-type{background:#d1fae5;color:#065f46}
+.talent-active .tnode-type{background:#fee2e2;color:#991b1b}
+.tnode-name{font-weight:bold;font-size:.95em;margin-bottom:3px}
+.tnode-desc{font-size:.8em;color:#555;margin:4px 0;line-height:1.5}
+.tnode-effect{font-size:.85em;color:#2563eb;font-weight:bold}
+.tnode-trigger{font-size:.78em;color:#666;margin:4px 0}
+.tnode-params{font-size:.75em;color:#888;margin:2px 0}
+.tnode-meta{font-size:.73em;color:#aaa;margin-top:5px}
+.sk-lvtable{width:100%;font-size:.72em;margin:4px 0;border-collapse:collapse}
+.sk-lvtable th{background:#fee2e2;padding:2px 5px;border:1px solid #fca5a5;text-align:center}
+.sk-lvtable td{padding:2px 5px;border:1px solid #fca5a5;text-align:center}
+@media(max-width:768px){.talent-node{min-width:140px}.hero-stats{gap:4px}}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li><li><a href="class.html" class="active">职业</a></li></ul></div></nav>
+<div class="c">
+
+<header>
+<h1>职业与天赋树</h1>
+<p>6大职业 | 天赋行 | 主动技能 | 被动技能 | 等级数值</p>
+</header>
+
+<div class="s">
+<div class="class-tabs"><button class="class-tab active" data-hero="101" style="--clr:#c0392b" onclick="showHero('101')">骑士</button><button class="class-tab " data-hero="201" style="--clr:#27ae60" onclick="showHero('201')">游侠</button><button class="class-tab " data-hero="301" style="--clr:#8e44ad" onclick="showHero('301')">术士</button><button class="class-tab " data-hero="401" style="--clr:#2980b9" onclick="showHero('401')">牧师</button><button class="class-tab " data-hero="501" style="--clr:#d4a017" onclick="showHero('501')">猎人</button><button class="class-tab " data-hero="601" style="--clr:#e67e22" onclick="showHero('601')">屠杀者</button></div>
+<div id="panel-101" class="hero-panel-wrap" style="display:block"><div class="hero-panel" id="hero-101"><div class="hero-header" style="border-left:4px solid #c0392b">
+  <div class="hero-title">
+    <span class="hero-name" style="color:#c0392b">骑士</span>
+    <span class="hero-class">Knight</span>
+    <span class="hero-tags">
+      主武器：SWORD &nbsp;|&nbsp; 副武器：SHIELD
+    </span>
+  </div>
+  <p class="hero-desc">拥有强防御和盾牌的坦克近战战士。</p>
+</div><div class="hero-stats">
+  <span class="stat-item">攻击 <b>2</b></span>
+  <span class="stat-item">攻速 <b>90</b></span>
+  <span class="stat-item">暴击率 <b>25%</b></span>
+  <span class="stat-item">暴击伤害 <b>140%</b></span>
+  <span class="stat-item">HP <b>130</b></span>
+  <span class="stat-item">护甲 <b>45</b></span>
+  <span class="stat-item">移速 <b>950</b></span>
+</div><div class="talent-tree"><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 0 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击力强化</div>
+  <div class="tnode-effect">+1</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命强化</div>
+  <div class="tnode-effect">+15</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">穿透突刺</div>
+  <div class="tnode-desc">向前深深刺出剑，对范围内的敌人造成250%%物理伤害。</div>
+  <div class="tnode-trigger">每6次普攻触发 &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Melee, AOE</div>
+  <div class="tnode-params">参数: 700</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>250%</td><td>270%</td><td>290%</td><td>310%</td><td>330%</td><td>350%</td><td>370%</td><td>390%</td><td>410%</td><td>430%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">盾牌冲锋</div>
+  <div class="tnode-desc">举起盾牌向前冲锋。对撞到的敌人造成300%%物理伤害。</div>
+  <div class="tnode-trigger">冷却 4s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Melee</div>
+  <div class="tnode-params">参数: 3500 / 150</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>300%</td><td>330%</td><td>360%</td><td>390%</td><td>420%</td><td>450%</td><td>480%</td><td>510%</td><td>540%</td><td>570%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 10 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">防御力强化</div>
+  <div class="tnode-effect">+10</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">每秒HP回复强化</div>
+  <div class="tnode-effect">+100</div>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">报应打击</div>
+  <div class="tnode-desc">多次攻击敌人，每次造成150%%物理伤害。英雄生命越低，打击次数越多。</div>
+  <div class="tnode-trigger">每5次普攻触发 &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Melee</div>
+  <div class="tnode-params">参数: 2 / 500 / 3 / 8 / 235</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>150%</td><td>170%</td><td>190%</td><td>210%</td><td>230%</td><td>250%</td><td>270%</td><td>290%</td><td>310%</td><td>330%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 20 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">击杀HP回复强化</div>
+  <div class="tnode-effect">+3</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">格挡几率强化</div>
+  <div class="tnode-effect">+30</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">神盾领域</div>
+  <div class="tnode-desc">展开守护领域，为领域内的友军阻挡50%伤害。</div>
+  <div class="tnode-trigger">冷却 20s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; AOE</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>50%</td><td>65%</td><td>80%</td><td>95%</td><td>110%</td><td>125%</td><td>140%</td><td>155%</td><td>170%</td><td>185%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 30 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">物理伤害强化</div>
+  <div class="tnode-effect">+150</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命强化</div>
+  <div class="tnode-effect">+50%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">神圣之刃</div>
+  <div class="tnode-desc">为剑注入神圣之力。Buff期间攻击力+50%，攻击时回复20生命。</div>
+  <div class="tnode-trigger">冷却 17s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; </div>
+  <div class="tnode-params">参数: 800</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>20</td><td>40</td><td>60</td><td>80</td><td>10%</td><td>12%</td><td>14%</td><td>16%</td><td>18%</td><td>20%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 40 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">冷却缩减</div>
+  <div class="tnode-effect">+20</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">每秒HP回复强化</div>
+  <div class="tnode-effect">+100</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">不屈意志</div>
+  <div class="tnode-desc">每关一次濒死时凝聚精神以30%%生命重新站起。</div>
+  <div class="tnode-trigger">冷却 50s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; </div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>30%</td><td>40%</td><td>50%</td><td>60%</td><td>70%</td><td>80%</td><td>90%</td><td>100%</td><td>110%</td><td>120%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 50 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">击杀HP回复强化</div>
+  <div class="tnode-effect">+5</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">格挡几率强化</div>
+  <div class="tnode-effect">+30</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 60 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击速度强化</div>
+  <div class="tnode-effect">+40%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">全元素抗性强化</div>
+  <div class="tnode-effect">+30</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 70 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">伤害减免强化</div>
+  <div class="tnode-effect">+20</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击力强化</div>
+  <div class="tnode-effect">+1</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div></div></div></div><div id="panel-201" class="hero-panel-wrap" style="display:none"><div class="hero-panel" id="hero-201"><div class="hero-header" style="border-left:4px solid #27ae60">
+  <div class="hero-title">
+    <span class="hero-name" style="color:#27ae60">游侠</span>
+    <span class="hero-class">Ranger</span>
+    <span class="hero-tags">
+      主武器：BOW &nbsp;|&nbsp; 副武器：ARROW
+    </span>
+  </div>
+  <p class="hero-desc">专精精准远程弓箭攻击的敏捷射手。</p>
+</div><div class="hero-stats">
+  <span class="stat-item">攻击 <b>1</b></span>
+  <span class="stat-item">攻速 <b>100</b></span>
+  <span class="stat-item">暴击率 <b>40%</b></span>
+  <span class="stat-item">暴击伤害 <b>150%</b></span>
+  <span class="stat-item">HP <b>60</b></span>
+  <span class="stat-item">护甲 <b>8</b></span>
+  <span class="stat-item">移速 <b>850</b></span>
+</div><div class="talent-tree"><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 0 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击力强化</div>
+  <div class="tnode-effect">+1</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击速度强化</div>
+  <div class="tnode-effect">+40%</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">快速射击</div>
+  <div class="tnode-desc">连续射出多支箭矢，每支造成132%%物理伤害。</div>
+  <div class="tnode-trigger">每5次普攻触发 &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Projectile</div>
+  <div class="tnode-params">参数: 3</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>132%</td><td>144%</td><td>156%</td><td>168%</td><td>180%</td><td>192%</td><td>204%</td><td>216%</td><td>228%</td><td>240%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">散弹射击</div>
+  <div class="tnode-desc">发射多支追踪敌人的箭矢。每支造成162%%物理伤害。</div>
+  <div class="tnode-trigger">冷却 7s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Projectile</div>
+  <div class="tnode-params">参数: 3 / 40</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>162%</td><td>178%</td><td>194%</td><td>210%</td><td>226%</td><td>242%</td><td>258%</td><td>274%</td><td>290%</td><td>306%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 10 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">暴击率强化</div>
+  <div class="tnode-effect">+200%</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">暴击伤害强化</div>
+  <div class="tnode-effect">+130</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">箭雨</div>
+  <div class="tnode-desc">向天空射出多支箭矢，对广范围敌人造成215%%物理伤害。</div>
+  <div class="tnode-trigger">冷却 10s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; AOE</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>215%</td><td>241%</td><td>267%</td><td>293%</td><td>319%</td><td>345%</td><td>371%</td><td>397%</td><td>423%</td><td>449%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 20 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">闪避几率强化</div>
+  <div class="tnode-effect">+30</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">投射物伤害强化</div>
+  <div class="tnode-effect">+150%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">迅捷觉醒</div>
+  <div class="tnode-desc">暂时加速新陈代谢。持续时间内攻击速度+50%%。</div>
+  <div class="tnode-trigger">冷却 21s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; </div>
+  <div class="tnode-params">参数: 700</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>50%</td><td>60%</td><td>70%</td><td>80%</td><td>90%</td><td>100%</td><td>110%</td><td>120%</td><td>130%</td><td>140%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 30 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">闪避几率强化</div>
+  <div class="tnode-effect">+30</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击速度强化</div>
+  <div class="tnode-effect">+50%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">穿透之箭</div>
+  <div class="tnode-desc">射出贯穿箭矢，对命中的敌人造成244%%物理伤害。</div>
+  <div class="tnode-trigger">每13次普攻触发 &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Projectile</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>244%</td><td>260%</td><td>276%</td><td>292%</td><td>308%</td><td>324%</td><td>340%</td><td>356%</td><td>372%</td><td>388%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 40 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">闪避几率强化</div>
+  <div class="tnode-effect">+30</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">移动速度强化</div>
+  <div class="tnode-effect">+20</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">穿刺射击</div>
+  <div class="tnode-desc">射出深深扎入的箭矢。每支扎入的箭矢使伤害+100%%，3支以上引发出血。</div>
+  <div class="tnode-trigger">每8次普攻触发 &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Projectile</div>
+  <div class="tnode-params">参数: 3000 / 4</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>100%</td><td>130%</td><td>160%</td><td>190%</td><td>220%</td><td>250%</td><td>280%</td><td>310%</td><td>340%</td><td>370%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 50 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">闪避几率强化</div>
+  <div class="tnode-effect">+30</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命偷取强化</div>
+  <div class="tnode-effect">+5</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 60 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">范围伤害强化</div>
+  <div class="tnode-effect">+150%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">投射物伤害强化</div>
+  <div class="tnode-effect">+150%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 70 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">闪避几率强化</div>
+  <div class="tnode-effect">+30</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击速度强化</div>
+  <div class="tnode-effect">+60%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div></div></div></div><div id="panel-301" class="hero-panel-wrap" style="display:none"><div class="hero-panel" id="hero-301"><div class="hero-header" style="border-left:4px solid #8e44ad">
+  <div class="hero-title">
+    <span class="hero-name" style="color:#8e44ad">法师</span>
+    <span class="hero-class">Sorcerer</span>
+    <span class="hero-tags">
+      主武器：STAFF &nbsp;|&nbsp; 副武器：ORB
+    </span>
+  </div>
+  <p class="hero-desc">造成毁灭性范围魔法伤害的强大法师。</p>
+</div><div class="hero-stats">
+  <span class="stat-item">攻击 <b>2</b></span>
+  <span class="stat-item">攻速 <b>55</b></span>
+  <span class="stat-item">暴击率 <b>50%</b></span>
+  <span class="stat-item">暴击伤害 <b>165%</b></span>
+  <span class="stat-item">HP <b>50</b></span>
+  <span class="stat-item">护甲 <b>5</b></span>
+  <span class="stat-item">移速 <b>770</b></span>
+</div><div class="talent-tree"><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 0 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击力强化</div>
+  <div class="tnode-effect">+2</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">冷却缩减</div>
+  <div class="tnode-effect">+10</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">火球术</div>
+  <div class="tnode-desc">接触敌人时爆炸的火球，造成270%%范围火焰伤害。</div>
+  <div class="tnode-trigger">冷却 6s &nbsp;·&nbsp; 火焰伤害 &nbsp;·&nbsp; Projectile, AOE</div>
+  <div class="tnode-params">参数: 600</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>270%</td><td>295%</td><td>320%</td><td>345%</td><td>370%</td><td>395%</td><td>420%</td><td>445%</td><td>470%</td><td>495%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">冰球术</div>
+  <div class="tnode-desc">召唤冰球向敌人扔出。减速碰到的敌人，并造成150%%多段冰冷伤害。</div>
+  <div class="tnode-trigger">冷却 8s &nbsp;·&nbsp; 冰冷伤害 &nbsp;·&nbsp; Projectile, AOE</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>150%</td><td>162%</td><td>174%</td><td>186%</td><td>198%</td><td>210%</td><td>222%</td><td>234%</td><td>246%</td><td>258%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 10 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">效果范围强化</div>
+  <div class="tnode-effect">+30%</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">暴击率强化</div>
+  <div class="tnode-effect">+200%</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">闪电术</div>
+  <div class="tnode-desc">向前射出电流，对敌人造成255%%闪电伤害。</div>
+  <div class="tnode-trigger">冷却 15s &nbsp;·&nbsp; 闪电伤害 &nbsp;·&nbsp; AOE</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>255%</td><td>282%</td><td>309%</td><td>336%</td><td>363%</td><td>390%</td><td>417%</td><td>444%</td><td>471%</td><td>498%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 20 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">火焰伤害强化</div>
+  <div class="tnode-effect">+100</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">冰冷伤害强化</div>
+  <div class="tnode-effect">+100</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">烈焰九头蛇</div>
+  <div class="tnode-desc">召唤海德拉，发射造成230%%伤害的火球。</div>
+  <div class="tnode-trigger">冷却 13s &nbsp;·&nbsp; 火焰伤害 &nbsp;·&nbsp; Projectile, Summon</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>230%</td><td>245%</td><td>260%</td><td>275%</td><td>290%</td><td>305%</td><td>320%</td><td>335%</td><td>350%</td><td>365%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 30 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">闪电伤害强化</div>
+  <div class="tnode-effect">+100</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命强化</div>
+  <div class="tnode-effect">+10</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">暴风雪</div>
+  <div class="tnode-desc">召唤大量冰块砸向敌人。范围内每秒造成50%%冰冷伤害并冷却敌人。</div>
+  <div class="tnode-trigger">冷却 22s &nbsp;·&nbsp; 冰冷伤害 &nbsp;·&nbsp; AOE</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>50%</td><td>66%</td><td>82%</td><td>98%</td><td>114%</td><td>130%</td><td>146%</td><td>162%</td><td>178%</td><td>194%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 40 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">冷却缩减</div>
+  <div class="tnode-effect">+20</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击力强化</div>
+  <div class="tnode-effect">+2</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">陨石打击</div>
+  <div class="tnode-desc">召唤陨石，对广范围敌人造成550%%伤害。</div>
+  <div class="tnode-trigger">冷却 18s &nbsp;·&nbsp; 火焰伤害 &nbsp;·&nbsp; AOE</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>550%</td><td>595%</td><td>640%</td><td>685%</td><td>730%</td><td>775%</td><td>820%</td><td>865%</td><td>910%</td><td>955%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 50 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">施法速度强化</div>
+  <div class="tnode-effect">+70%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">暴击伤害强化</div>
+  <div class="tnode-effect">+200</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 60 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">全元素抗性强化</div>
+  <div class="tnode-effect">+20</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">效果范围强化</div>
+  <div class="tnode-effect">+30%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 70 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">暴击率强化</div>
+  <div class="tnode-effect">+3</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">冷却缩减</div>
+  <div class="tnode-effect">+20</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div></div></div></div><div id="panel-401" class="hero-panel-wrap" style="display:none"><div class="hero-panel" id="hero-401"><div class="hero-header" style="border-left:4px solid #2980b9">
+  <div class="hero-title">
+    <span class="hero-name" style="color:#2980b9">牧师</span>
+    <span class="hero-class">Priest</span>
+    <span class="hero-tags">
+      主武器：SCEPTER &nbsp;|&nbsp; 副武器：TOME
+    </span>
+  </div>
+  <p class="hero-desc">用恢复魔法支援同伴的神圣治疗师。</p>
+</div><div class="hero-stats">
+  <span class="stat-item">攻击 <b>1</b></span>
+  <span class="stat-item">攻速 <b>90</b></span>
+  <span class="stat-item">暴击率 <b>20%</b></span>
+  <span class="stat-item">暴击伤害 <b>140%</b></span>
+  <span class="stat-item">HP <b>95</b></span>
+  <span class="stat-item">护甲 <b>30</b></span>
+  <span class="stat-item">移速 <b>700</b></span>
+</div><div class="talent-tree"><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 0 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击力强化</div>
+  <div class="tnode-effect">+1</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命强化</div>
+  <div class="tnode-effect">+15</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">治愈</div>
+  <div class="tnode-desc">为1名友军恢复10%%最大生命。</div>
+  <div class="tnode-trigger">冷却 8s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; </div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>10%</td><td>12%</td><td>14%</td><td>16%</td><td>18%</td><td>20%</td><td>22%</td><td>24%</td><td>26%</td><td>28%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">力量祝福</div>
+  <div class="tnode-desc">装备时激活的祝福。自身和附近队友攻击力+50%%。</div>
+  <div class="tnode-trigger">CONTINUOUS &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; AOE</div>
+  <div class="tnode-params">参数: 1200</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>50%</td><td>60%</td><td>70%</td><td>80%</td><td>90%</td><td>100%</td><td>110%</td><td>120%</td><td>130%</td><td>140%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 10 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">防御力强化</div>
+  <div class="tnode-effect">+10</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">伤害吸收强化</div>
+  <div class="tnode-effect">+5</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">天堂之怒</div>
+  <div class="tnode-desc">为权杖注入神圣雷霆。持续期间攻击造成430%%闪电范围伤害。</div>
+  <div class="tnode-trigger">冷却 20s &nbsp;·&nbsp; 闪电伤害 &nbsp;·&nbsp; AOE</div>
+  <div class="tnode-params">参数: 650</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>430%</td><td>470%</td><td>510%</td><td>550%</td><td>590%</td><td>630%</td><td>670%</td><td>710%</td><td>750%</td><td>790%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 20 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">冷却缩减</div>
+  <div class="tnode-effect">+20</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">技能治疗强化</div>
+  <div class="tnode-effect">+70%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">圣域</div>
+  <div class="tnode-desc">展开覆盖战场的神圣领域。持续时间内领域内友军每秒恢复30%生命。</div>
+  <div class="tnode-trigger">冷却 17s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; AOE</div>
+  <div class="tnode-params">参数: 750</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>30%</td><td>40%</td><td>52%</td><td>66%</td><td>82%</td><td>100%</td><td>120%</td><td>142%</td><td>166%</td><td>192%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 30 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命强化</div>
+  <div class="tnode-effect">+15</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">伤害吸收强化</div>
+  <div class="tnode-effect">+5</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">守护祝福</div>
+  <div class="tnode-desc">装备时激活的祝福。自身和附近队友元素抗性+10。</div>
+  <div class="tnode-trigger">CONTINUOUS &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; AOE</div>
+  <div class="tnode-params">参数: 1200</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>10</td><td>15</td><td>20</td><td>25</td><td>30</td><td>35</td><td>40</td><td>45</td><td>50</td><td>55</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 40 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">施法速度强化</div>
+  <div class="tnode-effect">+70%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">格挡几率强化</div>
+  <div class="tnode-effect">+30</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">复活</div>
+  <div class="tnode-desc">复活1名倒下的队友，使其拥有最大生命的30%%。</div>
+  <div class="tnode-trigger">冷却 45s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; </div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>30%</td><td>35%</td><td>40%</td><td>45%</td><td>50%</td><td>55%</td><td>60%</td><td>65%</td><td>70%</td><td>75%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 50 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">物理伤害强化</div>
+  <div class="tnode-effect">+150</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">全元素抗性强化</div>
+  <div class="tnode-effect">+20</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 60 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">冷却缩减</div>
+  <div class="tnode-effect">+20</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">防御力强化</div>
+  <div class="tnode-effect">+50</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 70 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">效果范围强化</div>
+  <div class="tnode-effect">+30%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">施法速度强化</div>
+  <div class="tnode-effect">+70%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div></div></div></div><div id="panel-501" class="hero-panel-wrap" style="display:none"><div class="hero-panel" id="hero-501"><div class="hero-header" style="border-left:4px solid #d4a017">
+  <div class="hero-title">
+    <span class="hero-name" style="color:#d4a017">猎人</span>
+    <span class="hero-class">Hunter</span>
+    <span class="hero-tags">
+      主武器：CROSSBOW &nbsp;|&nbsp; 副武器：BOLT
+    </span>
+  </div>
+  <p class="hero-desc">运用陷阱和弩箭的战术专家。</p>
+</div><div class="hero-stats">
+  <span class="stat-item">攻击 <b>2</b></span>
+  <span class="stat-item">攻速 <b>70</b></span>
+  <span class="stat-item">暴击率 <b>45%</b></span>
+  <span class="stat-item">暴击伤害 <b>155%</b></span>
+  <span class="stat-item">HP <b>70</b></span>
+  <span class="stat-item">护甲 <b>15</b></span>
+  <span class="stat-item">移速 <b>750</b></span>
+</div><div class="talent-tree"><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 0 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击力强化</div>
+  <div class="tnode-effect">+2</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">暴击率强化</div>
+  <div class="tnode-effect">+200%</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">爆炸弩箭</div>
+  <div class="tnode-desc">发射命中即爆炸的弩箭，造成484%%范围火焰伤害。</div>
+  <div class="tnode-trigger">每6次普攻触发 &nbsp;·&nbsp; 火焰伤害 &nbsp;·&nbsp; Projectile</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>484%</td><td>535%</td><td>586%</td><td>637%</td><td>688%</td><td>739%</td><td>790%</td><td>841%</td><td>892%</td><td>943%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">寒霜弩箭</div>
+  <div class="tnode-desc">发射命中爆炸的弩箭：210%%范围冰冷伤害并冰冻命中敌人。</div>
+  <div class="tnode-trigger">冷却 8s &nbsp;·&nbsp; 冰冷伤害 &nbsp;·&nbsp; Projectile</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>210%</td><td>225%</td><td>240%</td><td>255%</td><td>270%</td><td>285%</td><td>300%</td><td>315%</td><td>330%</td><td>345%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 10 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">暴击伤害强化</div>
+  <div class="tnode-effect">+100</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">闪避几率强化</div>
+  <div class="tnode-effect">+30</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">快速装填</div>
+  <div class="tnode-desc">快速装填弩箭。3次攻击期间攻击速度+50%。</div>
+  <div class="tnode-trigger">冷却 14s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; </div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 20 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">火焰伤害强化</div>
+  <div class="tnode-effect">+150</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">冰冷伤害强化</div>
+  <div class="tnode-effect">+150</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">充能陷阱</div>
+  <div class="tnode-desc">发射 100% 个受元素伤害时爆炸的陷阱。</div>
+  <div class="tnode-trigger">冷却 5s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Trap</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>100%</td><td>150%</td><td>200%</td><td>250%</td><td>300%</td><td>350%</td><td>400%</td><td>450%</td><td>500%</td><td>550%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 30 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">冷却缩减</div>
+  <div class="tnode-effect">+10</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命强化</div>
+  <div class="tnode-effect">+15</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">弩炮塔</div>
+  <div class="tnode-desc">设置自动弩，发射造成175%%物理伤害的弩箭。</div>
+  <div class="tnode-trigger">冷却 12s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Projectile, Summon</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>175%</td><td>191%</td><td>207%</td><td>223%</td><td>239%</td><td>255%</td><td>271%</td><td>287%</td><td>303%</td><td>319%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 40 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">物理伤害强化</div>
+  <div class="tnode-effect">+150</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">暴击率强化</div>
+  <div class="tnode-effect">+3</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">电击弩箭</div>
+  <div class="tnode-desc">射出一支扎入敌人并短时释放闪电的弩箭，向周围敌人释放造成270%%闪电伤害的电流。</div>
+  <div class="tnode-trigger">每11次普攻触发 &nbsp;·&nbsp; 闪电伤害 &nbsp;·&nbsp; Projectile</div>
+  <div class="tnode-params">参数: 400</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>270%</td><td>290%</td><td>310%</td><td>330%</td><td>350%</td><td>370%</td><td>390%</td><td>410%</td><td>430%</td><td>450%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 50 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击力强化</div>
+  <div class="tnode-effect">+3</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">效果范围强化</div>
+  <div class="tnode-effect">+30%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 60 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">闪电伤害强化</div>
+  <div class="tnode-effect">+150</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">暴击伤害强化</div>
+  <div class="tnode-effect">+150</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 70 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击速度强化</div>
+  <div class="tnode-effect">+40%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">每击HP回复强化</div>
+  <div class="tnode-effect">+3</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div></div></div></div><div id="panel-601" class="hero-panel-wrap" style="display:none"><div class="hero-panel" id="hero-601"><div class="hero-header" style="border-left:4px solid #e67e22">
+  <div class="hero-title">
+    <span class="hero-name" style="color:#e67e22">杀手</span>
+    <span class="hero-class">Slayer</span>
+    <span class="hero-tags">
+      主武器：AXE &nbsp;|&nbsp; 副武器：HATCHET
+    </span>
+  </div>
+  <p class="hero-desc">以愤怒施展毁灭近战的野性狂战士。</p>
+</div><div class="hero-stats">
+  <span class="stat-item">攻击 <b>2</b></span>
+  <span class="stat-item">攻速 <b>70</b></span>
+  <span class="stat-item">暴击率 <b>25%</b></span>
+  <span class="stat-item">暴击伤害 <b>180%</b></span>
+  <span class="stat-item">HP <b>115</b></span>
+  <span class="stat-item">护甲 <b>40</b></span>
+  <span class="stat-item">移速 <b>850</b></span>
+</div><div class="talent-tree"><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 0 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击力强化</div>
+  <div class="tnode-effect">+2</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命强化</div>
+  <div class="tnode-effect">+15</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">猛击跳跃</div>
+  <div class="tnode-desc">跃向敌人，落地时产生冲击波，对周围敌人造成310%%物理伤害。</div>
+  <div class="tnode-trigger">冷却 6s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Melee, AOE</div>
+  <div class="tnode-params">参数: 35 / 100</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>310%</td><td>335%</td><td>360%</td><td>385%</td><td>410%</td><td>435%</td><td>460%</td><td>485%</td><td>510%</td><td>535%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">粉碎强击</div>
+  <div class="tnode-desc">蓄力重击敌人造成620%%物理伤害。若以此击杀敌人，冲击波对周围敌人造成350%伤害。</div>
+  <div class="tnode-trigger">每5次普攻触发 &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Melee</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>620%</td><td>660%</td><td>700%</td><td>740%</td><td>780%</td><td>820%</td><td>860%</td><td>900%</td><td>940%</td><td>980%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 10 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">效果范围强化</div>
+  <div class="tnode-effect">+30%</div>
+  <div class="tnode-meta">Max Lv8 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">击杀HP回复强化</div>
+  <div class="tnode-effect">+5</div>
+  <div class="tnode-meta">Max Lv3 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">将军怒吼</div>
+  <div class="tnode-desc">发出战吼，眩晕周围敌人并使队伍暴击几率系数提升50%%。</div>
+  <div class="tnode-trigger">冷却 12s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; AOE</div>
+  <div class="tnode-params">参数: 700</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>50%</td><td>55%</td><td>60%</td><td>65%</td><td>70%</td><td>75%</td><td>80%</td><td>85%</td><td>90%</td><td>95%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 20 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">物理伤害强化</div>
+  <div class="tnode-effect">+150</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命偷取强化</div>
+  <div class="tnode-effect">+5</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">大地强击</div>
+  <div class="tnode-desc">猛击地面引发地震,对敌人造成370%%的物理伤害。地震产生的岩石受到范围物理攻击时会爆炸。</div>
+  <div class="tnode-trigger">每9次普攻触发 &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Melee, AOE</div>
+  
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>370%</td><td>395%</td><td>420%</td><td>445%</td><td>470%</td><td>495%</td><td>520%</td><td>545%</td><td>570%</td><td>595%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 30 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">攻击力强化</div>
+  <div class="tnode-effect">+2</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命强化</div>
+  <div class="tnode-effect">+15</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">旋转斧</div>
+  <div class="tnode-desc">持斧旋转,每秒对周围敌人造成100%%物理伤害,有几率使其流血。攻击流血中的敌人造成额外伤害。</div>
+  <div class="tnode-trigger">冷却 18s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; Melee, AOE</div>
+  <div class="tnode-params">参数: 500 / 500</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>100%</td><td>108%</td><td>116%</td><td>124%</td><td>132%</td><td>140%</td><td>148%</td><td>156%</td><td>164%</td><td>172%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 40 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">暴击伤害强化</div>
+  <div class="tnode-effect">+100</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">物理伤害强化</div>
+  <div class="tnode-effect">+150</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-active">
+  <div class="tnode-type">主动</div>
+  <div class="tnode-name">嗜血</div>
+  <div class="tnode-desc">消耗当前一半生命，一段时间内攻击伤害增加400%%。</div>
+  <div class="tnode-trigger">冷却 25s &nbsp;·&nbsp; 物理伤害 &nbsp;·&nbsp; </div>
+  <div class="tnode-params">参数: 800</div>
+  <table class="sk-lvtable"><thead><tr><th>Lv1</th><th>Lv2</th><th>Lv3</th><th>Lv4</th><th>Lv5</th><th>Lv6</th><th>Lv7</th><th>Lv8</th><th>Lv9</th><th>Lv10</th></tr></thead><tbody><tr><td>400%</td><td>430%</td><td>460%</td><td>490%</td><td>520%</td><td>550%</td><td>580%</td><td>610%</td><td>640%</td><td>670%</td></tr></tbody></table>
+  <div class="tnode-meta">Max Lv5 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 50 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">范围伤害强化</div>
+  <div class="tnode-effect">+150%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">效果范围强化</div>
+  <div class="tnode-effect">+30%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 60 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">生命强化</div>
+  <div class="tnode-effect">+20</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">移动速度强化</div>
+  <div class="tnode-effect">+20%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div><div class="talent-row"><div class="talent-row-header"><span class="talent-req">需 70 点解锁</span></div><div class="talent-nodes"><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">范围伤害强化</div>
+  <div class="tnode-effect">+150%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div><div class="talent-node talent-passive">
+  <div class="tnode-type">被动</div>
+  <div class="tnode-name">持续时间强化</div>
+  <div class="tnode-effect">+80%</div>
+  <div class="tnode-meta">Max Lv10 &nbsp;·&nbsp; 每级1点</div>
+</div></div></div></div></div></div>
+</div>
+
+<footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-04</p></footer>
+</div>
+<script>
+function showHero(hk) {
+  document.querySelectorAll('.hero-panel-wrap').forEach(p => p.style.display='none');
+  document.querySelectorAll('.class-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-'+hk).style.display='block';
+  document.querySelector('[data-hero="'+hk+'"]').classList.add('active');
+}
+</script>
+</body>
+</html>
