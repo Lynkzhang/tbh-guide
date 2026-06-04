@@ -9,58 +9,98 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
 .c{max-width:1200px;margin:0 auto;padding:16px}
+/* ===== 顶部导航栏 ===== */
+.topnav{background:linear-gradient(135deg,#2c2c3e,#1a1a2e);padding:0;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:0}
+.topnav .logo{color:#ffd700;font-weight:bold;font-size:.95em;padding:12px 20px;white-space:nowrap;text-decoration:none;border-right:1px solid rgba(255,255,255,.1)}
+.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:0;flex:1}
+.topnav ul li a{display:block;color:rgba(255,255,255,.75);padding:12px 16px;font-size:.85em;text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
+.topnav ul li a:hover,.topnav ul li a.active{background:rgba(255,255,255,.1);color:#ffd700}
+/* ===== 页面内容 ===== */
 header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
 header h1{color:#fff;font-size:1.8em}
 header p{color:rgba(255,255,255,.8);font-size:.85em;margin-top:4px}
-nav{background:var(--card);padding:10px;border-radius:10px;margin-bottom:20px;position:sticky;top:8px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-nav ul{list-style:none;display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
-nav a{color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none}
-nav a:hover{background:var(--ac);color:#fff}
 .s{background:var(--card);padding:18px;border-radius:10px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
 .s h3{color:var(--bl);margin:14px 0 8px;font-size:1em}
-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.8em}
-th,td{padding:6px 8px;border:1px solid #ddd;text-align:left}
+.s h4{color:var(--mu);margin:10px 0 6px;font-size:.9em}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85em}
+th,td{padding:7px 10px;border:1px solid #ddd;text-align:left}
 th{background:var(--hd);color:var(--tx)}
 tr:nth-child(even){background:#f9f9f9}
 tr:hover{background:#f0f0f0}
-.n{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
-.n b{color:#856404}
+.note{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
+.note b{color:#856404}
+.tip{background:#d1ecf1;padding:10px 14px;border-left:3px solid #17a2b8;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#0c5460}
+.formula{background:#1a1a2e;color:#e0e0e0;padding:14px 18px;border-radius:8px;margin:12px 0;font-family:monospace;font-size:.9em;line-height:1.8;border:1px solid #3a3a5e}
+.formula .kw{color:#ffd700}
+.formula .val{color:#7ec8e3}
+.formula .cmt{color:#6a9955}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.75em;font-weight:bold;margin-right:4px;vertical-align:middle}
+.badge-atk{background:#c0392b;color:#fff}
+.badge-def{background:#2980b9;color:#fff}
+.badge-gold{background:#d4a017;color:#fff}
+.badge-exp{background:#27ae60;color:#fff}
+.badge-func{background:#16a085;color:#fff}
+.badge-chest{background:#8e44ad;color:#fff}
+/* 稀有度颜色 */
+.c-common{color:#888}.c-uncommon{color:#3b7b1d}.c-rare{color:#21528e}
+.c-legendary{color:#904503}.c-immortal{color:#8c1818}.c-arcana{color:#652284}
+.c-beyond{color:#8f1e45}.c-celestial{color:#0e9aa7}.c-divine{color:#d4a017}.c-cosmic{color:#6c2f1f}
 .search{background:var(--card);padding:16px;border-radius:10px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.search input{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;background:#fff;color:var(--tx);font-size:1em}
+.search input{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;font-size:1em}
 .search input:focus{outline:none;border-color:var(--ac)}
 .result{background:#f8f9fa;padding:12px;border-radius:8px;margin-top:10px;border:1px solid #ddd}
 footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
-/* 稀有度颜色 - 游戏内纹理提取 */
-.c-common{color:#888}
-.c-uncommon{color:#3b7b1d}
-.c-rare{color:#21528e}
-.c-legendary{color:#904503}
-.c-immortal{color:#8c1818}
-.c-arcana{color:#652284}
-.c-beyond{color:#8f1e45}
-.c-celestial{color:#0e9aa7}
-.c-divine{color:#d4a017}
-.c-cosmic{color:#6c2f1f}
-@media(max-width:768px){nav ul{flex-direction:column;align-items:center}table{font-size:.7em}}
+@media(max-width:768px){.topnav ul li a{padding:10px 10px;font-size:.8em}table{font-size:.75em}}
 </style>
 </head>
 <body>
+<nav class="topnav">
+<div class="topnav-inner">
+<a href="index.html" class="logo">TBH 攻略站</a>
+<ul><li><a href="index.html" class="active">首页</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul>
+</div>
+</nav>
 <div class="c">
+
+<header>
+<h1>TBH：塔斯克巴·英雄 攻略站</h1>
+<p>数据来源：游戏文件解析（UnityPy）| 5875条中文物品名 | 2440个物品组 | 120个关卡</p>
+</header>
+
+<nav style="background:var(--card);padding:10px;border-radius:10px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)">
+<ul style="list-style:none;display:flex;flex-wrap:wrap;gap:5px;justify-content:center">
+<li><a href="#search" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">素材查询</a></li>
+<li><a href="#craft" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">制作配方</a></li>
+<li><a href="#chest" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">宝箱掉落</a></li>
+<li><a href="#pet" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">宠物</a></li>
+<li><a href="#stage" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">关卡怪物</a></li>
+<li><a href="#rarity" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">稀有度</a></li>
+<li><a href="#hero" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">职业</a></li>
+</ul>
+</nav>
+<header>
+<h1>TBH：塔斯克巴·英雄 攻略站</h1>
+<p>数据来源：游戏文件解析（UnityPy）| 5875条中文物品名 | 2440个物品组 | 120个关卡</p>
+</header>
+
+<nav style="background:var(--card);padding:10px;border-radius:10px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08)">
+<ul style="list-style:none;display:flex;flex-wrap:wrap;gap:5px;justify-content:center">
+<li><a href="#search" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">素材查询</a></li>
+<li><a href="#craft" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">制作配方</a></li>
+<li><a href="#chest" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">宝箱掉落</a></li>
+<li><a href="#pet" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">宠物</a></li>
+<li><a href="#stage" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">关卡怪物</a></li>
+<li><a href="#rarity" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">稀有度</a></li>
+<li><a href="#hero" style="color:var(--tx);padding:5px 12px;background:var(--hd);border-radius:5px;font-size:.8em;text-decoration:none">职业</a></li>
+</ul>
+</nav>
 <header>
 <h1>TBH：塔斯克巴·英雄 攻略站</h1>
 <p>数据来源：游戏文件解析（UnityPy） | 5875条中文物品名 | 2440个物品组 | 120个关卡</p>
 </header>
-<nav><ul>
-<li><a href="#search">素材查询</a></li>
-<li><a href="#craft">制作配方</a></li>
-<li><a href="#chest">宝箱掉落</a></li>
-<li><a href="#pet">宠物</a></li>
-<li><a href="#stage">关卡怪物</a></li>
-<li><a href="#rarity">稀有度</a></li>
-<li><a href="#hero">职业</a></li>
-<li><a href="rune.html">符文树</a></li>
-</ul></nav>
+
 
 <div class="s" id="search">
 <h2>素材去哪刷</h2>
@@ -170,6 +210,165 @@ document.addEventListener('DOMContentLoaded',function(){
 <footer>
 <p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-05-31</p>
 </footer>
+
+<footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-04</p></footer>
 </div>
+<script src="data_items.js"></script>
+<script src="data_search.js"></script>
+<script>
+function gc(g) {
+    var m={'COMMON':'c-common','UNCOMMON':'c-uncommon','RARE':'c-rare','LEGENDARY':'c-legendary','IMMORTAL':'c-immortal','ARCANA':'c-arcana','BEYOND':'c-beyond','CELESTIAL':'c-celestial','DIVINE':'c-divine','COSMIC':'c-cosmic'};
+    return m[g]||'';
+}
+// 稀有度中文名映射（用于搜索结果显示）
+var RARITY_CN={'COMMON':'普通','UNCOMMON':'罕见','RARE':'稀有','LEGENDARY':'传奇','IMMORTAL':'不朽','ARCANA':'至宝','BEYOND':'超凡','CELESTIAL':'天界','DIVINE':'神圣','COSMIC':'宇宙'};
+function cn(id,name) {
+    var c=gc(GRADES[id]);
+    return c?'<span class="'+c+'">'+name+'</span>':name;
+}
+function doSearch() {
+    var q=document.getElementById('si').value.toLowerCase().trim();
+    var r=document.getElementById('sr');
+    if(q.length<1){r.style.display='none';return;}
+    var ms=[];
+    for(var id in ITEMS){if(ITEMS[id].toLowerCase().includes(q))ms.push({id:id,name:ITEMS[id]});}
+    if(ms.length===0){r.innerHTML='<p>未找到</p>';r.style.display='block';return;}
+    var h='';
+    for(var i=0;i<Math.min(ms.length,10);i++){
+        var m=ms[i];
+        h+='<div style="margin:10px 0;padding:10px;background:rgba(0,0,0,.2);border-radius:5px">';
+        var rn=RARITY_CN[GRADES[m.id]]||'';
+        h+='<b>'+cn(m.id,m.name)+'</b>'+(rn?' <span style="font-size:0.8em;color:#888">['+rn+']</span>':'');
+        var drops=SEARCH_ITEMS[m.id];
+        if(drops&&drops.length>0){
+            h+='<br><b>掉落来源（按概率排序）：</b><table><thead><tr><th>关卡</th><th>等级</th><th>宝箱类型</th><th>概率</th></tr></thead><tbody>';
+            for(var j=0;j<Math.min(drops.length,15);j++){
+                var d=drops[j];
+                var stages=DROP_STAGES[d.dk];
+                if(stages){
+                    for(var k=0;k<Math.min(stages.length,3);k++){
+                        var s=stages[k];
+                        h+='<tr><td>'+s.stage+'</td><td>Lv'+s.level+'</td><td>'+s.type+'</td><td>'+d.pct+'%</td></tr>';
+                    }
+                }
+            }
+            h+='</tbody></table>';
+        }else{
+            h+='<br><span style="color:#888">暂无掉落数据</span>';
+        }
+        h+='
+
+<footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-04</p></footer>
+</div>
+<script src="data_items.js"></script>
+<script src="data_search.js"></script>
+<script src="data_items.js"></script>
+<script src="data_search.js"></script>
+<script>
+function gc(g) {
+    var m={'COMMON':'c-common','UNCOMMON':'c-uncommon','RARE':'c-rare','LEGENDARY':'c-legendary','IMMORTAL':'c-immortal','ARCANA':'c-arcana','BEYOND':'c-beyond','CELESTIAL':'c-celestial','DIVINE':'c-divine','COSMIC':'c-cosmic'};
+    return m[g]||'';
+}
+// 稀有度中文名映射（用于搜索结果显示）
+var RARITY_CN={'COMMON':'普通','UNCOMMON':'罕见','RARE':'稀有','LEGENDARY':'传奇','IMMORTAL':'不朽','ARCANA':'至宝','BEYOND':'超凡','CELESTIAL':'天界','DIVINE':'神圣','COSMIC':'宇宙'};
+function cn(id,name) {
+    var c=gc(GRADES[id]);
+    return c?'<span class="'+c+'">'+name+'</span>':name;
+}
+function doSearch() {
+    var q=document.getElementById('si').value.toLowerCase().trim();
+    var r=document.getElementById('sr');
+    if(q.length<1){r.style.display='none';return;}
+    var ms=[];
+    for(var id in ITEMS){if(ITEMS[id].toLowerCase().includes(q))ms.push({id:id,name:ITEMS[id]});}
+    if(ms.length===0){r.innerHTML='<p>未找到</p>';r.style.display='block';return;}
+    var h='';
+    for(var i=0;i<Math.min(ms.length,10);i++){
+        var m=ms[i];
+        h+='<div style="margin:10px 0;padding:10px;background:rgba(0,0,0,.2);border-radius:5px">';
+        var rn=RARITY_CN[GRADES[m.id]]||'';
+        h+='<b>'+cn(m.id,m.name)+'</b>'+(rn?' <span style="font-size:0.8em;color:#888">['+rn+']</span>':'');
+        var drops=SEARCH_ITEMS[m.id];
+        if(drops&&drops.length>0){
+            h+='<br><b>掉落来源（按概率排序）：</b><table><thead><tr><th>关卡</th><th>等级</th><th>宝箱类型</th><th>概率</th></tr></thead><tbody>';
+            for(var j=0;j<Math.min(drops.length,15);j++){
+                var d=drops[j];
+                var stages=DROP_STAGES[d.dk];
+                if(stages){
+                    for(var k=0;k<Math.min(stages.length,3);k++){
+                        var s=stages[k];
+                        h+='<tr><td>'+s.stage+'</td><td>Lv'+s.level+'</td><td>'+s.type+'</td><td>'+d.pct+'%</td></tr>';
+                    }
+                }
+            }
+            h+='</tbody></table>';
+        }else{
+            h+='<br><span style="color:#888">暂无掉落数据</span>';
+        }
+        h+='</div>';
+    }
+    r.innerHTML=h;
+    r.style.display='block';
+}
+document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('.g').forEach(function(el){
+        var ik=el.getAttribute('data-ik');
+        if(ik&&GRADES[ik]){var c=gc(GRADES[ik]);if(c)el.className='g '+c;}
+    });
+});
+</script>
+<script>
+function gc(g) {
+    var m={'COMMON':'c-common','UNCOMMON':'c-uncommon','RARE':'c-rare','LEGENDARY':'c-legendary','IMMORTAL':'c-immortal','ARCANA':'c-arcana','BEYOND':'c-beyond','CELESTIAL':'c-celestial','DIVINE':'c-divine','COSMIC':'c-cosmic'};
+    return m[g]||'';
+}
+// 稀有度中文名映射（用于搜索结果显示）
+var RARITY_CN={'COMMON':'普通','UNCOMMON':'罕见','RARE':'稀有','LEGENDARY':'传奇','IMMORTAL':'不朽','ARCANA':'至宝','BEYOND':'超凡','CELESTIAL':'天界','DIVINE':'神圣','COSMIC':'宇宙'};
+function cn(id,name) {
+    var c=gc(GRADES[id]);
+    return c?'<span class="'+c+'">'+name+'</span>':name;
+}
+function doSearch() {
+    var q=document.getElementById('si').value.toLowerCase().trim();
+    var r=document.getElementById('sr');
+    if(q.length<1){r.style.display='none';return;}
+    var ms=[];
+    for(var id in ITEMS){if(ITEMS[id].toLowerCase().includes(q))ms.push({id:id,name:ITEMS[id]});}
+    if(ms.length===0){r.innerHTML='<p>未找到</p>';r.style.display='block';return;}
+    var h='';
+    for(var i=0;i<Math.min(ms.length,10);i++){
+        var m=ms[i];
+        h+='<div style="margin:10px 0;padding:10px;background:rgba(0,0,0,.2);border-radius:5px">';
+        var rn=RARITY_CN[GRADES[m.id]]||'';
+        h+='<b>'+cn(m.id,m.name)+'</b>'+(rn?' <span style="font-size:0.8em;color:#888">['+rn+']</span>':'');
+        var drops=SEARCH_ITEMS[m.id];
+        if(drops&&drops.length>0){
+            h+='<br><b>掉落来源（按概率排序）：</b><table><thead><tr><th>关卡</th><th>等级</th><th>宝箱类型</th><th>概率</th></tr></thead><tbody>';
+            for(var j=0;j<Math.min(drops.length,15);j++){
+                var d=drops[j];
+                var stages=DROP_STAGES[d.dk];
+                if(stages){
+                    for(var k=0;k<Math.min(stages.length,3);k++){
+                        var s=stages[k];
+                        h+='<tr><td>'+s.stage+'</td><td>Lv'+s.level+'</td><td>'+s.type+'</td><td>'+d.pct+'%</td></tr>';
+                    }
+                }
+            }
+            h+='</tbody></table>';
+        }else{
+            h+='<br><span style="color:#888">暂无掉落数据</span>';
+        }
+        h+='</div>';
+    }
+    r.innerHTML=h;
+    r.style.display='block';
+}
+document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('.g').forEach(function(el){
+        var ik=el.getAttribute('data-ik');
+        if(ik&&GRADES[ik]){var c=gc(GRADES[ik]);if(c)el.className='g '+c;}
+    });
+});
+</script>
 </body>
 </html>
