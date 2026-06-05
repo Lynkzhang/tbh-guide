@@ -54,6 +54,13 @@ tr:hover{background:#f4efe8}
 .calc-result table{margin:6px 0}
 .calc-result .big{font-size:1.4em;font-weight:700;color:var(--ac)}
 .calc-result .big2{font-size:1.4em;font-weight:700;color:var(--bl)}
+.pet-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px}
+.pet-list label{display:flex;align-items:center;gap:6px;padding:6px 10px;background:#fff;border:1px solid var(--line);border-radius:8px;font-size:.85em;cursor:pointer;transition:border-color .15s,background .15s}
+.pet-list label:hover{border-color:var(--ac);background:#fffaf6}
+.pet-list label input{margin:0}
+.pet-list .pet-bonus{margin-left:auto;font-size:.78em;color:var(--mu);font-weight:600}
+.pet-list .pet-bonus.norm{color:var(--bl)}
+.pet-list .pet-bonus.boss{color:var(--ac)}
 @media(max-width:768px){.calc-cols{grid-template-columns:1fr}.calc-label{min-width:100px}}
 .formula .line{display:block;margin:8px 0 0 0}
 .formula .line:first-child{margin-top:0}
@@ -131,7 +138,7 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </div>
 
 <div class="s" id="calc"><h2>宝箱掉落计算器</h2>
-<p style="font-size:.85em;color:var(--mu);margin-bottom:10px">选关卡 + 分别填写"普通宝箱"和"Boss宝箱"加成，得到当关期望宝箱数与掉落概率。<b>普通宝箱与 Boss 宝箱加成是分开的</b>，请分别填入。</p>
+<p style="font-size:.85em;color:var(--mu);margin-bottom:10px">勾选你已拥有的宠物 + 填写符文等其它来源的百分比加成，得到这关单次判定的最终掉率。<b>普通宝箱与 Boss 宝箱加成是分开计算的</b>。</p>
 
 <div class="calc-grid">
   <div class="calc-row">
@@ -143,32 +150,33 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
     <div class="calc-meta" id="ca-meta">请先选择关卡</div>
   </div>
 
+  <div class="calc-card" style="background:#fbf6ef">
+    <h3 style="color:var(--mu);margin:0 0 8px;font-size:.95em">🐾 已拥有的宠物（勾上自动加成）</h3>
+    <div id="ca-pets" class="pet-list"></div>
+  </div>
+
   <div class="calc-cols">
     <div class="calc-card">
-      <h3 style="color:var(--bl);margin:0 0 8px;font-size:.95em">📦 普通宝箱加成（杀普通怪掉的箱子）</h3>
+      <h3 style="color:var(--bl);margin:0 0 8px;font-size:.95em">📦 普通宝箱 — 其它来源加成</h3>
       <div class="calc-row">
-        <label class="calc-label">百分比加成：</label>
+        <label class="calc-label">符文/其它（%）：</label>
         <input type="number" id="ca-np" class="calc-input" value="0" step="10" min="0">
-        <span class="calc-suffix">% （DropChanceNormalChestPercent）</span>
+        <span class="calc-suffix">把符文树面板上"普通宝箱掉落率"那一行的总数填进来</span>
       </div>
-      <div class="calc-row">
-        <label class="calc-label">直加（千分比）：</label>
-        <input type="number" id="ca-nf" class="calc-input" value="0" step="1" min="0">
-        <span class="calc-suffix">‰ （DropChanceNormalChest）</span>
+      <div class="calc-row" style="margin:0">
+        <span class="calc-suffix" id="ca-np-pet" style="margin-left:120px">宠物加成: +0%</span>
       </div>
     </div>
 
     <div class="calc-card">
-      <h3 style="color:var(--ac);margin:0 0 8px;font-size:.95em">👑 Boss宝箱加成（杀关卡 Boss 掉的箱子）</h3>
+      <h3 style="color:var(--ac);margin:0 0 8px;font-size:.95em">👑 Boss宝箱 — 其它来源加成</h3>
       <div class="calc-row">
-        <label class="calc-label">百分比加成：</label>
+        <label class="calc-label">符文/其它（%）：</label>
         <input type="number" id="ca-bp" class="calc-input" value="0" step="10" min="0">
-        <span class="calc-suffix">% （DropChanceStageBossChestPercent）</span>
+        <span class="calc-suffix">把"关卡首领宝箱掉落率"那一行的总数填进来</span>
       </div>
-      <div class="calc-row">
-        <label class="calc-label">直加（千分比）：</label>
-        <input type="number" id="ca-bf" class="calc-input" value="0" step="1" min="0">
-        <span class="calc-suffix">‰ （DropChanceStageBossChest）</span>
+      <div class="calc-row" style="margin:0">
+        <span class="calc-suffix" id="ca-bp-pet" style="margin-left:120px">宠物加成: +0%</span>
       </div>
     </div>
   </div>
@@ -197,6 +205,24 @@ function gc(g) {
 }
 
 // ===== 宝箱掉落计算器 =====
+// 宠物宝箱加成数据（来自 PetStatInfoData.csv，仅含影响宝箱的宠物）
+var PETS_CHEST = [
+  {key:1001, name:'蝙蝠',     norm:100, boss:0,   src:'击败蝙蝠 x5000'},
+  {key:1003, name:'燃烧骷髅', norm:0,   boss:100, src:'击败火元素 x5000'},
+  {key:1004, name:'蓝色魔像', norm:150, boss:0,   src:'击败地狱魔像 x5000'},
+  {key:1005, name:'黑暗精灵', norm:0,   boss:150, src:'击败幽灵 x5000'},
+  {key:6003, name:'龙',       norm:200, boss:0,   src:'Supporter Pack DLC'}
+];
+
+function getPetSum() {
+  var n = 0, b = 0;
+  PETS_CHEST.forEach(function(p){
+    var cb = document.getElementById('ca-pet-' + p.key);
+    if (cb && cb.checked) { n += p.norm; b += p.boss; }
+  });
+  return {norm:n, boss:b};
+}
+
 function calcChest() {
   var sel = document.getElementById('ca-stage');
   var idx = parseInt(sel.value, 10);
@@ -211,10 +237,12 @@ function calcChest() {
     meta.innerHTML = '<b>' + label + '</b>　基础单次判定掉率：怪物 <b>' + (s.mdr/10).toFixed(1) + '%</b>　|　Boss <b>' + (s.bdr/10).toFixed(1) + '%</b>';
   }
 
-  var np = parseFloat(document.getElementById('ca-np').value) || 0;
-  var nf = parseFloat(document.getElementById('ca-nf').value) || 0;
-  var bp = parseFloat(document.getElementById('ca-bp').value) || 0;
-  var bf = parseFloat(document.getElementById('ca-bf').value) || 0;
+  var pet = getPetSum();
+  document.getElementById('ca-np-pet').textContent = '宠物加成: +' + pet.norm + '%';
+  document.getElementById('ca-bp-pet').textContent = '宠物加成: +' + pet.boss + '%';
+
+  var np = (parseFloat(document.getElementById('ca-np').value) || 0) + pet.norm;
+  var bp = (parseFloat(document.getElementById('ca-bp').value) || 0) + pet.boss;
 
   var result = document.getElementById('ca-result');
   if (s.t === 'ACTBOSS') {
@@ -222,10 +250,10 @@ function calcChest() {
     return;
   }
 
-  // 最终单次掉率(千分比) = 基础rate*(1 + percent/100) + flat
-  var pNorm = s.mdr * (1 + np/100) + nf;   // ‰
-  var pBoss = s.bdr * (1 + bp/100) + bf;   // ‰
-  var pNormPct = pNorm / 10;               // 转 %
+  // 最终单次掉率(千分比) = 基础rate * (1 + percent/100)
+  var pNorm = s.mdr * (1 + np/100);  // ‰
+  var pBoss = s.bdr * (1 + bp/100);  // ‰
+  var pNormPct = pNorm / 10;
   var pBossPct = pBoss / 10;
 
   function pct1(x){ return x.toFixed(2) + '%'; }
@@ -234,8 +262,7 @@ function calcChest() {
   html += '<table>';
   html += '<thead><tr><th></th><th style="color:var(--bl)">📦 普通宝箱</th><th style="color:var(--ac)">👑 Boss宝箱</th></tr></thead><tbody>';
   html += '<tr><td>基础单次掉率</td><td>' + (s.mdr/10).toFixed(1) + '%</td><td>' + (s.bdr/10).toFixed(1) + '%</td></tr>';
-  html += '<tr><td>百分比加成</td><td>+' + np + '%</td><td>+' + bp + '%</td></tr>';
-  html += '<tr><td>直加（‰）</td><td>+' + nf + '‰</td><td>+' + bf + '‰</td></tr>';
+  html += '<tr><td>百分比加成合计</td><td>+' + np + '%</td><td>+' + bp + '%</td></tr>';
   html += '<tr><td><b>最终单次掉率</b></td><td><span class="big2">' + pct1(pNormPct) + '</span>' + (pNormPct>=100?' <span style="color:var(--ac);font-size:.78em">(必掉，溢出 '+(pNormPct-100).toFixed(1)+'% 再判)</span>':'') + '</td><td><span class="big">' + pct1(pBossPct) + '</span>' + (pBossPct>=100?' <span style="color:var(--ac);font-size:.78em">(必掉)</span>':'') + '</td></tr>';
   html += '</tbody></table>';
   result.innerHTML = html;
@@ -250,7 +277,19 @@ document.addEventListener('DOMContentLoaded',function(){
         }
     });
 
-    // 初始化计算器
+    // 渲染宠物勾选清单
+    var petList = document.getElementById('ca-pets');
+    if (petList) {
+      PETS_CHEST.forEach(function(p){
+        var bonus = '';
+        if (p.norm) bonus += '<span class="pet-bonus norm">普通+' + p.norm + '%</span>';
+        if (p.boss) bonus += '<span class="pet-bonus boss">Boss+' + p.boss + '%</span>';
+        petList.insertAdjacentHTML('beforeend',
+          '<label title="' + p.src + '"><input type="checkbox" id="ca-pet-' + p.key + '"> ' + p.name + bonus + '</label>');
+      });
+    }
+
+    // 初始化关卡下拉
     var sel = document.getElementById('ca-stage');
     if (sel && typeof STAGE_DATA !== 'undefined') {
       var DIFF_ORDER = {'普通':1,'噩梦':2,'地狱':3,'折磨':4};
@@ -270,9 +309,14 @@ document.addEventListener('DOMContentLoaded',function(){
         sel.appendChild(opt);
       });
       sel.value = 0;
-      ['ca-stage','ca-np','ca-nf','ca-bp','ca-bf'].forEach(function(id){
+      ['ca-stage','ca-np','ca-bp'].forEach(function(id){
         var el = document.getElementById(id);
         if (el) el.addEventListener('input', calcChest);
+      });
+      // 宠物 checkbox 监听
+      PETS_CHEST.forEach(function(p){
+        var cb = document.getElementById('ca-pet-' + p.key);
+        if (cb) cb.addEventListener('change', calcChest);
       });
       calcChest();
     }
