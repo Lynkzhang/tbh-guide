@@ -53,7 +53,70 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </head>
 <body>
 <nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html" class="active">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav><div class="c">
-<header><h1>关卡怪物</h1><p>关卡、等级、Boss、宝箱一览</p></header><div class="s" id="stage"><h2>关卡怪物一览</h2>
+<header><h1>关卡怪物</h1><p>关卡、等级、Boss、宝箱一览</p></header>
+
+<div class="s" id="chest-formula"><h2>宝箱掉落公式</h2>
+<p style="font-size:.9em;color:var(--mu);margin-bottom:8px">表格里 <code>怪物宝箱</code> / <code>Boss宝箱</code> 列括号内的数字（如 <code>910011(160)</code>、<code>920011(1000)</code>）即游戏数据中的 <b>DropItemRate</b>，单位 <b>‱（千分比）</b>。每只怪/每个 Boss 死亡时各自独立判定一次。</p>
+
+<h3>① 基础掉落概率</h3>
+<div class="formula">
+<span class="cmt">// 普通怪掉宝箱（每只杀死的怪独立判定一次）</span>
+<span class="line"><span class="kw">P_怪物宝箱</span> = <span class="val">MonsterDropItemRate / 1000</span></span>
+<span class="cmt">// 例：1-1 关 (160) → 16% 每只怪掉一个普通宝箱</span>
+<span class="line"></span>
+<span class="cmt">// Boss 掉宝箱（每个 Boss 独立判定一次）</span>
+<span class="line"><span class="kw">P_Boss宝箱</span> = <span class="val">BossDropItemRate / 1000</span></span>
+<span class="cmt">// 例：1-1 Boss (1000) → 100% 必掉关卡 Boss 宝箱</span>
+<span class="line"></span>
+<span class="cmt">// 幕首领关（10/20/30… Boss 关）固定掉幕首领宝箱（930xxx），不走概率</span>
+</div>
+<div class="note"><b>注：</b>分子越小越稀有 — <code>(160)</code>=16%、<code>(80)</code>=8%、<code>(25)</code>=2.5%。后期关卡 rate 会减小，因为高级怪每次都掉太亏，靠数量稀缺平衡。</div>
+
+<h3>② 加成系数（账号属性）</h3>
+<p style="font-size:.85em;color:var(--mu);margin-bottom:6px">符文树 / 宠物 / 装备 等会给账号属性加成，掉率不是直接相加，而是乘以系数（来自 <code>EAccountStatus</code>）。</p>
+<div class="formula">
+<span class="cmt">// 最终掉率 = 基础掉率 × (1 + Percent加成总和/100) + Flat加成</span>
+<span class="line"><span class="kw">P_最终</span> = <span class="val">P_基础 × (1 + ΣDropChance*ChestPercent / 100)</span></span>
+<span class="line"><span style="margin-left:150px">+ ΣDropChance*Chest（直接增量，单位千分比）</span></span>
+<span class="line"></span>
+<span class="cmt">// 普通宝箱：受 DropChanceNormalChest（直加）+ DropChanceNormalChestPercent（乘算%）影响</span>
+<span class="cmt">// 关卡 Boss 宝箱：受 DropChanceStageBossChest + DropChanceStageBossChestPercent 影响</span>
+<span class="cmt">// 二者互不影响，分别独立计算</span>
+</div>
+
+<h3>③ 加成来源举例</h3>
+<table>
+<thead><tr><th>来源</th><th>属性</th><th>类型</th><th>数值</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>符文 R101 Lv1</td><td>DropChanceNormalChestPercent</td><td>百分比</td><td>+100%</td><td>普通宝箱掉率系数 ×2</td></tr>
+<tr><td>符文 R102 Lv1</td><td>DropChanceStageBossChestPercent</td><td>百分比</td><td>+200%</td><td>Boss 宝箱掉率系数 ×3</td></tr>
+<tr><td>符文 R103 Lv1~5</td><td>DropChanceNormalChestPercent</td><td>百分比</td><td>+70% × 5</td><td>满级累加 +350%</td></tr>
+<tr><td>宠物 1001</td><td>DropChanceNormalChestPercent</td><td>百分比</td><td>+100%</td><td>FLAT 类型直接读数（已是%）</td></tr>
+<tr><td>宠物 1004</td><td>DropChanceNormalChestPercent</td><td>百分比</td><td>+150%</td><td>同上</td></tr>
+<tr><td>宠物 6003</td><td>DropChanceNormalChestPercent</td><td>百分比</td><td>+200%</td><td>同上</td></tr>
+</tbody></table>
+
+<h3>④ 计算示例</h3>
+<div class="formula">
+<span class="cmt">// 场景：1-3 关，普通怪 (160)，账号有 R101 + R103 满级 + 宠物1001</span>
+<span class="line"><span class="kw">基础掉率</span> = <span class="val">160 / 1000 = 16%</span></span>
+<span class="line"><span class="kw">百分比加成</span> = <span class="val">100 + 70×5 + 100 = +550%</span></span>
+<span class="line"><span class="kw">最终掉率</span> = <span class="val">16% × (1 + 5.50) = 16% × 6.50 = 104%</span></span>
+<span class="line"><span class="kw">实际表现</span> = <span class="val">每只怪 100% 掉 1 箱，超出部分约 4% 概率多掉 1 箱</span></span>
+</div>
+<div class="tip"><b>溢出处理：</b>当最终概率 &gt; 100% 时，先必掉 1 个，剩余小数部分作为再次判定概率。直至超过 <code>MaxAmountNormalChest</code> / <code>MaxAmountStageBossChest</code> 上限（背包容量上限），多余的箱子直接丢失。</div>
+
+<h3>⑤ 宝箱内容物公式</h3>
+<p style="font-size:.85em;color:var(--mu);margin-bottom:6px">宝箱本身只是容器，开启后按 <code>DropInfoData.csv</code> 的权重表抽取掉落物（<code>DropType = EachDropOneWeight_DLCVariant</code>）：</p>
+<div class="formula">
+<span class="cmt">// 每个 ItemGroup 单独判定一次（不是从总池里抽 1 个，而是逐条 roll）</span>
+<span class="line"><span class="kw">P_某物品组</span> = <span class="val">Weight / Σ总权重</span></span>
+<span class="cmt">// HeroKeyCondition：501=猎人专属、601=屠杀者专属，不符合的英雄此条不生效</span>
+<span class="cmt">// 详细每箱含金量见 <a href="chest.html" style="color:var(--ac);text-decoration:underline">宝箱掉落</a>页面</span>
+</div>
+</div>
+
+<div class="s" id="stage"><h2>关卡怪物一览</h2>
 
 <table><thead><tr><th>关卡</th><th>等级</th><th>类型</th><th>出现怪物</th><th>Boss</th><th>怪物宝箱</th><th>Boss宝箱</th></tr></thead><tbody>
 
