@@ -54,6 +54,7 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
     <option value="">全部</option>
     <option value="怪物宝箱">仅怪物宝箱</option>
     <option value="Boss宝箱">仅Boss宝箱</option>
+    <option value="章节Boss宝箱">仅章节Boss宝箱</option>
   </select>
   <span style="font-size:.85em;color:var(--mu);margin-left:12px">显示行数：</span>
   <select id="flimit" onchange="doSearch()" style="padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:.85em;background:#fff">
@@ -138,7 +139,7 @@ function doSearch(){
             h+='<table><thead><tr><th>关卡</th><th>等级</th><th>宝箱类型</th><th>掉落率</th></tr></thead><tbody>';
             for(var j=0;j<Math.min(rows.length,flimit);j++){
                 var s=rows[j];
-                var typeColor=s.type==='Boss宝箱'?'var(--ac)':s.type==='怪物宝箱'?'var(--bl)':'var(--mu)';
+                var typeColor=s.type==='章节Boss宝箱'?'var(--ac)':s.type==='Boss宝箱'?'var(--bl)':'#888';
                 h+='<tr><td>'+s.stage+'</td><td>Lv'+s.level+'</td><td style="color:'+typeColor+';font-weight:600">'+s.type+'</td><td>'+s.pct+'%</td></tr>';
             }
             h+='</tbody></table>';
