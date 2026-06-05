@@ -48,9 +48,24 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 <h2>素材去哪刷</h2>
 <div class="search">
 <input type="text" id="si" placeholder="输入素材名称，如：木材、铁锭、黑曜石碎片" onkeyup="doSearch()">
-<div id="sr" class="result" style="display:none"></div>
+<div style="margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+  <span style="font-size:.85em;color:var(--mu)">宝箱类型：</span>
+  <select id="ftype" onchange="doSearch()" style="padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:.85em;background:#fff">
+    <option value="">全部</option>
+    <option value="怪物宝箱">仅怪物宝箱</option>
+    <option value="Boss宝箱">仅Boss宝箱</option>
+  </select>
+  <span style="font-size:.85em;color:var(--mu);margin-left:12px">显示行数：</span>
+  <select id="flimit" onchange="doSearch()" style="padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:.85em;background:#fff">
+    <option value="12">12</option>
+    <option value="30" selected>30</option>
+    <option value="60">60</option>
+    <option value="999">全部</option>
+  </select>
 </div>
-<div class="n"><b>使用方法：</b>输入素材中文名，会按掉落率从高到低列出推荐关卡。物品名颜色 = 稀有度。</div>
+<div id="sr" class="result" style="display:none;margin-top:10px"></div>
+</div>
+<div class="n"><b>使用方法：</b>输入素材中文名，按掉落率从高到低列出推荐关卡。可用"宝箱类型"过滤怪物/Boss 宝箱。物品名颜色 = 稀有度。</div>
 </div>
 
 <footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-05</p></footer>
@@ -94,6 +109,8 @@ function doSearch(){
     var q=document.getElementById('si').value.toLowerCase().trim();
     var r=document.getElementById('sr');
     if(q.length<1){r.style.display='none';return;}
+    var ftype=document.getElementById('ftype').value;
+    var flimit=parseInt(document.getElementById('flimit').value,10)||30;
     var ms=[];
     for(var id in ITEMS){
         if(ITEMS[id].toLowerCase().includes(q)) ms.push({id:id,name:ITEMS[id]});
@@ -110,16 +127,23 @@ function doSearch(){
         var rn=RARITY_CN[GRADES[m.id]]||'';
         h+='<b>'+cn(m.id,m.name)+'</b>'+(rn?' <span style="font-size:0.8em;color:#888">['+rn+']</span>':'');
         var rows=collectStageDrops(m.id);
+        // 过滤宝箱类型
+        if(ftype){
+            rows=rows.filter(function(s){ return s.type===ftype; });
+        }
         if(rows.length>0){
-            h+='<br><b>推荐刷取关卡（按掉落率排序）：</b>';
+            h+='<br><b>推荐刷取关卡（按掉落率排序，共 '+rows.length+' 条';
+            if(rows.length>flimit) h+='，仅显示前 '+flimit;
+            h+='）：</b>';
             h+='<table><thead><tr><th>关卡</th><th>等级</th><th>宝箱类型</th><th>掉落率</th></tr></thead><tbody>';
-            for(var j=0;j<Math.min(rows.length,12);j++){
+            for(var j=0;j<Math.min(rows.length,flimit);j++){
                 var s=rows[j];
-                h+='<tr><td>'+s.stage+'</td><td>Lv'+s.level+'</td><td>'+s.type+'</td><td>'+s.pct+'%</td></tr>';
+                var typeColor=s.type==='Boss宝箱'?'var(--ac)':s.type==='怪物宝箱'?'var(--bl)':'var(--mu)';
+                h+='<tr><td>'+s.stage+'</td><td>Lv'+s.level+'</td><td style="color:'+typeColor+';font-weight:600">'+s.type+'</td><td>'+s.pct+'%</td></tr>';
             }
             h+='</tbody></table>';
         }else{
-            h+='<br><span style="color:#888">该素材在普通关卡的宝箱中暂无可推荐刷点</span>';
+            h+='<br><span style="color:#888">该素材在'+(ftype?'选中类型的':'普通关卡的')+'宝箱中暂无可推荐刷点</span>';
         }
         h+='</div>';
     }
