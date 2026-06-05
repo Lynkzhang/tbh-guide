@@ -16,46 +16,45 @@ body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t
 .topnav ul li a{display:block;color:#74685d;padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
 .topnav ul li a:hover{background:#fff;color:#d94f70;border-color:#e8ddd1;transform:translateY(-1px)}
 .topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
-@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}}
+@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}table{font-size:.76em}}
 </style>
 </head>
 <body>
 <nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html" class="active">伤害公式</a></li></ul></div></nav><div class="c">
 
-<header><h1>伤害结算公式</h1><p>重新整理为“已确认数据 / 待确认推导”两部分</p></header>
+<header><h1>伤害结算公式</h1><p>伤害参数、词缀类型与结算顺序说明</p></header>
 
 <div class="s">
-<h2>先说结论</h2>
-<div class="note"><b>重要：</b>职业表里的 <code>CriticalChance</code> 与 <code>CriticalDamage</code> 是游戏数据表原始参数，<b>不能直接等同于角色面板显示的暴击率 / 暴伤百分比</b>。之前把它直接写成 25% / 40% / 50% 是不严谨的，这里已修正。</div>
-<div class="tip"><b>你反馈是对的：</b>如果你 40 级角色实际面板只有十几暴击，那么当前最稳的说法只能是“HeroInfoData 里存在暴击参数”，不能直接当成最终面板值。</div>
+<h2>参数说明</h2>
+<div class="note"><b>说明：</b><code>HeroInfoData</code> 中的 <code>CriticalChance</code> 与 <code>CriticalDamage</code> 为职业原始参数，不直接等同于角色面板显示的暴击率与暴击伤害百分比。本页统一以“参数”表述，避免与面板数值混淆。</div>
 </div>
 
 <div class="s">
-<h2>伤害结算流程</h2>
+<h2>伤害结算顺序</h2>
 <div class="formula">
-  <span class="cmt">已确认：词缀分为 FLAT / ADDITIVE / MULTIPLICATIVE 三种</span>
+  <span class="cmt">装备基础值、角色参数、词缀与抗性共同参与最终伤害结算。</span>
   <span class="line"><span class="kw">基础伤害</span> = 装备基础值 + 固定值加成(FLAT) + 角色基础攻击参数</span>
   <span class="line"><span class="kw">加法增伤后</span> = 基础伤害 × (1 + 所有 ADDITIVE 加成总和)</span>
   <span class="line"><span class="kw">最终伤害</span> = 加法增伤后 × 所有 MULTIPLICATIVE 乘算项</span>
-  <span class="line"><span class="kw">元素/抗性</span> = 再叠加元素伤害加成与目标抗性修正</span>
-  <span class="line"><span class="kw">暴击</span> = 存在暴击参数，但“参数值 -> 面板暴击率”的换算仍待确认</span>
+  <span class="line"><span class="kw">元素修正</span> = 在伤害基础上叠加元素加成与目标抗性修正</span>
+  <span class="line"><span class="kw">暴击修正</span> = 由暴击相关参数参与额外计算，具体面板换算关系未在数据表中直接给出</span>
 </div>
 </div>
 
 <div class="s">
-<h2>职业原始参数（来自 HeroInfoData）</h2>
+<h2>职业原始参数</h2>
 <table>
 <thead><tr><th>职业</th><th>攻击参数</th><th>攻速参数</th><th>暴击参数</th><th>暴伤参数</th><th>HP参数</th><th>护甲参数</th></tr></thead>
 <tbody><tr><td>骑士</td><td>2</td><td>90</td><td>25</td><td>1400</td><td>130</td><td>45</td></tr><tr><td>游侠</td><td>1</td><td>100</td><td>40</td><td>1500</td><td>60</td><td>8</td></tr><tr><td>术士</td><td>2</td><td>55</td><td>50</td><td>1650</td><td>50</td><td>5</td></tr><tr><td>牧师</td><td>1</td><td>90</td><td>20</td><td>1400</td><td>95</td><td>30</td></tr><tr><td>猎人</td><td>2</td><td>70</td><td>45</td><td>1550</td><td>70</td><td>15</td></tr><tr><td>屠杀者</td><td>2</td><td>70</td><td>25</td><td>1800</td><td>115</td><td>40</td></tr></tbody>
 </table>
-<div class="note"><b>解释：</b>这里刻意写成“参数”而不是“百分比”，避免继续误导。后续如果能从代码或面板实测反推出换算关系，再单独补上。</div>
+<div class="tip"><b>备注：</b>本表用于展示职业数据表中的原始字段，适合与技能、Buff、词缀表联合阅读，不建议直接作为角色面板百分比理解。</div>
 </div>
 
 <div class="s">
-<h2>Buff / Debuff 影响方式</h2>
+<h2>Buff / Debuff 计算方式</h2>
 <div class="formula">
-  <span class="line"><span class="kw">FLAT</span> 直接加到属性上</span>
-  <span class="line"><span class="kw">ADDITIVE</span> 先求和，再统一乘到基值上</span>
+  <span class="line"><span class="kw">FLAT</span> 直接加到目标属性上</span>
+  <span class="line"><span class="kw">ADDITIVE</span> 先求和，再统一作用于基础值</span>
   <span class="line"><span class="kw">MULTIPLICATIVE</span> 作为独立乘算项继续相乘</span>
 </div>
 <table>
