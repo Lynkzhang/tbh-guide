@@ -5,23 +5,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>职业天赋 - TBH攻略站</title>
 <style>
-:root{--bg:#f5f5f5;--card:#fff;--hd:#e8e8e8;--ac:#e94560;--tx:#333;--mu:#666;--bl:#3498db;--gn:#2ecc71}
+:root{--bg:#f6f3ef;--card:#fffdf9;--hd:#efe7de;--ac:#d94f70;--tx:#2f2a26;--mu:#74685d;--bl:#5d7fd6;--line:#e8ddd1}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
 .c{max-width:1200px;margin:0 auto;padding:16px}
-/* ===== 顶部导航栏 ===== */
 .topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
-.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid #e8ddd1;border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
-.topnav .logo{color:#d94f70;font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid #e8ddd1;border-radius:12px}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
+.topnav .logo{color:var(--ac);font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:12px}
 .topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
-.topnav ul li a{display:block;color:#74685d;padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
-.topnav ul li a:hover{background:#fff;color:#d94f70;border-color:#e8ddd1;transform:translateY(-1px)}
+.topnav ul li a{display:block;color:var(--mu);padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.topnav ul li a:hover{background:#fff;color:var(--ac);border-color:var(--line);transform:translateY(-1px)}
 .topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
-@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}}
+header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
+header h1{color:#fff;font-size:1.8em}
+header p{color:rgba(255,255,255,.84);font-size:.85em;margin-top:4px}
+.s{background:var(--card);padding:18px;border-radius:14px;margin-bottom:18px;box-shadow:0 8px 24px rgba(116,104,93,.08);border:1px solid var(--line)}
+.s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
+.s h3{color:var(--bl);margin:14px 0 8px;font-size:1em}
+.s h4{color:var(--mu);margin:10px 0 6px;font-size:.9em}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85em}
+th,td{padding:7px 10px;border:1px solid #ddd;text-align:left}
+th{background:var(--hd);color:var(--tx)}
+tr:nth-child(even){background:#fbf9f6}
+tr:hover{background:#f4efe8}
+.note{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
+.tip{background:#eaf5ff;padding:10px 14px;border-left:3px solid #6aa4ff;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#375a8a}
+footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
+@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}table{font-size:.76em}}
+
+.class-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.class-tab{padding:8px 22px;border:2px solid #ddd;border-radius:6px;cursor:pointer;background:#fff;font-size:.9em;font-weight:bold;transition:all .15s}
+.class-tab:hover{border-color:var(--clr);color:var(--clr)}
+.class-tab.active{background:var(--clr);color:#fff;border-color:var(--clr)}
+.hero-header{padding:14px 16px;background:#f9f9f9;border-radius:8px;margin-bottom:12px}
+.hero-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.hero-name{font-size:1.4em;font-weight:bold}
+.hero-class{color:#888;font-size:.85em}
+.hero-tags{color:#666;font-size:.8em}
+.hero-desc{margin-top:8px;color:#555;font-size:.85em;line-height:1.6}
+.hero-stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.stat-item{background:#f0f0f0;padding:4px 10px;border-radius:4px;font-size:.82em}
+.stat-item b{color:#e94560}
+.talent-tree{display:flex;flex-direction:column;gap:0}
+.talent-row{border:1px solid #e0e0e0;border-radius:8px;margin-bottom:10px;overflow:hidden}
+.talent-row-header{background:#f5f0e8;padding:6px 14px;font-size:.8em;border-bottom:1px solid #e0e0e0;color:#7a6040;font-weight:bold}
+.talent-req{color:#9a7040}
+.talent-nodes{display:flex;flex-wrap:wrap;gap:0}
+.talent-node{flex:1;min-width:200px;padding:12px 14px;border-right:1px solid #eee;position:relative}
+.talent-node:last-child{border-right:none}
+.talent-passive{background:#fafffe}
+.talent-active{background:#fffaf8}
+.tnode-type{font-size:.7em;font-weight:bold;padding:1px 6px;border-radius:3px;display:inline-block;margin-bottom:5px}
+.talent-passive .tnode-type{background:#d1fae5;color:#065f46}
+.talent-active .tnode-type{background:#fee2e2;color:#991b1b}
+.tnode-name{font-weight:bold;font-size:.95em;margin-bottom:3px}
+.tnode-desc{font-size:.8em;color:#555;margin:4px 0;line-height:1.5}
+.tnode-effect{font-size:.85em;color:#2563eb;font-weight:bold}
+.tnode-trigger{font-size:.78em;color:#666;margin:4px 0}
+.tnode-params{font-size:.75em;color:#888;margin:2px 0}
+.tnode-meta{font-size:.73em;color:#aaa;margin-top:5px}
+.sk-lvtable{width:100%;font-size:.72em;margin:4px 0;border-collapse:collapse}
+.sk-lvtable th{background:#fee2e2;padding:2px 5px;border:1px solid #fca5a5;text-align:center}
+.sk-lvtable td{padding:2px 5px;border:1px solid #fca5a5;text-align:center}
+@media(max-width:768px){.talent-node{min-width:140px}.hero-stats{gap:4px}}
 </style>
 </head>
 <body>
-<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html" class="active">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav><div class="c">
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html" class="active">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav>
+<div class="c">
 
 <header>
 <h1>职业与天赋树</h1>

@@ -5,18 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>关卡怪物 - TBH攻略站</title>
 <style>
-:root{--bg:#f5f5f5;--card:#fff;--hd:#e8e8e8;--ac:#e94560;--tx:#333;--mu:#666;--bl:#3498db;--gn:#2ecc71}
+:root{--bg:#f6f3ef;--card:#fffdf9;--hd:#efe7de;--ac:#d94f70;--tx:#2f2a26;--mu:#74685d;--bl:#5d7fd6;--gn:#2ecc71;--line:#e8ddd1}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
 .c{max-width:1200px;margin:0 auto;padding:16px}
 .topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
-.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid #e8ddd1;border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
-.topnav .logo{color:#d94f70;font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid #e8ddd1;border-radius:12px}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
+.topnav .logo{color:var(--ac);font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:12px}
 .topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
-.topnav ul li a{display:block;color:#74685d;padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
-.topnav ul li a:hover{background:#fff;color:#d94f70;border-color:#e8ddd1;transform:translateY(-1px)}
+.topnav ul li a{display:block;color:var(--mu);padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.topnav ul li a:hover{background:#fff;color:var(--ac);border-color:var(--line);transform:translateY(-1px)}
 .topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
-@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}}
+header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
+header h1{color:#fff;font-size:1.8em}
+header p{color:rgba(255,255,255,.84);font-size:.85em;margin-top:4px}
+.s{background:var(--card);padding:18px;border-radius:14px;margin-bottom:18px;box-shadow:0 8px 24px rgba(116,104,93,.08);border:1px solid var(--line)}
+.s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
+.s h3{color:var(--bl);margin:14px 0 8px;font-size:1em}
+.s h4{color:var(--mu);margin:10px 0 6px;font-size:.9em}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85em}
+th,td{padding:7px 10px;border:1px solid #ddd;text-align:left}
+th{background:var(--hd);color:var(--tx)}
+tr:nth-child(even){background:#fbf9f6}
+tr:hover{background:#f4efe8}
+.note{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
+.note b{color:#856404}
+.tip{background:#eaf5ff;padding:10px 14px;border-left:3px solid #6aa4ff;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#375a8a}
+.search{background:var(--card);padding:16px;border-radius:10px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08);border:1px solid var(--line)}
+.search input{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;background:#fff;color:var(--tx);font-size:1em}
+.search input:focus{outline:none;border-color:var(--ac)}
+.result{background:#f8f9fa;padding:12px;border-radius:8px;margin-top:10px;border:1px solid #ddd}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.cardlink{display:block;background:var(--card);padding:16px;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);text-decoration:none;color:var(--tx);border:1px solid var(--line)}
+.cardlink:hover{border-color:var(--ac);transform:translateY(-1px)}
+.cardlink h3{color:var(--ac);margin-bottom:6px;font-size:1.05em}
+.cardlink p{font-size:.85em;color:var(--mu)}
+.formula{background:linear-gradient(180deg,#fffaf6,#fff4ee);color:#43352d;padding:16px 18px;border-radius:14px;margin:14px 0;border:1px solid #ecdccf;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+.formula .line{display:block;margin:8px 0 0 0}
+.formula .line:first-child{margin-top:0}
+.formula .kw{display:inline-block;min-width:150px;color:#c8506f;font-weight:700}
+.formula .val{color:#4769c7;font-weight:700}
+.formula .cmt{display:block;color:#8b7b70;font-size:.82em;margin:0 0 6px 0}
+footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
+.c-common{color:#888}.c-uncommon{color:#3b7b1d}.c-rare{color:#21528e}.c-legendary{color:#904503}.c-immortal{color:#8c1818}.c-arcana{color:#652284}.c-beyond{color:#8f1e45}.c-celestial{color:#0e9aa7}.c-divine{color:#d4a017}.c-cosmic{color:#6c2f1f}
+@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}table{font-size:.76em}}
 </style>
 </head>
 <body>
