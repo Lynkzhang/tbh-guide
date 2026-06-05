@@ -41,6 +41,20 @@ tr:hover{background:#f4efe8}
 .cardlink h3{color:var(--ac);margin-bottom:6px;font-size:1.05em}
 .cardlink p{font-size:.85em;color:var(--mu)}
 .formula{background:linear-gradient(180deg,#fffaf6,#fff4ee);color:#43352d;padding:16px 18px;border-radius:14px;margin:14px 0;border:1px solid #ecdccf;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+.calc-grid{display:flex;flex-direction:column;gap:12px}
+.calc-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0}
+.calc-label{min-width:120px;font-size:.88em;color:var(--mu);font-weight:600}
+.calc-input{padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:.9em;background:#fff;color:var(--tx);min-width:120px}
+.calc-input:focus{outline:none;border-color:var(--ac)}
+.calc-suffix{font-size:.78em;color:var(--mu)}
+.calc-meta{font-size:.85em;color:var(--mu);background:#fbf6ef;padding:8px 12px;border-radius:8px;border:1px dashed var(--line)}
+.calc-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.calc-card{background:#fbf9f6;padding:12px 14px;border-radius:10px;border:1px solid var(--line)}
+.calc-result{background:linear-gradient(180deg,#fff,#fbf9f6);padding:14px 16px;border-radius:12px;border:2px solid var(--hd);font-size:.9em;line-height:1.9}
+.calc-result table{margin:6px 0}
+.calc-result .big{font-size:1.4em;font-weight:700;color:var(--ac)}
+.calc-result .big2{font-size:1.4em;font-weight:700;color:var(--bl)}
+@media(max-width:768px){.calc-cols{grid-template-columns:1fr}.calc-label{min-width:100px}}
 .formula .line{display:block;margin:8px 0 0 0}
 .formula .line:first-child{margin-top:0}
 .formula .kw{display:inline-block;min-width:150px;color:#c8506f;font-weight:700}
@@ -116,6 +130,53 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </div>
 </div>
 
+<div class="s" id="calc"><h2>宝箱掉落计算器</h2>
+<p style="font-size:.85em;color:var(--mu);margin-bottom:10px">选关卡 + 分别填写"普通宝箱"和"Boss宝箱"加成，得到当关期望宝箱数与掉落概率。<b>普通宝箱与 Boss 宝箱加成是分开的</b>，请分别填入。</p>
+
+<div class="calc-grid">
+  <div class="calc-row">
+    <label class="calc-label">关卡：</label>
+    <select id="ca-stage" class="calc-input"></select>
+  </div>
+
+  <div class="calc-row">
+    <div class="calc-meta" id="ca-meta">请先选择关卡</div>
+  </div>
+
+  <div class="calc-cols">
+    <div class="calc-card">
+      <h3 style="color:var(--bl);margin:0 0 8px;font-size:.95em">📦 普通宝箱加成（杀普通怪掉的箱子）</h3>
+      <div class="calc-row">
+        <label class="calc-label">百分比加成：</label>
+        <input type="number" id="ca-np" class="calc-input" value="0" step="10" min="0">
+        <span class="calc-suffix">% （DropChanceNormalChestPercent）</span>
+      </div>
+      <div class="calc-row">
+        <label class="calc-label">直加（千分比）：</label>
+        <input type="number" id="ca-nf" class="calc-input" value="0" step="1" min="0">
+        <span class="calc-suffix">‰ （DropChanceNormalChest）</span>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <h3 style="color:var(--ac);margin:0 0 8px;font-size:.95em">👑 Boss宝箱加成（杀关卡 Boss 掉的箱子）</h3>
+      <div class="calc-row">
+        <label class="calc-label">百分比加成：</label>
+        <input type="number" id="ca-bp" class="calc-input" value="0" step="10" min="0">
+        <span class="calc-suffix">% （DropChanceStageBossChestPercent）</span>
+      </div>
+      <div class="calc-row">
+        <label class="calc-label">直加（千分比）：</label>
+        <input type="number" id="ca-bf" class="calc-input" value="0" step="1" min="0">
+        <span class="calc-suffix">‰ （DropChanceStageBossChest）</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="ca-result" class="calc-result"></div>
+</div>
+</div>
+
 <div class="s" id="stage"><h2>关卡怪物一览</h2>
 
 <table><thead><tr><th>关卡</th><th>等级</th><th>类型</th><th>出现怪物</th><th>Boss</th><th>怪物宝箱</th><th>Boss宝箱</th></tr></thead><tbody>
@@ -128,11 +189,74 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 
 <script src="data_items.js"></script>
 <script src="data_search.js"></script>
+<script src="data_stages.js"></script>
 <script>
 function gc(g) {
     var m={'COMMON':'c-common','UNCOMMON':'c-uncommon','RARE':'c-rare','LEGENDARY':'c-legendary','IMMORTAL':'c-immortal','ARCANA':'c-arcana','BEYOND':'c-beyond','CELESTIAL':'c-celestial','DIVINE':'c-divine','COSMIC':'c-cosmic'};
     return m[g]||'';
 }
+
+// ===== 宝箱掉落计算器 =====
+function calcChest() {
+  var sel = document.getElementById('ca-stage');
+  var idx = parseInt(sel.value, 10);
+  if (isNaN(idx) || !STAGE_DATA[idx]) return;
+  var s = STAGE_DATA[idx];
+  var meta = document.getElementById('ca-meta');
+  var totalMonsters = s.wa * s.wma; // WaveAmount * WaveMonsterAmount
+  var label = s.d + ' ' + s.a + '-' + s.n + ' (Lv' + s.lv + ')';
+
+  if (s.t === 'ACTBOSS') {
+    meta.innerHTML = '<b>' + label + '</b>　幕首领关：固定掉幕首领宝箱（不走概率），怪物宝箱不适用';
+  } else {
+    meta.innerHTML = '<b>' + label + '</b>　每波 ' + s.wma + ' 只 × ' + s.wa + ' 波 = <b>' + totalMonsters + ' 只普通怪</b>，1 个 Boss<br>' +
+      '基础掉率：怪物 <b>' + (s.mdr/10).toFixed(1) + '%</b> ／只　|　Boss <b>' + (s.bdr/10).toFixed(1) + '%</b> ／次';
+  }
+
+  var np = parseFloat(document.getElementById('ca-np').value) || 0;
+  var nf = parseFloat(document.getElementById('ca-nf').value) || 0;
+  var bp = parseFloat(document.getElementById('ca-bp').value) || 0;
+  var bf = parseFloat(document.getElementById('ca-bf').value) || 0;
+
+  var result = document.getElementById('ca-result');
+  if (s.t === 'ACTBOSS') {
+    result.innerHTML = '<div style="text-align:center;padding:10px;color:var(--mu)">幕首领关固定掉落，无需计算概率</div>';
+    return;
+  }
+
+  // 最终单次掉率(千分比) = 基础rate*(1 + percent/100) + flat
+  var pNorm = s.mdr * (1 + np/100) + nf;   // ‰
+  var pBoss = s.bdr * (1 + bp/100) + bf;   // ‰
+  var pNormPct = pNorm / 10;               // 转 %
+  var pBossPct = pBoss / 10;
+
+  // 单只怪期望箱子数 = pNorm/1000；过关期望 = totalMonsters * pNorm/1000
+  var expNormPerKill = pNorm / 1000;
+  var expNormPerStage = expNormPerKill * totalMonsters;
+  var expBossPerStage = pBoss / 1000;
+
+  // ≥1只箱子的概率（Boss 是单次试验；普通怪是 totalMonsters 次独立试验）
+  var pSingleNorm = Math.min(1, pNorm / 1000);
+  var pAtLeastOneNorm = 1 - Math.pow(1 - pSingleNorm, totalMonsters);
+  var pBossDrop = Math.min(1, pBoss / 1000);
+
+  function pct(x){ return (x*100).toFixed(2) + '%'; }
+  function pct1(x){ return x.toFixed(2) + '%'; }
+
+  var html = '';
+  html += '<table>';
+  html += '<thead><tr><th></th><th style="color:var(--bl)">📦 普通宝箱</th><th style="color:var(--ac)">👑 Boss宝箱</th></tr></thead><tbody>';
+  html += '<tr><td>基础单次掉率</td><td>' + (s.mdr/10).toFixed(1) + '%</td><td>' + (s.bdr/10).toFixed(1) + '%</td></tr>';
+  html += '<tr><td>百分比加成</td><td>+' + np + '%</td><td>+' + bp + '%</td></tr>';
+  html += '<tr><td>直加（‰）</td><td>+' + nf + '‰</td><td>+' + bf + '‰</td></tr>';
+  html += '<tr><td><b>最终单次掉率</b></td><td><b>' + pct1(pNormPct) + '</b>' + (pNormPct>=100?' <span style="color:var(--ac);font-size:.8em">(必掉，溢出'+(pNormPct-100).toFixed(1)+'%再判)</span>':'') + '</td><td><b>' + pct1(pBossPct) + '</b>' + (pBossPct>=100?' <span style="color:var(--ac);font-size:.8em">(必掉)</span>':'') + '</td></tr>';
+  html += '<tr><td>过关怪物数</td><td>' + totalMonsters + '</td><td>1（Boss）</td></tr>';
+  html += '<tr><td><b>过关期望箱子数</b></td><td><span class="big2">' + expNormPerStage.toFixed(2) + '</span> 个</td><td><span class="big">' + expBossPerStage.toFixed(2) + '</span> 个</td></tr>';
+  html += '<tr><td>至少掉 1 个的概率</td><td>' + pct(pAtLeastOneNorm) + '</td><td>' + pct(pBossDrop) + '</td></tr>';
+  html += '</tbody></table>';
+  result.innerHTML = html;
+}
+
 document.addEventListener('DOMContentLoaded',function(){
     document.querySelectorAll('.g').forEach(function(el){
         var ik=el.getAttribute('data-ik');
@@ -141,6 +265,33 @@ document.addEventListener('DOMContentLoaded',function(){
             if(c) el.className='g '+c;
         }
     });
+
+    // 初始化计算器
+    var sel = document.getElementById('ca-stage');
+    if (sel && typeof STAGE_DATA !== 'undefined') {
+      var DIFF_ORDER = {'普通':1,'噩梦':2,'地狱':3,'折磨':4};
+      var sorted = STAGE_DATA.map(function(s,i){ return {s:s, i:i}; });
+      sorted.sort(function(a,b){
+        var da = DIFF_ORDER[a.s.d]||9, db = DIFF_ORDER[b.s.d]||9;
+        if (da !== db) return da-db;
+        if (a.s.a !== b.s.a) return a.s.a-b.s.a;
+        return a.s.n-b.s.n;
+      });
+      sorted.forEach(function(item){
+        var s = item.s;
+        var opt = document.createElement('option');
+        opt.value = item.i;
+        var tag = s.t === 'ACTBOSS' ? ' [幕Boss]' : '';
+        opt.textContent = '[' + s.d + '] ' + s.a + '-' + s.n + ' (Lv' + s.lv + ')' + tag;
+        sel.appendChild(opt);
+      });
+      sel.value = 0;
+      ['ca-stage','ca-np','ca-nf','ca-bp','ca-bf'].forEach(function(id){
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('input', calcChest);
+      });
+      calcChest();
+    }
 });
 </script>
 </body>
