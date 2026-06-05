@@ -203,14 +203,12 @@ function calcChest() {
   if (isNaN(idx) || !STAGE_DATA[idx]) return;
   var s = STAGE_DATA[idx];
   var meta = document.getElementById('ca-meta');
-  var totalMonsters = s.wa * s.wma; // WaveAmount * WaveMonsterAmount
   var label = s.d + ' ' + s.a + '-' + s.n + ' (Lv' + s.lv + ')';
 
   if (s.t === 'ACTBOSS') {
     meta.innerHTML = '<b>' + label + '</b>　幕首领关：固定掉幕首领宝箱（不走概率），怪物宝箱不适用';
   } else {
-    meta.innerHTML = '<b>' + label + '</b>　每波 ' + s.wma + ' 只 × ' + s.wa + ' 波 = <b>' + totalMonsters + ' 只普通怪</b>，1 个 Boss<br>' +
-      '基础掉率：怪物 <b>' + (s.mdr/10).toFixed(1) + '%</b> ／只　|　Boss <b>' + (s.bdr/10).toFixed(1) + '%</b> ／次';
+    meta.innerHTML = '<b>' + label + '</b>　基础单次判定掉率：怪物 <b>' + (s.mdr/10).toFixed(1) + '%</b>　|　Boss <b>' + (s.bdr/10).toFixed(1) + '%</b>';
   }
 
   var np = parseFloat(document.getElementById('ca-np').value) || 0;
@@ -230,17 +228,6 @@ function calcChest() {
   var pNormPct = pNorm / 10;               // 转 %
   var pBossPct = pBoss / 10;
 
-  // 单只怪期望箱子数 = pNorm/1000；过关期望 = totalMonsters * pNorm/1000
-  var expNormPerKill = pNorm / 1000;
-  var expNormPerStage = expNormPerKill * totalMonsters;
-  var expBossPerStage = pBoss / 1000;
-
-  // ≥1只箱子的概率（Boss 是单次试验；普通怪是 totalMonsters 次独立试验）
-  var pSingleNorm = Math.min(1, pNorm / 1000);
-  var pAtLeastOneNorm = 1 - Math.pow(1 - pSingleNorm, totalMonsters);
-  var pBossDrop = Math.min(1, pBoss / 1000);
-
-  function pct(x){ return (x*100).toFixed(2) + '%'; }
   function pct1(x){ return x.toFixed(2) + '%'; }
 
   var html = '';
@@ -249,10 +236,7 @@ function calcChest() {
   html += '<tr><td>基础单次掉率</td><td>' + (s.mdr/10).toFixed(1) + '%</td><td>' + (s.bdr/10).toFixed(1) + '%</td></tr>';
   html += '<tr><td>百分比加成</td><td>+' + np + '%</td><td>+' + bp + '%</td></tr>';
   html += '<tr><td>直加（‰）</td><td>+' + nf + '‰</td><td>+' + bf + '‰</td></tr>';
-  html += '<tr><td><b>最终单次掉率</b></td><td><b>' + pct1(pNormPct) + '</b>' + (pNormPct>=100?' <span style="color:var(--ac);font-size:.8em">(必掉，溢出'+(pNormPct-100).toFixed(1)+'%再判)</span>':'') + '</td><td><b>' + pct1(pBossPct) + '</b>' + (pBossPct>=100?' <span style="color:var(--ac);font-size:.8em">(必掉)</span>':'') + '</td></tr>';
-  html += '<tr><td>过关怪物数</td><td>' + totalMonsters + '</td><td>1（Boss）</td></tr>';
-  html += '<tr><td><b>过关期望箱子数</b></td><td><span class="big2">' + expNormPerStage.toFixed(2) + '</span> 个</td><td><span class="big">' + expBossPerStage.toFixed(2) + '</span> 个</td></tr>';
-  html += '<tr><td>至少掉 1 个的概率</td><td>' + pct(pAtLeastOneNorm) + '</td><td>' + pct(pBossDrop) + '</td></tr>';
+  html += '<tr><td><b>最终单次掉率</b></td><td><span class="big2">' + pct1(pNormPct) + '</span>' + (pNormPct>=100?' <span style="color:var(--ac);font-size:.78em">(必掉，溢出 '+(pNormPct-100).toFixed(1)+'% 再判)</span>':'') + '</td><td><span class="big">' + pct1(pBossPct) + '</span>' + (pBossPct>=100?' <span style="color:var(--ac);font-size:.78em">(必掉)</span>':'') + '</td></tr>';
   html += '</tbody></table>';
   result.innerHTML = html;
 }
