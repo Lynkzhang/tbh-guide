@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>伤害结算公式 - TBH攻略站</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="6e7b54ae-2b3c-4701-8d41-ce71813ecd55"></script>
 <style>
 :root{--bg:#f6f3ef;--card:#fffdf9;--hd:#efe7de;--ac:#d94f70;--tx:#2f2a26;--mu:#74685d;--bl:#5d7fd6;--gn:#2ecc71;--line:#e8ddd1}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -54,45 +55,49 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 <body>
 <nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html" class="active">伤害公式</a></li></ul></div></nav><div class="c">
 
-<header><h1>伤害结算公式</h1><p>伤害参数、词缀类型与结算顺序说明</p></header>
+<header><h1>伤害相关参数</h1><p>仅展示已从游戏数据表中确认的字段与修饰类型</p></header>
 
 <div class="s">
 <h2>参数说明</h2>
-<div class="note"><b>说明：</b><code>HeroInfoData</code> 中的 <code>CriticalChance</code> 与 <code>CriticalDamage</code> 为职业原始参数，不直接等同于角色面板显示的暴击率与暴击伤害百分比。本页统一以“参数”表述，避免与面板数值混淆。</div>
+<div class="note"><b>说明：</b><code>HeroInfoData</code> 中的 <code>CriticalChance</code> 与 <code>CriticalDamage</code> 为职业原始参数。当前页面只展示已从数据表与 IL2CPP 元数据中确认的字段名，不提供未经代码验证的面板换算公式。</div>
 </div>
 
 <div class="s">
-<h2>伤害结算顺序</h2>
+<h2>当前可确认的信息</h2>
 <div class="formula">
-  <span class="cmt">装备基础值、角色参数、词缀与抗性共同参与最终伤害结算。</span>
-  <span class="line"><span class="kw">基础伤害</span> = 装备基础值 + 固定值加成(FLAT) + 角色基础攻击参数</span>
-  <span class="line"><span class="kw">加法增伤后</span> = 基础伤害 × (1 + 所有 ADDITIVE 加成总和)</span>
-  <span class="line"><span class="kw">最终伤害</span> = 加法增伤后 × 所有 MULTIPLICATIVE 乘算项</span>
-  <span class="line"><span class="kw">元素修正</span> = 在伤害基础上叠加元素加成与目标抗性修正</span>
-  <span class="line"><span class="kw">暴击修正</span> = 由暴击相关参数参与额外计算，具体面板换算关系未在数据表中直接给出</span>
+  <span class="cmt">已确认字段：职业表、Buff 表、词缀表中均存在暴击与伤害相关原始参数。</span>
+  <span class="line"><span class="kw">职业表字段</span> = AttackDamage / AttackSpeed / CriticalChance / CriticalDamage / Armor / MaxHp</span>
+  <span class="line"><span class="kw">Buff 修饰类型</span> = FLAT / ADDITIVE / MULTIPLICATIVE</span>
+  <span class="line"><span class="kw">词缀字段</span> = CriticalChance / CriticalDamage / AttackDamage / Armor / MovementSpeed 等</span>
+  <span class="line"><span class="kw">结算代码</span> = 当前尚未从 IL2CPP 反编译结果中直接定位到完整公式</span>
 </div>
 </div>
 
 <div class="s">
-<h2>职业原始参数</h2>
+<h2>职业原始参数（HeroInfoData）</h2>
 <table>
 <thead><tr><th>职业</th><th>攻击参数</th><th>攻速参数</th><th>暴击参数</th><th>暴伤参数</th><th>HP参数</th><th>护甲参数</th></tr></thead>
 <tbody><tr><td>骑士</td><td>2</td><td>90</td><td>25</td><td>1400</td><td>130</td><td>45</td></tr><tr><td>游侠</td><td>1</td><td>100</td><td>40</td><td>1500</td><td>60</td><td>8</td></tr><tr><td>术士</td><td>2</td><td>55</td><td>50</td><td>1650</td><td>50</td><td>5</td></tr><tr><td>牧师</td><td>1</td><td>90</td><td>20</td><td>1400</td><td>95</td><td>30</td></tr><tr><td>猎人</td><td>2</td><td>70</td><td>45</td><td>1550</td><td>70</td><td>15</td></tr><tr><td>屠杀者</td><td>2</td><td>70</td><td>25</td><td>1800</td><td>115</td><td>40</td></tr></tbody>
 </table>
-<div class="tip"><b>备注：</b>本表用于展示职业数据表中的原始字段，适合与技能、Buff、词缀表联合阅读，不建议直接作为角色面板百分比理解。</div>
+<div class="tip"><b>备注：</b>本表仅展示职业数据表中的原始字段值，不直接代表角色面板显示值。</div>
 </div>
 
 <div class="s">
-<h2>Buff / Debuff 计算方式</h2>
+<h2>Buff / Debuff 字段类型</h2>
 <div class="formula">
-  <span class="line"><span class="kw">FLAT</span> 直接加到目标属性上</span>
-  <span class="line"><span class="kw">ADDITIVE</span> 先求和，再统一作用于基础值</span>
-  <span class="line"><span class="kw">MULTIPLICATIVE</span> 作为独立乘算项继续相乘</span>
+  <span class="line"><span class="kw">FLAT</span> = 数据表中的固定值修饰类型</span>
+  <span class="line"><span class="kw">ADDITIVE</span> = 数据表中的加法类修饰类型</span>
+  <span class="line"><span class="kw">MULTIPLICATIVE</span> = 数据表中的乘算类修饰类型</span>
 </div>
 <table>
 <thead><tr><th>BuffKey</th><th>类型</th><th>属性</th><th>方式</th><th>值</th></tr></thead>
 <tbody><tr><td>1011</td><td>Debuff</td><td>攻速</td><td>独立乘算</td><td>300</td></tr><tr><td>1012</td><td>Debuff</td><td>移速</td><td>独立乘算</td><td>300</td></tr><tr><td>1031</td><td>Debuff</td><td>FireDamageAddition</td><td>固定值</td><td>200</td></tr><tr><td>1041</td><td>Debuff</td><td>LightningDamageAddition</td><td>固定值</td><td>200</td></tr><tr><td>1051</td><td>Debuff</td><td>PhysicalDamageAddition</td><td>固定值</td><td>200</td></tr><tr><td>1061</td><td>Debuff</td><td>DamageAddition</td><td>固定值</td><td>100</td></tr><tr><td>105011</td><td>Buff</td><td>攻击伤害</td><td>加法叠加</td><td>500</td></tr><tr><td>204011</td><td>Buff</td><td>攻速</td><td>加法叠加</td><td>500</td></tr><tr><td>402011</td><td>Buff</td><td>攻击伤害</td><td>独立乘算</td><td>-</td></tr><tr><td>405011</td><td>Buff</td><td>火焰抗性</td><td>固定值</td><td>-</td></tr><tr><td>405012</td><td>Buff</td><td>冰冷抗性</td><td>固定值</td><td>-</td></tr><tr><td>405013</td><td>Buff</td><td>闪电抗性</td><td>固定值</td><td>-</td></tr><tr><td>503011</td><td>Buff</td><td>攻速</td><td>独立乘算</td><td>1000</td></tr><tr><td>603011</td><td>Buff</td><td>暴击参数</td><td>加法叠加</td><td>300</td></tr><tr><td>605011</td><td>Buff</td><td>移速</td><td>独立乘算</td><td>200</td></tr><tr><td>606011</td><td>Buff</td><td>攻击伤害</td><td>独立乘算</td><td>1000</td></tr><tr><td>2090211</td><td>Buff</td><td>攻速</td><td>独立乘算</td><td>1000</td></tr><tr><td>9100011</td><td>Debuff</td><td>火焰抗性</td><td>固定值</td><td>20</td></tr><tr><td>9100012</td><td>Debuff</td><td>冰冷抗性</td><td>固定值</td><td>20</td></tr><tr><td>9100013</td><td>Debuff</td><td>闪电抗性</td><td>固定值</td><td>20</td></tr><tr><td>9100014</td><td>Debuff</td><td>混沌抗性</td><td>固定值</td><td>20</td></tr><tr><td>9100021</td><td>Debuff</td><td>火焰抗性</td><td>固定值</td><td>40</td></tr><tr><td>9100022</td><td>Debuff</td><td>冰冷抗性</td><td>固定值</td><td>40</td></tr><tr><td>9100023</td><td>Debuff</td><td>闪电抗性</td><td>固定值</td><td>40</td></tr><tr><td>9100024</td><td>Debuff</td><td>混沌抗性</td><td>固定值</td><td>40</td></tr><tr><td>9100031</td><td>Debuff</td><td>火焰抗性</td><td>固定值</td><td>60</td></tr><tr><td>9100032</td><td>Debuff</td><td>冰冷抗性</td><td>固定值</td><td>60</td></tr><tr><td>9100033</td><td>Debuff</td><td>闪电抗性</td><td>固定值</td><td>60</td></tr><tr><td>9100034</td><td>Debuff</td><td>混沌抗性</td><td>固定值</td><td>60</td></tr></tbody>
 </table>
+</div>
+
+<div class="s">
+<h2>逆向状态</h2>
+<div class="note"><b>当前状态：</b>已从 <code>global-metadata.dat</code> 中确认存在 <code>CriticalChance</code>、<code>CriticalDamage</code> 等字段名，但尚未拿到可验证的 IL2CPP 代码级换算逻辑。因此本页不再给出“暴击参数如何换算为面板暴击率”的结论。</div>
 </div>
 
 <div class="s">
