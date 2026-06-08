@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>素材效果 - TBH攻略站</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="6e7b54ae-2b3c-4701-8d41-ce71813ecd55"></script>
+<style>
+:root{--bg:#f6f3ef;--card:#fffdf9;--hd:#efe7de;--ac:#d94f70;--tx:#2f2a26;--mu:#74685d;--bl:#5d7fd6;--gn:#2ecc71;--line:#e8ddd1}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
+.c{max-width:1200px;margin:0 auto;padding:16px}
+.topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
+.topnav .logo{color:var(--ac);font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:12px}
+.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.topnav ul li a{display:block;color:var(--mu);padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.topnav ul li a:hover{background:#fff;color:var(--ac);border-color:var(--line);transform:translateY(-1px)}
+.topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
+header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
+header h1{color:#fff;font-size:1.8em}
+header p{color:rgba(255,255,255,.84);font-size:.85em;margin-top:4px}
+.s{background:var(--card);padding:18px;border-radius:14px;margin-bottom:18px;box-shadow:0 8px 24px rgba(116,104,93,.08);border:1px solid var(--line)}
+.s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85em}
+th,td{padding:7px 10px;border:1px solid #ddd;text-align:left}
+th{background:var(--hd);color:var(--tx)}
+tr:nth-child(even){background:#fbf9f6}
+tr:hover{background:#f4efe8}
+.n{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
+.n b{color:#856404}
+footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
+.c-common{color:#888}.c-uncommon{color:#3b7b1d}.c-rare{color:#21528e}.c-legendary{color:#904503}.c-immortal{color:#8c1818}.c-arcana{color:#652284}.c-beyond{color:#8f1e45}.c-celestial{color:#0e9aa7}.c-divine{color:#d4a017}.c-cosmic{color:#6c2f1f}
+.filters{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.filters select,.filters input{padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:.85em;background:#fff}
+.filters label{font-size:.85em;color:var(--mu)}
+.effect-tag{display:inline-block;padding:2px 8px;margin:2px 4px;background:#f0f0f0;border-radius:4px;font-size:.82em;white-space:nowrap}
+.effect-flat{border-left:3px solid var(--bl)}
+.effect-additive{border-left:3px solid var(--gn)}
+#count{font-size:.85em;color:var(--mu);margin-bottom:8px}
+@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}table{font-size:.76em}.filters{gap:8px}}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="materials.html" class="active">素材效果</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav>
+<div class="c">
+
+<header><h1>素材效果</h1><p>查看所有素材的可赋属性效果</p></header>
+
+<div class="s">
+<h2>素材效果列表</h2>
+<div class="filters">
+  <label>类型：</label>
+  <select id="ftype" onchange="render()">
+    <option value="">全部</option>
+    <option value="DECORATION">装饰</option>
+    <option value="ENGRAVING">雕刻</option>
+    <option value="INSCRIPTION">铭文</option>
+    <option value="CRAFTING">制作</option>
+    <option value="SOULSTONE">灵魂石</option>
+    <option value="OFFERING">祭献</option>
+  </select>
+  <label style="margin-left:12px">品级：</label>
+  <select id="fgrade" onchange="render()">
+    <option value="">全部</option>
+    <option value="COSMIC">宇宙</option>
+    <option value="DIVINE">神圣</option>
+    <option value="CELESTIAL">天界</option>
+    <option value="BEYOND">超凡</option>
+    <option value="ARCANA">至宝</option>
+    <option value="IMMORTAL">不朽</option>
+    <option value="LEGENDARY">传奇</option>
+    <option value="RARE">稀有</option>
+    <option value="UNCOMMON">罕见</option>
+    <option value="COMMON">普通</option>
+  </select>
+  <label style="margin-left:12px">搜索：</label>
+  <input type="text" id="fsearch" placeholder="素材名称" onkeyup="render()" style="width:160px">
+</div>
+<div id="count"></div>
+<table>
+<thead><tr><th style="width:14%">素材名</th><th style="width:8%">类型</th><th style="width:8%">品级</th><th>可赋属性</th></tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+<div class="n"><b>说明：</b>属性值为该素材在最高阶下的最大可赋值。蓝色边框 = 固定值(FLAT)，绿色边框 = 百分比加成(ADDITIVE, ‰)。同素材同属性在不同装备位可能有不同数值，此处取最大值。</div>
+</div>
+
+<footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-08</p></footer>
+</div>
+
+<script src="data_materials.js"></script>
+<script src="data_items.js"></script>
+<script>
+var STAT_CN={
+  'ATTACK_DAMAGE':'攻击力','ATTACK_SPEED':'攻击速度','MAX_HP':'最大生命',
+  'ARMOR':'护甲','CRITICAL_CHANCE':'暴击率','CRITICAL_DAMAGE':'暴击伤害',
+  'HP_REGEN':'生命回复','HP_LEECH':'生命偷取','HP_ON_HIT':'击中回血',
+  'HP_ON_KILL':'击杀回血','MOVE_SPEED':'移动速度','CAST_SPEED':'施法速度',
+  'COOLDOWN_REDUCTION':'冷却缩减','DODGE_CHANCE':'闪避率','BLOCK_CHANCE':'格挡率',
+  'DAMAGE_REDUCTION':'减伤','DAMAGE_ABSORPTION':'伤害吸收','AREA_OF_EFFECT':'范围效果',
+  'EXP_BONUS':'经验加成','SKILL_DURATION':'技能持续时间','SKILL_HEAL':'技能治疗增强',
+  'SKILL_RANGE':'技能范围扩展','BASE_ATTACK_COUNT_REDUCTION':'基础攻击次数减少',
+  'SKILL_RANGE_EXPANSION':'技能范围扩展','INCREASE_EXP_AMOUNT':'经验加成',
+  'FIRE_DAMAGE_PERCENT':'火焰伤害%','COLD_DAMAGE_PERCENT':'冰霜伤害%','LIGHTNING_DAMAGE_PERCENT':'闪电伤害%',
+  'CHAOS_DAMAGE_PERCENT':'混沌伤害%','PHYSICAL_DAMAGE_PERCENT':'物理伤害%',
+  'FIRE_DAMAGE_ADDITION':'火焰伤害加成','COLD_DAMAGE_ADDITION':'冰霜伤害加成',
+  'LIGHTNING_DAMAGE_ADDITION':'闪电伤害加成','CHAOS_DAMAGE_ADDITION':'混沌伤害加成',
+  'PHYSICAL_DAMAGE_ADDITION':'物理伤害加成',
+  'FIRE_RESISTANCE':'火焰抗性','COLD_RESISTANCE':'冰霜抗性','LIGHTNING_RESISTANCE':'闪电抗性',
+  'CHAOS_RESISTANCE':'混沌抗性','ALL_ELEMENTAL_RESISTANCE':'全元素抗性',
+  'FIRE_DAMAGE_REDUCTION':'火焰减伤','COLD_DAMAGE_REDUCTION':'冰霜减伤',
+  'LIGHTNING_DAMAGE_REDUCTION':'闪电减伤','CHAOS_DAMAGE_REDUCTION':'混沌减伤',
+  'PHYSICAL_DAMAGE_REDUCTION':'物理减伤',
+  'MAX_FIRE_RESISTANCE':'最大火焰抗性','MAX_COLD_RESISTANCE':'最大冰霜抗性',
+  'MAX_LIGHTNING_RESISTANCE':'最大闪电抗性','MAX_CHAOS_RESISTANCE':'最大混沌抗性',
+  'MAX_BLOCK_CHANCE':'最大格挡率','MAX_DODGE_CHANCE':'最大闪避率',
+  'INCREASE_AREA_OF_EFFECT_DAMAGE':'范围伤害增加','INCREASE_MELEE_DAMAGE':'近战伤害增加',
+  'INCREASE_PROJECTILE_DAMAGE':'投射物伤害增加','INCREASE_SUMMON_DAMAGE':'召唤物伤害增加',
+  'PROJECTILE_COUNT':'投射物数量','MULTISTRIKE':'多重打击',
+  'ADDITIONAL_EXP':'额外经验'
+};
+
+var TYPE_CN={'DECORATION':'装饰','ENGRAVING':'雕刻','INSCRIPTION':'铭文','CRAFTING':'制作','SOULSTONE':'灵魂石','OFFERING':'祭献'};
+var GRADE_CLS={'COMMON':'c-common','UNCOMMON':'c-uncommon','RARE':'c-rare','LEGENDARY':'c-legendary','IMMORTAL':'c-immortal','ARCANA':'c-arcana','BEYOND':'c-beyond','CELESTIAL':'c-celestial','DIVINE':'c-divine','COSMIC':'c-cosmic'};
+
+function render(){
+  var ft=document.getElementById('ftype').value;
+  var fg=document.getElementById('fgrade').value;
+  var fq=(document.getElementById('fsearch').value||'').toLowerCase().trim();
+  var rows=MATERIALS_DATA;
+  if(ft) rows=rows.filter(function(m){return m.type===ft;});
+  if(fg) rows=rows.filter(function(m){return m.grade===fg;});
+  if(fq) rows=rows.filter(function(m){return m.name.toLowerCase().indexOf(fq)>=0;});
+  document.getElementById('count').textContent='共 '+rows.length+' 种素材';
+  var h='';
+  for(var i=0;i<rows.length;i++){
+    var m=rows[i];
+    var cls=GRADE_CLS[m.grade]||'';
+    var nameHtml=cls?'<span class="'+cls+'">'+m.name+'</span>':m.name;
+    var effectsHtml='';
+    for(var j=0;j<m.effects.length;j++){
+      var e=m.effects[j];
+      var statName=STAT_CN[e.stat]||e.stat;
+      var modCls=e.modType==='FLAT'?'effect-flat':'effect-additive';
+      var valStr=e.modType==='ADDITIVE'?e.value+'‰':e.value;
+      effectsHtml+='<span class="effect-tag '+modCls+'">'+statName+' +'+valStr+'</span>';
+    }
+    if(!effectsHtml) effectsHtml='<span style="color:#aaa">无</span>';
+    h+='<tr><td>'+nameHtml+'</td><td>'+(TYPE_CN[m.type]||m.type)+'</td><td>'+(cls?'<span class="'+cls+'">'+(GRADES?RARITY_CN2[m.grade]||m.grade:m.grade)+'</span>':m.grade)+'</td><td>'+effectsHtml+'</td></tr>';
+  }
+  document.getElementById('tbody').innerHTML=h;
+}
+
+var RARITY_CN2={'COMMON':'普通','UNCOMMON':'罕见','RARE':'稀有','LEGENDARY':'传奇','IMMORTAL':'不朽','ARCANA':'至宝','BEYOND':'超凡','CELESTIAL':'天界','DIVINE':'神圣','COSMIC':'宇宙'};
+
+render();
+</script>
+</body>
+</html>

@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>伤害结算公式 - TBH攻略站</title>
-<meta name="description" content="TBH伤害公式 - 伤害、暴击、抗性与Buff结算机制详解">
-<meta name="keywords" content="TBH伤害公式,暴击,抗性,Buff结算,伤害计算">
-<link rel="canonical" href="https://lynkzhang.github.io/tbh-guide/damage.html">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="6e7b54ae-2b3c-4701-8d41-ce71813ecd55"></script>
 <style>
 :root{--bg:#f6f3ef;--card:#fffdf9;--hd:#efe7de;--ac:#d94f70;--tx:#2f2a26;--mu:#74685d;--bl:#5d7fd6;--gn:#2ecc71;--line:#e8ddd1}
@@ -56,7 +53,7 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </style>
 </head>
 <body>
-<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html" class="active">伤害公式</a></li></ul></div></nav><div class="c">
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="gear.html">装备</a></li><li><a href="monsters.html">怪物</a></li><li><a href="materials.html">素材</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html" class="active">伤害公式</a></li><li><a href="farming.html">刷图优化</a></li></ul></div></nav><div class="c">
 
 <header><h1>伤害相关参数</h1><p>仅展示已从游戏数据表中确认的字段与修饰类型</p></header>
 
@@ -103,13 +100,7 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 <div class="note"><b>当前状态：</b>已从 <code>global-metadata.dat</code> 中确认存在 <code>CriticalChance</code>、<code>CriticalDamage</code> 等字段名，但尚未拿到可验证的 IL2CPP 代码级换算逻辑。因此本页不再给出“暴击参数如何换算为面板暴击率”的结论。</div>
 </div>
 
-<div class="s">
-<h2>常见词缀（Tier 1 示例）</h2>
-<table>
-<thead><tr><th>词缀Key</th><th>属性</th><th>计算方式</th><th>T1范围</th></tr></thead>
-<tbody><tr><td>100101</td><td>攻击伤害</td><td>固定值</td><td>1 ~ 2</td></tr><tr><td>100102</td><td>攻击伤害</td><td>加法叠加</td><td>50 ~ 100</td></tr><tr><td>100301</td><td>暴击参数</td><td>固定值</td><td>3 ~ 5</td></tr><tr><td>100401</td><td>暴伤参数</td><td>固定值</td><td>100 ~ 150</td></tr><tr><td>100501</td><td>最大生命</td><td>固定值</td><td>10 ~ 30</td></tr><tr><td>100502</td><td>最大生命</td><td>加法叠加</td><td>50 ~ 80</td></tr><tr><td>100601</td><td>护甲</td><td>固定值</td><td>25 ~ 50</td></tr><tr><td>100602</td><td>护甲</td><td>加法叠加</td><td>100 ~ 150</td></tr><tr><td>100701</td><td>冷却缩减</td><td>固定值</td><td>10 ~ 25</td></tr><tr><td>100801</td><td>移速</td><td>加法叠加</td><td>100 ~ 150</td></tr><tr><td>100302</td><td>暴击参数</td><td>加法叠加</td><td>100 ~ 150</td></tr><tr><td>105202</td><td>移速</td><td>固定值</td><td>10 ~ 17</td></tr></tbody>
-</table>
-</div>
+
 
 <footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-05</p></footer>
 </div>

@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>魔方系统 - TBH攻略站</title>
-<meta name="description" content="TBH魔方系统 - 魔方经验、升级与功能解锁，了解魔方系统的玩法">
-<meta name="keywords" content="TBH魔方,魔方经验,魔方升级,功能解锁">
-<link rel="canonical" href="https://lynkzhang.github.io/tbh-guide/cube.html">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="6e7b54ae-2b3c-4701-8d41-ce71813ecd55"></script>
 <style>
 :root{--bg:#f6f3ef;--card:#fffdf9;--hd:#efe7de;--ac:#d94f70;--tx:#2f2a26;--mu:#74685d;--bl:#5d7fd6;--gn:#2ecc71;--line:#e8ddd1}
@@ -52,16 +49,40 @@ tr:hover{background:#f4efe8}
 .formula .cmt{display:block;color:#8b7b70;font-size:.82em;margin:0 0 6px 0}
 footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
 .c-common{color:#888}.c-uncommon{color:#3b7b1d}.c-rare{color:#21528e}.c-legendary{color:#904503}.c-immortal{color:#8c1818}.c-arcana{color:#652284}.c-beyond{color:#8f1e45}.c-celestial{color:#0e9aa7}.c-divine{color:#d4a017}.c-cosmic{color:#6c2f1f}
+.calc-grid{display:flex;flex-direction:column;gap:12px}
+.calc-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0}
+.calc-label{min-width:120px;font-size:.88em;color:var(--mu);font-weight:600}
+.calc-input{padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:.9em;background:#fff;color:var(--tx);min-width:120px}
+.calc-input:focus{outline:none;border-color:var(--ac)}
+.calc-result{background:linear-gradient(180deg,#fff,#fbf9f6);padding:14px 16px;border-radius:12px;border:2px solid var(--hd);font-size:.9em;line-height:1.9}
+.calc-result table{margin:6px 0}
+.calc-result .big{font-size:1.4em;font-weight:700;color:var(--ac)}
+.calc-result .big2{font-size:1.4em;font-weight:700;color:var(--bl)}
+@media(max-width:768px){.calc-label{min-width:100px}}
 @media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}table{font-size:.76em}}
 </style>
 </head>
 <body>
-<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html" class="active">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav><div class="c">
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="gear.html">装备</a></li><li><a href="monsters.html">怪物</a></li><li><a href="materials.html">素材</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html" class="active">魔方</a></li><li><a href="damage.html">伤害公式</a></li><li><a href="farming.html">刷图优化</a></li></ul></div></nav><div class="c">
 
 <header>
 <h1>魔方系统</h1>
 <p>经验升级 | 各功能解锁 | 每件物品经验参考</p>
 </header>
+
+<div class="s" id="calc">
+<h2>方块升级计算器</h2>
+<div class="calc-grid">
+  <div class="calc-row">
+    <label class="calc-label">当前等级：</label>
+    <input type="number" id="cc-cur" class="calc-input" value="1" min="1" max="99" step="1">
+    <label class="calc-label" style="margin-left:16px">目标等级：</label>
+    <input type="number" id="cc-tgt" class="calc-input" value="10" min="2" max="100" step="1">
+    <button onclick="calcCube()" style="margin-left:12px;padding:8px 20px;background:var(--ac);color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:.9em">计算</button>
+  </div>
+  <div id="cc-result" class="calc-result" style="display:none"></div>
+</div>
+</div>
 
 <div class="s">
 <h2>各稀有度每件物品给予的经验</h2>
@@ -178,6 +199,27 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 
 <footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-04</p></footer>
 </div>
+
+<script src="data_cube.js"></script>
+<script>
+function calcCube(){
+  var cur=parseInt(document.getElementById('cc-cur').value,10)||1;
+  var tgt=parseInt(document.getElementById('cc-tgt').value,10)||2;
+  if(cur<1)cur=1;if(tgt>100)tgt=100;if(tgt<=cur)tgt=cur+1;
+  var total=0;
+  for(var i=cur;i<tgt;i++){
+    var lv=CUBE_LEVELS.find(function(l){return l.level===i});
+    if(lv)total+=lv.exp;
+  }
+  var r=document.getElementById('cc-result');
+  r.style.display='block';
+  var optMatLv=Math.min(cur+10,99);
+  r.innerHTML='<div style="font-size:1.1em;margin-bottom:8px">从 <b>Lv'+cur+'</b> 升到 <b>Lv'+tgt+'</b></div>'
+    +'<div>所需总经验：<span style="font-size:1.3em;font-weight:700;color:var(--ac)">'+total.toLocaleString()+'</span></div>'
+    +'<div style="margin-top:6px">最优素材等级：Lv'+optMatLv+'（方块等级±10范围内）</div>'
+    +'<div>预计合成次数（每件'+optMatLv+'级装备）：约 '+Math.ceil(total/(optMatLv*9))+' 次</div>';
+}
+</script>
 
 </body>
 </html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>装备数据库 - TBH攻略站</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="6e7b54ae-2b3c-4701-8d41-ce71813ecd55"></script>
+<style>
+:root{--bg:#f6f3ef;--card:#fffdf9;--hd:#efe7de;--ac:#d94f70;--tx:#2f2a26;--mu:#74685d;--bl:#5d7fd6;--gn:#2ecc71;--line:#e8ddd1}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
+.c{max-width:1200px;margin:0 auto;padding:16px}
+.topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
+.topnav .logo{color:var(--ac);font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:12px}
+.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.topnav ul li a{display:block;color:var(--mu);padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.topnav ul li a:hover{background:#fff;color:var(--ac);border-color:var(--line);transform:translateY(-1px)}
+.topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
+header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
+header h1{color:#fff;font-size:1.8em}
+header p{color:rgba(255,255,255,.84);font-size:.85em;margin-top:4px}
+.s{background:var(--card);padding:18px;border-radius:14px;margin-bottom:18px;box-shadow:0 8px 24px rgba(116,104,93,.08);border:1px solid var(--line)}
+.s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
+.n{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
+.n b{color:#856404}
+.c-common{color:#888}.c-uncommon{color:#3b7b1d}.c-rare{color:#21528e}.c-legendary{color:#904503}.c-immortal{color:#8c1818}.c-arcana{color:#652284}.c-beyond{color:#8f1e45}.c-celestial{color:#0e9aa7}.c-divine{color:#d4a017}.c-cosmic{color:#6c2f1f}
+footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
+.filter-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px}
+.filter-row label{font-size:.85em;color:var(--mu);white-space:nowrap}
+.filter-row select,.filter-row input[type="number"]{padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:.85em;background:#fff;color:var(--tx)}
+.filter-row input[type="number"]{width:70px}
+.filter-row input[type="text"]{flex:1;min-width:180px;padding:8px 12px;border:1px solid #ddd;border-radius:8px;font-size:.9em;background:#fff;color:var(--tx)}
+.filter-row input:focus,.filter-row select:focus{outline:none;border-color:var(--ac)}
+.gear-table{width:100%;border-collapse:collapse;font-size:.82em}
+.gear-table th,.gear-table td{padding:6px 8px;border:1px solid #ddd;text-align:left}
+.gear-table th{background:var(--hd);color:var(--tx);position:sticky;top:0;cursor:pointer;user-select:none;white-space:nowrap}
+.gear-table th:hover{background:#e0d6ca}
+.gear-table th .arrow{font-size:.7em;margin-left:3px;color:var(--mu)}
+.gear-table tr:nth-child(even){background:#fbf9f6}
+.gear-table tr:hover{background:#f4efe8}
+.stat-tag{display:inline-block;padding:1px 6px;margin:1px 2px;border-radius:4px;font-size:.8em;background:#f0ebe4;color:var(--mu);white-space:nowrap}
+.pager{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:14px;flex-wrap:wrap}
+.pager button{padding:6px 12px;border:1px solid #ddd;border-radius:6px;background:#fff;color:var(--tx);font-size:.82em;cursor:pointer;transition:background .15s}
+.pager button:hover{background:var(--hd)}
+.pager button.active{background:var(--ac);color:#fff;border-color:var(--ac)}
+.pager button:disabled{opacity:.4;cursor:default}
+.pager .info{font-size:.82em;color:var(--mu)}
+.grade-badge{display:inline-block;padding:1px 8px;border-radius:4px;font-size:.8em;font-weight:600}
+.grade-COMMON{background:#eee;color:#888}.grade-UNCOMMON{background:#e8f5e9;color:#3b7b1d}.grade-RARE{background:#e3f0fc;color:#21528e}
+.grade-LEGENDARY{background:#fff3e0;color:#904503}.grade-IMMORTAL{background:#fce4e4;color:#8c1818}.grade-ARCANA{background:#f3e5f9;color:#652284}
+.grade-BEYOND{background:#fce4ec;color:#8f1e45}.grade-CELESTIAL{background:#e0f7fa;color:#0e9aa7}.grade-DIVINE{background:#fff8e1;color:#b8860b}
+.grade-COSMIC{background:#efebe9;color:#6c2f1f}
+@media(max-width:768px){
+  .topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}
+  .gear-table{font-size:.72em}.filter-row{gap:8px}.filter-row input[type="text"]{min-width:120px}
+}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li><li><a href="gear.html" class="active">装备</a></li></ul></div></nav>
+<div class="c">
+
+<header><h1>装备数据库</h1><p>筛选、搜索、查看全部装备属性</p></header>
+
+<div class="s">
+<h2>筛选与搜索</h2>
+<div class="filter-row">
+  <label>品级：</label>
+  <select id="fgrade" onchange="applyFilter()">
+    <option value="">全部</option>
+  </select>
+  <label>类型：</label>
+  <select id="ftype" onchange="applyFilter()">
+    <option value="">全部</option>
+  </select>
+  <label>等级：</label>
+  <input type="number" id="fminlv" min="1" max="999" value="" placeholder="最低" onchange="applyFilter()">
+  <span style="color:var(--mu)">~</span>
+  <input type="number" id="fmaxlv" min="1" max="999" value="" placeholder="最高" onchange="applyFilter()">
+</div>
+<div class="filter-row">
+  <input type="text" id="fsearch" placeholder="输入装备名称搜索..." oninput="applyFilter()">
+  <label>每页：</label>
+  <select id="fperpage" onchange="applyFilter()">
+    <option value="30">30</option>
+    <option value="50" selected>50</option>
+    <option value="100">100</option>
+    <option value="200">200</option>
+  </select>
+</div>
+<div class="n"><b>使用方法：</b>使用筛选器缩小范围，输入装备名搜索。点击表头可排序。装备数量 <span id="totalCount">0</span> 条，当前显示 <span id="filteredCount">0</span> 条。</div>
+</div>
+
+<div class="s" style="overflow-x:auto">
+<div id="pager-top" class="pager"></div>
+<table class="gear-table" id="gearTable">
+<thead><tr>
+  <th data-sort="name">名称 <span class="arrow"></span></th>
+  <th data-sort="grade">品级 <span class="arrow"></span></th>
+  <th data-sort="type">类型 <span class="arrow"></span></th>
+  <th data-sort="level">等级 <span class="arrow"></span></th>
+  <th data-sort="base1">攻击 <span class="arrow"></span></th>
+  <th data-sort="base2">防御 <span class="arrow"></span></th>
+  <th>固有属性</th>
+</tr></thead>
+<tbody id="gearBody"></tbody>
+</table>
+<div id="pager-bottom" class="pager"></div>
+</div>
+
+<footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-08</p></footer>
+</div>
+
+<script src="data_gear.js"></script>
+<script>
+var GRADE_CN={COMMON:'普通',UNCOMMON:'罕见',RARE:'稀有',LEGENDARY:'传奇',IMMORTAL:'不朽',ARCANA:'至宝',BEYOND:'超凡',CELESTIAL:'天界',DIVINE:'神圣',COSMIC:'宇宙'};
+var TYPE_CN={MAIN_WEAPON:'主武器',SUB_WEAPON:'副武器',HELMET:'头盔',ARMOR:'护甲',GLOVES:'手套',BOOTS:'靴子',AMULET:'护身符',BRACER:'护腕',EARING:'耳环',RING:'戒指'};
+var GRADE_ORDER=['COMMON','UNCOMMON','RARE','LEGENDARY','IMMORTAL','ARCANA','BEYOND','CELESTIAL','DIVINE','COSMIC'];
+var GRADE_IDX={};for(var i=0;i<GRADE_ORDER.length;i++)GRADE_IDX[GRADE_ORDER[i]]=i;
+var TYPE_ORDER=['MAIN_WEAPON','SUB_WEAPON','HELMET','ARMOR','GLOVES','BOOTS','AMULET','BRACER','EARING','RING'];
+var TYPE_IDX={};for(var i=0;i<TYPE_ORDER.length;i++)TYPE_IDX[TYPE_ORDER[i]]=i;
+
+var filtered=[];
+var currentPage=1;
+var sortKey='level';
+var sortDir=1;
+
+function buildFilters(){
+  var gf=document.getElementById('fgrade');
+  for(var i=0;i<GRADE_ORDER.length;i++){
+    var g=GRADE_ORDER[i];
+    var o=document.createElement('option');o.value=g;o.textContent=GRADE_CN[g]||g;
+    gf.appendChild(o);
+  }
+  var tf=document.getElementById('ftype');
+  for(var i=0;i<TYPE_ORDER.length;i++){
+    var t=TYPE_ORDER[i];
+    var o=document.createElement('option');o.value=t;o.textContent=TYPE_CN[t]||t;
+    tf.appendChild(o);
+  }
+}
+
+function applyFilter(){
+  var grade=document.getElementById('fgrade').value;
+  var type=document.getElementById('ftype').value;
+  var minlv=parseInt(document.getElementById('fminlv').value,10)||0;
+  var maxlv=parseInt(document.getElementById('fmaxlv').value,10)||9999;
+  var q=document.getElementById('fsearch').value.toLowerCase().trim();
+  filtered=[];
+  for(var i=0;i<GEAR_DATA.length;i++){
+    var g=GEAR_DATA[i];
+    if(grade&&g.grade!==grade)continue;
+    if(type&&g.type!==type)continue;
+    if(g.level<minlv||g.level>maxlv)continue;
+    if(q&&!g.name.toLowerCase().includes(q))continue;
+    filtered.push(g);
+  }
+  currentPage=1;
+  doSort();
+}
+
+function doSort(){
+  filtered.sort(function(a,b){
+    var va,vb;
+    if(sortKey==='name'){va=a.name;vb=b.name;return va<vb?-sortDir:va>vb?sortDir:0;}
+    if(sortKey==='grade'){va=GRADE_IDX[a.grade]||0;vb=GRADE_IDX[b.grade]||0;}
+    else if(sortKey==='type'){va=TYPE_IDX[a.type]||0;vb=TYPE_IDX[b.type]||0;}
+    else{va=a[sortKey]||0;vb=b[sortKey]||0;}
+    return(va-vb)*sortDir;
+  });
+  render();
+}
+
+function render(){
+  var pp=parseInt(document.getElementById('fperpage').value,10)||50;
+  var total=filtered.length;
+  var totalPages=Math.max(1,Math.ceil(total/pp));
+  if(currentPage>totalPages)currentPage=totalPages;
+  var start=(currentPage-1)*pp;
+  var end=Math.min(start+pp,total);
+  var slice=filtered.slice(start,end);
+  var tbody=document.getElementById('gearBody');
+  var h='';
+  for(var i=0;i<slice.length;i++){
+    var g=slice[i];
+    var gc='grade-'+g.grade;
+    var inh='';
+    for(var j=1;j<=3;j++){
+      var st=g['inherent'+j];var sv=g['inherent'+j+'_val'];
+      if(st==='NONE'||sv===0)continue;
+      var cn=GEAR_STAT_CN[st]||st;
+      inh+='<span class="stat-tag">'+cn+' +'+sv+'</span>';
+    }
+    h+='<tr><td><span class="'+gc+'" style="font-weight:600">'+g.name+'</span></td>'
+      +'<td><span class="grade-badge '+gc+'">'+(GRADE_CN[g.grade]||g.grade)+'</span></td>'
+      +'<td>'+(TYPE_CN[g.type]||g.type)+'</td>'
+      +'<td>'+g.level+'</td>'
+      +'<td>'+g.base1+'</td>'
+      +'<td>'+g.base2+'</td>'
+      +'<td>'+(inh||'<span style="color:#ccc">-</span>')+'</td></tr>';
+  }
+  tbody.innerHTML=h;
+  document.getElementById('totalCount').textContent=GEAR_DATA.length;
+  document.getElementById('filteredCount').textContent=total;
+  renderPager('pager-top',totalPages,pp);
+  renderPager('pager-bottom',totalPages,pp);
+}
+
+function renderPager(id,totalPages,pp){
+  var el=document.getElementById(id);
+  if(totalPages<=1){el.innerHTML='<span class="info">共 '+filtered.length+' 条</span>';return;}
+  var h='<button onclick="goPage(1)"'+(currentPage===1?' disabled':'')+'>首页</button>';
+  h+='<button onclick="goPage('+(currentPage-1)+')"'+(currentPage===1?' disabled':'')+'>上一页</button>';
+  var p0=Math.max(1,currentPage-3);
+  var p1=Math.min(totalPages,currentPage+3);
+  if(p0>1)h+='<span class="info">...</span>';
+  for(var p=p0;p<=p1;p++){
+    h+='<button class="'+(p===currentPage?'active':'')+'" onclick="goPage('+p+')">'+p+'</button>';
+  }
+  if(p1<totalPages)h+='<span class="info">...</span>';
+  h+='<button onclick="goPage('+(currentPage+1)+')"'+(currentPage>=totalPages?' disabled':'')+'>下一页</button>';
+  h+='<button onclick="goPage('+totalPages+')"'+(currentPage>=totalPages?' disabled':'')+'>末页</button>';
+  h+='<span class="info">第 '+currentPage+'/'+totalPages+' 页，共 '+filtered.length+' 条</span>';
+  el.innerHTML=h;
+}
+
+function goPage(p){
+  currentPage=p;
+  render();
+  document.getElementById('gearTable').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+document.querySelectorAll('.gear-table th[data-sort]').forEach(function(th){
+  th.addEventListener('click',function(){
+    var key=this.getAttribute('data-sort');
+    if(sortKey===key){sortDir=-sortDir;}else{sortKey=key;sortDir=1;}
+    doSort();
+  });
+});
+
+buildFilters();
+applyFilter();
+</script>
+</body>
+</html>

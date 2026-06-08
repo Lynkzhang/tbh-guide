@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方块升级计算器 - TBH攻略站</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="6e7b54ae-2b3c-4701-8d41-ce71813ecd55"></script>
+<style>
+:root{--bg:#f6f3ef;--card:#fffdf9;--hd:#efe7de;--ac:#d94f70;--tx:#2f2a26;--mu:#74685d;--bl:#5d7fd6;--gn:#2ecc71;--line:#e8ddd1}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
+.c{max-width:1200px;margin:0 auto;padding:16px}
+.topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
+.topnav .logo{color:var(--ac);font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:12px}
+.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.topnav ul li a{display:block;color:var(--mu);padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.topnav ul li a:hover{background:#fff;color:var(--ac);border-color:var(--line);transform:translateY(-1px)}
+.topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
+header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
+header h1{color:#fff;font-size:1.8em}
+header p{color:rgba(255,255,255,.84);font-size:.85em;margin-top:4px}
+.s{background:var(--card);padding:18px;border-radius:14px;margin-bottom:18px;box-shadow:0 8px 24px rgba(116,104,93,.08);border:1px solid var(--line)}
+.s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
+.s h3{color:var(--bl);margin:14px 0 8px;font-size:1em}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85em}
+th,td{padding:7px 10px;border:1px solid #ddd;text-align:left}
+th{background:var(--hd);color:var(--tx)}
+tr:nth-child(even){background:#fbf9f6}
+tr:hover{background:#f4efe8}
+.n{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
+.n b{color:#856404}
+footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
+.calc-form{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px}
+.calc-form .field{display:flex;flex-direction:column;gap:4px}
+.calc-form label{font-size:.85em;color:var(--mu);font-weight:600}
+.calc-form input{padding:10px 14px;border:2px solid var(--line);border-radius:10px;font-size:1em;width:140px;background:#fff;color:var(--tx);transition:border-color .2s}
+.calc-form input:focus{outline:none;border-color:var(--ac)}
+.calc-form button{padding:10px 28px;background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border:none;border-radius:10px;font-size:1em;font-weight:600;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.calc-form button:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(217,79,112,.3)}
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.summary-card{background:linear-gradient(135deg,#f8f9fa,#fff);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+.summary-card .label{font-size:.8em;color:var(--mu);margin-bottom:4px}
+.summary-card .value{font-size:1.5em;font-weight:700;color:var(--ac)}
+.summary-card .sub{font-size:.75em;color:var(--mu);margin-top:2px}
+.tip{background:#e8f4fd;border-left:3px solid var(--bl);padding:10px 14px;border-radius:0 8px 8px 0;font-size:.85em;color:#1a5276;margin:12px 0}
+@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}table{font-size:.76em}.calc-form{flex-direction:column}.calc-form input{width:100%}}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="cube_calc.html" class="active">方块计算器</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav>
+<div class="c">
+
+<header><h1>方块升级计算器</h1><p>计算方块升级所需经验、最优素材等级与预估合成次数</p></header>
+
+<div class="s" id="calc-section">
+<h2>升级计算</h2>
+<div class="calc-form">
+  <div class="field">
+    <label for="curLv">当前等级</label>
+    <input type="number" id="curLv" min="1" max="99" value="1" placeholder="1-99">
+  </div>
+  <div class="field">
+    <label for="tgtLv">目标等级</label>
+    <input type="number" id="tgtLv" min="2" max="100" value="10" placeholder="2-100">
+  </div>
+  <button onclick="calculate()">计算</button>
+</div>
+<div id="result" style="display:none"></div>
+</div>
+
+<div class="s">
+<h2>计算规则说明</h2>
+<div class="n"><b>经验需求：</b>每个等级的升级经验不同，从 Lv1 的 15 EXP 到 Lv99 的 1051 万 EXP，呈指数增长。</div>
+<div class="n"><b>±10 等级衰减：</b>当合成素材等级与方块等级相差超过 10 级时，素材提供的经验会大幅衰减。差距越大衰减越严重。建议使用与方块等级相近（±10 以内）的素材以获得最大经验收益。</div>
+<div class="n"><b>合成机制：</b>每次合成可使用最多 9 个装备作为素材。素材等级越高、与方块等级越接近，获得的经验越多。</div>
+<div class="n"><b>最优策略：</b>在当前方块等级 ±10 范围内，选择能提供最多经验的素材等级。系统会自动计算最优方案。</div>
+</div>
+
+<footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-08</p></footer>
+</div>
+
+<script src="data_cube.js"></script>
+<script>
+// 构建等级→经验映射
+var expMap = {};
+var maxLevel = 1;
+for (var i = 0; i < CUBE_LEVELS.length; i++) {
+    expMap[CUBE_LEVELS[i].level] = CUBE_LEVELS[i].exp;
+    if (CUBE_LEVELS[i].level > maxLevel) maxLevel = CUBE_LEVELS[i].level;
+}
+
+// 计算从 fromLv 升到 toLv 所需总经验
+function totalExp(fromLv, toLv) {
+    var sum = 0;
+    for (var lv = fromLv; lv < toLv; lv++) {
+        sum += (expMap[lv] || 0);
+    }
+    return sum;
+}
+
+// 格式化数字（带千分位）
+function fmtNum(n) {
+    if (n >= 100000000) return (n / 100000000).toFixed(2) + '亿';
+    if (n >= 10000) return (n / 10000).toFixed(1) + '万';
+    return n.toLocaleString('zh-CN');
+}
+
+// 素材经验收益（含 ±10 等级衰减）
+function matExp(cubeLv, matLv) {
+    var diff = Math.abs(matLv - cubeLv);
+    var baseExp = matLv * 10 + 50;
+    if (diff <= 10) {
+        return baseExp;
+    } else {
+        var penalty = Math.pow(0.85, diff - 10);
+        return Math.max(Math.floor(baseExp * penalty), 5);
+    }
+}
+
+// 计算最优素材等级
+function optimalMatLevel(cubeLv) {
+    var best = Math.min(cubeLv, maxLevel);
+    var bestExp = matExp(cubeLv, best);
+    var lo = Math.max(1, cubeLv - 10);
+    var hi = Math.min(maxLevel, cubeLv + 10);
+    for (var lv = lo; lv <= hi; lv++) {
+        var e = matExp(cubeLv, lv);
+        if (e > bestExp) { bestExp = e; best = lv; }
+    }
+    return best;
+}
+
+// 逐级经验表格
+function buildLevelTable(fromLv, toLv) {
+    var rows = [];
+    var cum = 0;
+    for (var lv = fromLv; lv < toLv; lv++) {
+        var need = expMap[lv] || 0;
+        cum += need;
+        rows.push({ lv: lv, need: need, cum: cum });
+    }
+    return rows;
+}
+
+function calculate() {
+    var curLv = parseInt(document.getElementById('curLv').value, 10);
+    var tgtLv = parseInt(document.getElementById('tgtLv').value, 10);
+    var resDiv = document.getElementById('result');
+
+    if (isNaN(curLv) || isNaN(tgtLv)) {
+        resDiv.innerHTML = '<div class="tip">请输入有效的等级数值</div>';
+        resDiv.style.display = 'block';
+        return;
+    }
+    if (curLv < 1) curLv = 1;
+    if (curLv > 99) curLv = 99;
+    if (tgtLv < curLv + 1) tgtLv = curLv + 1;
+    if (tgtLv > 100) tgtLv = 100;
+
+    var total = totalExp(curLv, tgtLv);
+    var optMat = optimalMatLevel(curLv);
+    var expPerMat = matExp(curLv, optMat);
+    var synthCount = Math.ceil(total / (expPerMat * 9));
+    var totalMats = synthCount * 9;
+
+    var h = '<div class="summary-grid">';
+    h += '<div class="summary-card"><div class="label">所需总经验</div><div class="value">' + fmtNum(total) + '</div><div class="sub">Lv' + curLv + ' → Lv' + tgtLv + '</div></div>';
+    h += '<div class="summary-card"><div class="label">最优素材等级</div><div class="value">Lv' + optMat + '</div><div class="sub">每次提供 ' + fmtNum(expPerMat) + ' EXP/个</div></div>';
+    h += '<div class="summary-card"><div class="label">预估合成次数</div><div class="value">' + fmtNum(synthCount) + '</div><div class="sub">每次 9 个素材</div></div>';
+    h += '<div class="summary-card"><div class="label">预估素材总量</div><div class="value">' + fmtNum(totalMats) + '</div><div class="sub">Lv' + optMat + ' 装备</div></div>';
+    h += '</div>';
+
+    // 显示经验效率分析
+    h += '<h3>素材等级经验效率（当前方块 Lv' + curLv + '）</h3>';
+    h += '<table><thead><tr><th>素材等级</th><th>单个经验</th><th>9个经验</th><th>效率</th></tr></thead><tbody>';
+    var lo = Math.max(1, curLv - 15);
+    var hi = Math.min(maxLevel, curLv + 15);
+    for (var lv = lo; lv <= hi; lv++) {
+        var e = matExp(curLv, lv);
+        var diff = Math.abs(lv - curLv);
+        var tag = diff <= 10 ? '' : ' <span style="color:#d94f70;font-size:.75em">[衰减]</span>';
+        var bestTag = lv === optMat ? ' style="background:#e8f5e9;font-weight:600"' : '';
+        h += '<tr' + bestTag + '><td>Lv' + lv + tag + '</td><td>' + fmtNum(e) + '</td><td>' + fmtNum(e * 9) + '</td><td>' + (lv === optMat ? '★ 最优' : '') + '</td></tr>';
+    }
+    h += '</tbody></table>';
+
+    // 逐级经验表
+    h += '<h3>逐级经验需求</h3>';
+    h += '<table><thead><tr><th>等级</th><th>升级经验</th><th>累计经验</th></tr></thead><tbody>';
+    var rows = buildLevelTable(curLv, tgtLv);
+    var showRows = rows;
+    if (rows.length > 50) {
+        showRows = rows.slice(0, 25).concat(rows.slice(-25));
+    }
+    for (var i = 0; i < showRows.length; i++) {
+        var r = showRows[i];
+        var skipNote = (rows.length > 50 && i === 25) ? '<tr><td colspan="3" style="text-align:center;color:var(--mu)">... 省略 ' + (rows.length - 50) + ' 级 ...</td></tr>' : '';
+        h += skipNote;
+        h += '<tr><td>Lv' + r.lv + ' → Lv' + (r.lv + 1) + '</td><td>' + fmtNum(r.need) + '</td><td>' + fmtNum(r.cum) + '</td></tr>';
+    }
+    h += '</tbody></table>';
+
+    resDiv.innerHTML = h;
+    resDiv.style.display = 'block';
+    resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// 回车触发计算
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') calculate();
+});
+</script>
+</body>
+</html>

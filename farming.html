@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刷图优化器 - TBH攻略站</title>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="6e7b54ae-2b3c-4701-8d41-ce71813ecd55"></script>
+<style>
+:root{--bg:#f6f3ef;--card:#fffdf9;--hd:#efe7de;--ac:#d94f70;--tx:#2f2a26;--mu:#74685d;--bl:#5d7fd6;--gn:#2ecc71;--line:#e8ddd1}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--tx);line-height:1.7}
+.c{max-width:1200px;margin:0 auto;padding:16px}
+.topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
+.topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
+.topnav .logo{color:var(--ac);font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:12px}
+.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.topnav ul li a{display:block;color:var(--mu);padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
+.topnav ul li a:hover{background:#fff;color:var(--ac);border-color:var(--line);transform:translateY(-1px)}
+.topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
+header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
+header h1{color:#fff;font-size:1.8em}
+header p{color:rgba(255,255,255,.84);font-size:.85em;margin-top:4px}
+.s{background:var(--card);padding:18px;border-radius:14px;margin-bottom:18px;box-shadow:0 8px 24px rgba(116,104,93,.08);border:1px solid var(--line)}
+.s h2{color:var(--ac);border-bottom:2px solid var(--hd);padding-bottom:8px;margin-bottom:14px;font-size:1.2em}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.85em}
+th,td{padding:7px 10px;border:1px solid #ddd;text-align:left}
+th{background:var(--hd);color:var(--tx)}
+tr:nth-child(even){background:#fbf9f6}
+tr:hover{background:#f4efe8}
+.n{background:#fff3cd;padding:10px 14px;border-left:3px solid #ffc107;margin:10px 0;border-radius:0 6px 6px 0;font-size:.85em;color:#856404}
+.n b{color:#856404}
+.search{background:var(--card);padding:16px;border-radius:10px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,.08);border:1px solid var(--line)}
+.search input[type=number]{width:120px;padding:8px;border:1px solid #ddd;border-radius:5px;background:#fff;color:var(--tx);font-size:.9em}
+.search input:focus{outline:none;border-color:var(--ac)}
+.search select{padding:6px 10px;border:1px solid #ddd;border-radius:6px;font-size:.85em;background:#fff}
+footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top:30px}
+.top10{background:#fffff0!important}
+@media(max-width:768px){.topnav{padding:8px}.topnav-inner{border-radius:14px}.topnav ul li a{padding:8px 10px;font-size:.8em}table{font-size:.76em}}
+</style>
+</head>
+<body>
+<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="farming.html" class="active">刷图优化</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav>
+<div class="c">
+
+<header><h1>刷图优化器</h1><p>根据你的 DPS 计算各关卡的每小时经验/金币收益，找到最优刷图关卡</p></header>
+
+<div class="s">
+<h2>参数设置</h2>
+<div class="search">
+<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+  <div style="display:flex;align-items:center;gap:6px">
+    <span style="font-size:.85em;color:var(--mu);white-space:nowrap">DPS：</span>
+    <input type="number" id="dps" value="1000" min="1" step="100">
+  </div>
+  <div style="display:flex;align-items:center;gap:6px">
+    <span style="font-size:.85em;color:var(--mu);white-space:nowrap">目标：</span>
+    <select id="target">
+      <option value="exp" selected>经验</option>
+      <option value="gold">金币</option>
+    </select>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px">
+    <span style="font-size:.85em;color:var(--mu);white-space:nowrap">难度：</span>
+    <select id="fdiff">
+      <option value="">全部</option>
+      <option value="普通">普通</option>
+      <option value="噩梦">噩梦</option>
+      <option value="地狱">地狱</option>
+      <option value="折磨">折磨</option>
+    </select>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px">
+    <span style="font-size:.85em;color:var(--mu);white-space:nowrap">章节：</span>
+    <select id="fact">
+      <option value="">全部</option>
+      <option value="1">第1章</option>
+      <option value="2">第2章</option>
+      <option value="3">第3章</option>
+    </select>
+  </div>
+</div>
+</div>
+<div id="result"></div>
+</div>
+
+<div class="n"><b>使用方法：</b>输入你的 DPS（每秒伤害），选择目标（经验或金币），可按难度和章节筛选。表格按目标效率降序排列，前10行为最优关卡（高亮显示）。通关时间 = 总怪物HP / DPS。</div>
+
+<footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-08</p></footer>
+</div>
+
+<script src="data_farming.js"></script>
+<script>
+var diffColors={'普通':'#888','噩梦':'#d68a00','地狱':'#c0392b','折磨':'#8e44ad'};
+
+function calc(){
+  var dps=parseFloat(document.getElementById('dps').value)||1000;
+  var target=document.getElementById('target').value;
+  var fdiff=document.getElementById('fdiff').value;
+  var fact=document.getElementById('fact').value;
+  if(dps<=0) dps=1;
+  var rows=[];
+  for(var i=0;i<FARM_STAGES.length;i++){
+    var s=FARM_STAGES[i];
+    if(fdiff&&s.diff!==fdiff) continue;
+    if(fact&&s.act!==parseInt(fact)) continue;
+    var lm=FARM_LEVEL_MUL[String(s.lv)];
+    if(!lm) continue;
+    var totalWeight=0;
+    for(var j=0;j<s.monsters.length;j++) totalWeight+=s.monsters[j].weight;
+    if(totalWeight<=0) continue;
+    var mHp=0,mGold=0,mExp=0;
+    for(var j=0;j<s.monsters.length;j++){
+      var mk=s.monsters[j].key;
+      var m=FARM_MONSTERS[mk];
+      if(!m) continue;
+      var pct=s.monsters[j].weight/totalWeight;
+      mHp+=m.hp*pct*s.waves*s.wma;
+      mGold+=m.gold*pct*s.waves*s.wma;
+      mExp+=m.exp*pct*s.waves*s.wma;
+    }
+    mHp=mHp*lm.hp/100;
+    mGold=mGold*lm.gold/100;
+    mExp=mExp*lm.exp/100;
+    var bHp=0,bGold=0,bExp=0;
+    if(s.boss){
+      var bm=FARM_MONSTERS[s.boss];
+      if(bm){
+        bHp=bm.hp*(s.bossHpMul||0)/100;
+        bGold=bm.gold*(s.bossGoldMul||0)/100;
+        bExp=bm.exp*(s.bossExpMul||0)/100;
+      }
+    }
+    var totalHp=mHp+bHp;
+    var totalGold=mGold+bGold;
+    var totalExp=mExp+bExp;
+    if(totalHp<=0) continue;
+    var time=totalHp/dps;
+    var gph=totalGold/time*3600;
+    var eph=totalExp/time*3600;
+    rows.push({act:s.act,no:s.no,lv:s.lv,diff:s.diff,hp:totalHp,time:time,gph:gph,eph:eph});
+  }
+  rows.sort(function(a,b){return target==='exp'?b.eph-a.eph:b.gph-a.gph;});
+  var h='<table><thead><tr><th>关卡</th><th>难度</th><th>等级</th><th>怪物HP</th><th>通关时间</th><th>经验/小时</th><th>金币/小时</th></tr></thead><tbody>';
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i];
+    var cls=i<10?' class="top10"':'';
+    var dc=diffColors[r.diff]||'#888';
+    h+='<tr'+cls+'><td>'+r.act+'-'+r.no+'</td><td style="color:'+dc+';font-weight:600">'+r.diff+'</td><td>Lv'+r.lv+'</td><td>'+r.hp.toFixed(1)+'</td><td>'+r.time.toFixed(1)+'秒</td><td>'+r.eph.toFixed(1)+'</td><td>'+r.gph.toFixed(1)+'</td></tr>';
+  }
+  h+='</tbody></table>';
+  document.getElementById('result').innerHTML=h;
+}
+document.getElementById('dps').addEventListener('input',calc);
+document.getElementById('target').addEventListener('change',calc);
+document.getElementById('fdiff').addEventListener('change',calc);
+document.getElementById('fact').addEventListener('change',calc);
+calc();
+</script>
+</body>
+</html>
