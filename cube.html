@@ -133,6 +133,27 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </div>
 
 <div class="s">
+<h2>合成产物稀有度分布</h2>
+<div class="note"><b>说明：</b>这一节只看<strong>产物稀有度</strong>本身，不看具体会掉哪件装备。概率按 <code>GradeInfoData.csv</code> 中的 <code>SameGradeWeight</code>、<code>Higher1GradeWeight</code>、<code>Higher2GradeWeight</code> 等权重归一化计算；具体掉到哪件装备，还要再经过 <code>SynthesisDropInfoData</code> / <code>DropInfoData</code> 的掉落表。</div>
+<table>
+<thead><tr><th>投入装备稀有度</th><th>可能产物分布</th></tr></thead>
+<tbody>
+<tr><td><span class="c-common">普通</span></td><td><span class="c-uncommon">罕见</span> 95.24%　/　<span class="c-rare">稀有</span> 4.76%</td></tr>
+<tr><td><span class="c-uncommon">罕见</span></td><td><span class="c-rare">稀有</span> 96.15%　/　<span class="c-legendary">传奇</span> 3.85%</td></tr>
+<tr><td><span class="c-rare">稀有</span></td><td><span class="c-legendary">传奇</span> 97.56%　/　<span class="c-immortal">不朽</span> 2.44%</td></tr>
+<tr><td><span class="c-legendary">传奇</span></td><td><span class="c-immortal">不朽</span> 99.01%　/　<span class="c-arcana">至宝</span> 0.99%</td></tr>
+<tr><td><span class="c-immortal">不朽</span></td><td><span class="c-immortal">不朽</span> 49.88%　/　<span class="c-arcana">至宝</span> 49.88%　/　<span class="c-beyond">超凡</span> 0.25%</td></tr>
+<tr><td><span class="c-arcana">至宝</span></td><td><span class="c-arcana">至宝</span> 66.56%　/　<span class="c-beyond">超凡</span> 33.28%　/　<span class="c-celestial">天界</span> 0.17%</td></tr>
+<tr><td><span class="c-beyond">超凡</span></td><td><span class="c-beyond">超凡</span> 76.86%　/　<span class="c-celestial">天界</span> 23.06%　/　<span class="c-divine">神圣</span> 0.08%</td></tr>
+<tr><td><span class="c-celestial">天界</span></td><td><span class="c-celestial">天界</span> 83.32%　/　<span class="c-divine">神圣</span> 16.66%　/　<span class="c-cosmic">宇宙</span> 0.02%</td></tr>
+<tr><td><span class="c-divine">神圣</span></td><td><span class="c-divine">神圣</span> 90.91%　/　<span class="c-cosmic">宇宙</span> 9.09%</td></tr>
+<tr><td><span class="c-cosmic">宇宙</span></td><td>终点稀有度；游戏表中没有更高品级权重。</td></tr>
+</tbody>
+</table>
+<div class="tip"><b>怎么看：</b>例如投入 <span class="c-immortal">不朽</span> 装备合成时，产物约有 49.88% 仍是 <span class="c-immortal">不朽</span>，49.88% 升到 <span class="c-arcana">至宝</span>，只有 0.25% 会直接升到 <span class="c-beyond">超凡</span>。</div>
+</div>
+
+<div class="s">
 <h2>魔方等级 → 升级所需经验</h2>
 <div class="note">第100级升级需要 999,999,999 经验（实际上是 MAX 级上限标记），显示为 MAX。</div>
 <table>
