@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lynkzhang.github.io/tbh-guide/sitemap.xml
