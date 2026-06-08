@@ -13,10 +13,20 @@ body{font-family:'Microsoft YaHei',sans-serif;background:var(--bg);color:var(--t
 .topnav{position:sticky;top:10px;z-index:200;padding:10px 16px}
 .topnav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:10px;background:rgba(255,253,249,.92);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(116,104,93,.12);padding:10px 12px}
 .topnav .logo{color:var(--ac);font-weight:700;font-size:.98em;padding:8px 12px;white-space:nowrap;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:12px}
-.topnav ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;flex:1}
-.topnav ul li a{display:block;color:var(--mu);padding:8px 12px;font-size:.84em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s,transform .15s}
-.topnav ul li a:hover{background:#fff;color:var(--ac);border-color:var(--line);transform:translateY(-1px)}
-.topnav ul li a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70;box-shadow:0 6px 16px rgba(217,79,112,.22)}
+.topnav ul{list-style:none;display:flex;gap:4px;flex:1;margin:0;padding:0}
+.topnav ul li{position:relative}
+.topnav ul li>a{display:block;color:var(--mu);padding:8px 14px;font-size:.88em;text-decoration:none;white-space:nowrap;border-radius:10px;border:1px solid transparent;transition:background .15s,color .15s,border-color .15s}
+.topnav ul li>a:hover{background:#fff;color:var(--ac);border-color:var(--line)}
+.topnav ul li>a.active{background:linear-gradient(135deg,#f08aa4,#d94f70);color:#fff;border-color:#d94f70}
+/* 二级下拉 */
+.topnav ul li ul{display:none;position:absolute;top:100%;left:0;background:rgba(255,253,249,.98);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(116,104,93,.15);padding:6px;min-width:140px;z-index:300;margin-top:4px}
+.topnav ul li:hover>ul{display:block}
+.topnav ul li ul li{display:block}
+.topnav ul li ul li a{display:block;padding:8px 14px;font-size:.84em;color:var(--mu);text-decoration:none;border-radius:8px;white-space:nowrap;transition:background .12s,color .12s}
+.topnav ul li ul li a:hover{background:#fff;color:var(--ac)}
+.topnav ul li ul li a.active{background:var(--ac);color:#fff}
+/* 下拉箭头 */
+.topnav ul li>a.has-sub::after{content:'▾';margin-left:4px;font-size:.7em;opacity:.6}
 header{background:linear-gradient(135deg,#667eea,#764ba2);padding:28px 20px;border-radius:12px;margin-bottom:20px;text-align:center}
 header h1{color:#fff;font-size:1.8em}
 header p{color:rgba(255,255,255,.84);font-size:.85em;margin-top:4px}
@@ -48,7 +58,39 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 </style>
 </head>
 <body>
-<nav class="topnav"><div class="topnav-inner"><a href="index.html" class="logo">TBH 攻略站</a><ul><li><a href="index.html">首页</a></li><li><a href="search.html">素材查询</a></li><li><a href="craft.html">制作配方</a></li><li><a href="chest.html">宝箱掉落</a></li><li><a href="pet.html">宠物</a></li><li><a href="stage.html">关卡怪物</a></li><li><a href="rarity.html">稀有度</a></li><li><a href="class.html">职业</a></li><li><a href="rune.html">符文树</a></li><li><a href="cube.html">魔方</a></li><li><a href="cube_calc.html" class="active">方块计算器</a></li><li><a href="damage.html">伤害公式</a></li></ul></div></nav>
+<nav class="topnav"><div class="topnav-inner">
+<a href="index.html" class="logo">TBH 攻略站</a>
+<ul>
+  <li><a href="index.html">首页</a></li>
+  <li><a href="#" class="has-sub">数据</a>
+    <ul>
+      <li><a href="gear.html">装备数据库</a></li>
+      <li><a href="monsters.html">怪物数据库</a></li>
+      <li><a href="materials.html">素材效果</a></li>
+      <li><a href="rarity.html">稀有度</a></li>
+      <li><a href="pet.html">宠物</a></li>
+      <li><a href="class.html">职业</a></li>
+      <li><a href="rune.html">符文树</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="has-sub">工具</a>
+    <ul>
+      <li><a href="farming.html">刷图优化器</a></li>
+      <li><a href="search.html">素材查询</a></li>
+      <li><a href="cube.html#calc">方块计算器</a></li>
+    </ul>
+  </li>
+  <li><a href="#" class="has-sub">攻略</a>
+    <ul>
+      <li><a href="cube.html">魔方</a></li>
+      <li><a href="damage.html">伤害公式</a></li>
+      <li><a href="craft.html">制作配方</a></li>
+      <li><a href="chest.html">宝箱掉落</a></li>
+      <li><a href="stage.html">关卡怪物</a></li>
+    </ul>
+  </li>
+</ul>
+</div></nav>
 <div class="c">
 
 <header><h1>方块升级计算器</h1><p>计算方块升级所需经验、最优素材等级与预估合成次数</p></header>
