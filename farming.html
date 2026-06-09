@@ -92,8 +92,13 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 <div class="search">
 <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
   <div style="display:flex;align-items:center;gap:6px">
-    <span style="font-size:.85em;color:var(--mu);white-space:nowrap">DPS：</span>
-    <input type="number" id="dps" value="1000" min="1" step="100">
+    <span style="font-size:.85em;color:var(--mu);white-space:nowrap">我打：</span>
+    <select id="refStage" style="min-width:140px"></select>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px">
+    <span style="font-size:.85em;color:var(--mu);white-space:nowrap">要</span>
+    <input type="number" id="refTime" value="60" min="1" step="10" style="width:70px">
+    <span style="font-size:.85em;color:var(--mu);white-space:nowrap">秒</span>
   </div>
   <div style="display:flex;align-items:center;gap:6px">
     <span style="font-size:.85em;color:var(--mu);white-space:nowrap">目标：</span>
@@ -126,7 +131,7 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 <div id="result"></div>
 </div>
 
-<div class="n"><b>使用方法：</b>输入你的 DPS（每秒伤害），选择目标（经验或金币），可按难度和章节筛选。表格按目标效率降序排列，前10行为最优关卡（高亮显示）。通关时间 = 总怪物HP / DPS。</div>
+<div class="n"><b>使用方法：</b>选择你打过的一个关卡，输入通关秒数，系统会自动推算你的实际输出，然后计算其他关卡的效率。按目标效率降序排列，前10行高亮。</div>
 
 <footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-08</p></footer>
 </div>
@@ -135,48 +140,90 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 <script>
 var diffColors={'普通':'#888','噩梦':'#d68a00','地狱':'#c0392b','折磨':'#8e44ad'};
 
+function calcStageHp(s){
+  var lm=FARM_LEVEL_MUL[String(s.lv)];
+  if(!lm) return 0;
+  var totalWeight=0;
+  for(var j=0;j<s.monsters.length;j++) totalWeight+=s.monsters[j].weight;
+  if(totalWeight<=0) return 0;
+  var mHp=0;
+  for(var j=0;j<s.monsters.length;j++){
+    var m=FARM_MONSTERS[s.monsters[j].key];
+    if(!m) continue;
+    mHp+=m.hp*(s.monsters[j].weight/totalWeight)*s.waves*s.wma;
+  }
+  mHp=mHp*lm.hp/1000;
+  var bHp=0;
+  if(s.boss){
+    var bm=FARM_MONSTERS[s.boss];
+    if(bm) bHp=bm.hp*(s.bossHpMul||0)/1000;
+  }
+  return mHp+bHp;
+}
+
+// 初始化参考关卡下拉框
+var refSel=document.getElementById('refStage');
+var stageOpts=[];
+for(var i=0;i<FARM_STAGES.length;i++){
+  var s=FARM_STAGES[i];
+  var hp=calcStageHp(s);
+  if(hp<=0) continue;
+  stageOpts.push({idx:i,label:s.diff+' '+s.act+'-'+s.no+' (Lv'+s.lv+')',hp:hp});
+}
+stageOpts.sort(function(a,b){return a.hp-b.hp;});
+for(var i=0;i<stageOpts.length;i++){
+  var o=stageOpts[i];
+  var opt=document.createElement('option');
+  opt.value=o.idx;
+  opt.textContent=o.label;
+  refSel.appendChild(opt);
+}
+// 默认选中噩梦3-9
+for(var i=0;i<refSel.options.length;i++){
+  if(refSel.options[i].textContent.includes('噩梦 3-9')){refSel.selectedIndex=i;break;}
+}
+
 function calc(){
-  var dps=parseFloat(document.getElementById('dps').value)||1000;
+  var refIdx=parseInt(refSel.value);
+  var refTime=parseFloat(document.getElementById('refTime').value)||60;
+  if(refTime<1) refTime=1;
+  var refStage=FARM_STAGES[refIdx];
+  var refHp=calcStageHp(refStage);
+  var dps=refHp/refTime;
+
   var target=document.getElementById('target').value;
   var fdiff=document.getElementById('fdiff').value;
   var fact=document.getElementById('fact').value;
-  if(dps<=0) dps=1;
   var rows=[];
   for(var i=0;i<FARM_STAGES.length;i++){
     var s=FARM_STAGES[i];
     if(fdiff&&s.diff!==fdiff) continue;
     if(fact&&s.act!==parseInt(fact)) continue;
+    var totalHp=calcStageHp(s);
+    if(totalHp<=0) continue;
     var lm=FARM_LEVEL_MUL[String(s.lv)];
-    if(!lm) continue;
     var totalWeight=0;
     for(var j=0;j<s.monsters.length;j++) totalWeight+=s.monsters[j].weight;
-    if(totalWeight<=0) continue;
-    var mHp=0,mGold=0,mExp=0;
+    var mGold=0,mExp=0;
     for(var j=0;j<s.monsters.length;j++){
-      var mk=s.monsters[j].key;
-      var m=FARM_MONSTERS[mk];
+      var m=FARM_MONSTERS[s.monsters[j].key];
       if(!m) continue;
       var pct=s.monsters[j].weight/totalWeight;
-      mHp+=m.hp*pct*s.waves*s.wma;
       mGold+=m.gold*pct*s.waves*s.wma;
       mExp+=m.exp*pct*s.waves*s.wma;
     }
-    mHp=mHp*lm.hp/100;
-    mGold=mGold*lm.gold/100;
-    mExp=mExp*lm.exp/100;
-    var bHp=0,bGold=0,bExp=0;
+    mGold=mGold*lm.gold/1000;
+    mExp=mExp*lm.exp/1000;
+    var bGold=0,bExp=0;
     if(s.boss){
       var bm=FARM_MONSTERS[s.boss];
       if(bm){
-        bHp=bm.hp*(s.bossHpMul||0)/100;
-        bGold=bm.gold*(s.bossGoldMul||0)/100;
-        bExp=bm.exp*(s.bossExpMul||0)/100;
+        bGold=bm.gold*(s.bossGoldMul||0)/1000;
+        bExp=bm.exp*(s.bossExpMul||0)/1000;
       }
     }
-    var totalHp=mHp+bHp;
     var totalGold=mGold+bGold;
     var totalExp=mExp+bExp;
-    if(totalHp<=0) continue;
     var time=totalHp/dps;
     var gph=totalGold/time*3600;
     var eph=totalExp/time*3600;
@@ -188,12 +235,13 @@ function calc(){
     var r=rows[i];
     var cls=i<10?' class="top10"':'';
     var dc=diffColors[r.diff]||'#888';
-    h+='<tr'+cls+'><td>'+r.act+'-'+r.no+'</td><td style="color:'+dc+';font-weight:600">'+r.diff+'</td><td>Lv'+r.lv+'</td><td>'+r.hp.toFixed(1)+'</td><td>'+r.time.toFixed(1)+'秒</td><td>'+r.eph.toFixed(1)+'</td><td>'+r.gph.toFixed(1)+'</td></tr>';
+    h+='<tr'+cls+'><td>'+r.act+'-'+r.no+'</td><td style="color:'+dc+';font-weight:600">'+r.diff+'</td><td>Lv'+r.lv+'</td><td>'+r.hp.toFixed(0)+'</td><td>'+r.time.toFixed(1)+'秒</td><td>'+r.eph.toFixed(0)+'</td><td>'+r.gph.toFixed(0)+'</td></tr>';
   }
   h+='</tbody></table>';
   document.getElementById('result').innerHTML=h;
 }
-document.getElementById('dps').addEventListener('input',calc);
+document.getElementById('refStage').addEventListener('change',calc);
+document.getElementById('refTime').addEventListener('input',calc);
 document.getElementById('target').addEventListener('change',calc);
 document.getElementById('fdiff').addEventListener('change',calc);
 document.getElementById('fact').addEventListener('change',calc);
