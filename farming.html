@@ -127,11 +127,44 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
     </select>
   </div>
 </div>
+<div style="margin-top:10px;font-size:.82em;color:var(--mu)"><b>加成设置</b>（自动缓存）</div>
+<div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:6px">
+  <div style="background:#f9f7f4;padding:10px 12px;border-radius:8px;border:1px solid var(--line)">
+    <div style="font-size:.82em;color:var(--ac);margin-bottom:6px;font-weight:600">金币加成</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <label style="font-size:.8em;color:var(--mu)">金币% <input type="number" id="goldPct" value="0" min="0" step="10" style="width:55px;padding:4px"></label>
+      <label style="font-size:.8em;color:var(--mu)">怪物金币+ <input type="number" id="goldFlat" value="0" min="0" step="1" style="width:55px;padding:4px"></label>
+      <label style="font-size:.8em;color:var(--mu)">Boss金币% <input type="number" id="bossGoldPct" value="0" min="0" step="10" style="width:55px;padding:4px"></label>
+      <label style="font-size:.8em;color:var(--mu)">Boss金币+ <input type="number" id="bossGoldFlat" value="0" min="0" step="10" style="width:55px;padding:4px"></label>
+    </div>
+  </div>
+  <div style="background:#f9f7f4;padding:10px 12px;border-radius:8px;border:1px solid var(--line)">
+    <div style="font-size:.82em;color:var(--ac);margin-bottom:6px;font-weight:600">经验加成</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <label style="font-size:.8em;color:var(--mu)">经验% <input type="number" id="expPct" value="0" min="0" step="10" style="width:55px;padding:4px"></label>
+      <label style="font-size:.8em;color:var(--mu)">怪物经验+ <input type="number" id="expFlat" value="0" min="0" step="1" style="width:55px;padding:4px"></label>
+      <label style="font-size:.8em;color:var(--mu)">Boss经验% <input type="number" id="bossExpPct" value="0" min="0" step="10" style="width:55px;padding:4px"></label>
+      <label style="font-size:.8em;color:var(--mu)">Boss经验+ <input type="number" id="bossExpFlat" value="0" min="0" step="10" style="width:55px;padding:4px"></label>
+    </div>
+  </div>
+  <div style="background:#f9f7f4;padding:10px 12px;border-radius:8px;border:1px solid var(--line)">
+    <div style="font-size:.82em;color:var(--ac);margin-bottom:6px;font-weight:600">其他</div>
+    <label style="font-size:.8em;color:var(--mu)">减少波数 <input type="number" id="waveReduce" value="0" min="0" step="1" style="width:55px;padding:4px"></label>
+  </div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+  <span style="font-size:.8em;color:var(--mu)">宠物：</span>
+  <label style="font-size:.8em;color:var(--mu);cursor:pointer"><input type="checkbox" id="petEye"> 监视者(金币+150)</label>
+  <label style="font-size:.8em;color:var(--mu);cursor:pointer"><input type="checkbox" id="petButterfly"> 蝴蝶(金币+100)</label>
+  <label style="font-size:.8em;color:var(--mu);cursor:pointer"><input type="checkbox" id="petDragon"> 龙(金币+150,经验+200)</label>
+  <label style="font-size:.8em;color:var(--mu);cursor:pointer"><input type="checkbox" id="petBat"> 蝙蝠(经验+150)</label>
+  <label style="font-size:.8em;color:var(--mu);cursor:pointer"><input type="checkbox" id="petSword"> 剑(经验+150)</label>
+</div>
 </div>
 <div id="result"></div>
 </div>
 
-<div class="n"><b>使用方法：</b>选择你打过的一个关卡，输入通关秒数，系统会自动推算你的实际输出，然后计算其他关卡的效率。按目标效率降序排列，前10行高亮。</div>
+<div class="n"><b>使用方法：</b>选择你打过的一个关卡，输入通关秒数，系统会自动推算你的实际输出，然后计算其他关卡的效率。加成设置会自动缓存到浏览器。</div>
 
 <footer><p>数据来源：游戏文件解析 | 提取工具：UnityPy | 最后更新：2026-06-08</p></footer>
 </div>
@@ -139,58 +172,63 @@ footer{text-align:center;padding:16px;color:var(--mu);font-size:.75em;margin-top
 <script src="data_farming.js"></script>
 <script>
 var diffColors={'普通':'#888','噩梦':'#d68a00','地狱':'#c0392b','折磨':'#8e44ad'};
+var bonusIds=['goldPct','goldFlat','bossGoldPct','bossGoldFlat','expPct','expFlat','bossExpPct','bossExpFlat','waveReduce','petEye','petButterfly','petDragon','petBat','petSword'];
+var CACHE_KEY='tbh_farming_prefs';
 
-function calcStageHp(s){
-  var lm=FARM_LEVEL_MUL[String(s.lv)];
-  if(!lm) return 0;
-  var totalWeight=0;
-  for(var j=0;j<s.monsters.length;j++) totalWeight+=s.monsters[j].weight;
-  if(totalWeight<=0) return 0;
-  var mHp=0;
-  for(var j=0;j<s.monsters.length;j++){
-    var m=FARM_MONSTERS[s.monsters[j].key];
-    if(!m) continue;
-    mHp+=m.hp*(s.monsters[j].weight/totalWeight)*s.waves*s.wma;
-  }
+function savePrefs(){
+  var prefs={refStage:refSel.value,refTime:document.getElementById('refTime').value,target:document.getElementById('target').value,fdiff:document.getElementById('fdiff').value,fact:document.getElementById('fact').value};
+  for(var i=0;i<bonusIds.length;i++){var id=bonusIds[i],el=document.getElementById(id);prefs[id]=el.type==='checkbox'?el.checked:el.value;}
+  try{localStorage.setItem(CACHE_KEY,JSON.stringify(prefs));}catch(e){}
+}
+function loadPrefs(){
+  try{var p=JSON.parse(localStorage.getItem(CACHE_KEY));if(!p)return;
+    if(p.refStage!==undefined)refSel.value=p.refStage;
+    ['refTime','target','fdiff','fact'].forEach(function(k){if(p[k]!==undefined)document.getElementById(k).value=p[k];});
+    for(var i=0;i<bonusIds.length;i++){var id=bonusIds[i],el=document.getElementById(id);if(p[id]!==undefined){if(el.type==='checkbox')el.checked=p[id];else el.value=p[id];}}
+  }catch(e){}
+}
+
+function calcStageHp(s,wr){
+  var lm=FARM_LEVEL_MUL[String(s.lv)];if(!lm)return 0;
+  var tw=0;for(var j=0;j<s.monsters.length;j++)tw+=s.monsters[j].weight;if(tw<=0)return 0;
+  var waves=Math.max(1,s.waves-(wr||0));
+  var mHp=0;for(var j=0;j<s.monsters.length;j++){var m=FARM_MONSTERS[s.monsters[j].key];if(!m)continue;mHp+=m.hp*(s.monsters[j].weight/tw)*waves*s.wma;}
   mHp=mHp*lm.hp/1000;
-  var bHp=0;
-  if(s.boss){
-    var bm=FARM_MONSTERS[s.boss];
-    if(bm) bHp=bm.hp*(s.bossHpMul||0)/1000;
-  }
+  var bHp=0;if(s.boss){var bm=FARM_MONSTERS[s.boss];if(bm)bHp=bm.hp*(s.bossHpMul||0)/1000;}
   return mHp+bHp;
 }
 
-// 初始化参考关卡下拉框
 var refSel=document.getElementById('refStage');
 var stageOpts=[];
-for(var i=0;i<FARM_STAGES.length;i++){
-  var s=FARM_STAGES[i];
-  var hp=calcStageHp(s);
-  if(hp<=0) continue;
-  stageOpts.push({idx:i,label:s.diff+' '+s.act+'-'+s.no+' (Lv'+s.lv+')',hp:hp});
-}
+for(var i=0;i<FARM_STAGES.length;i++){var s=FARM_STAGES[i];var hp=calcStageHp(s);if(hp>0)stageOpts.push({idx:i,label:s.diff+' '+s.act+'-'+s.no+' (Lv'+s.lv+')',hp:hp});}
 stageOpts.sort(function(a,b){return a.hp-b.hp;});
-for(var i=0;i<stageOpts.length;i++){
-  var o=stageOpts[i];
-  var opt=document.createElement('option');
-  opt.value=o.idx;
-  opt.textContent=o.label;
-  refSel.appendChild(opt);
-}
-// 默认选中噩梦3-9
-for(var i=0;i<refSel.options.length;i++){
-  if(refSel.options[i].textContent.includes('噩梦 3-9')){refSel.selectedIndex=i;break;}
-}
+for(var i=0;i<stageOpts.length;i++){var o=stageOpts[i];var opt=document.createElement('option');opt.value=o.idx;opt.textContent=o.label;refSel.appendChild(opt);}
+for(var i=0;i<refSel.options.length;i++){if(refSel.options[i].textContent.includes('噩梦 3-9')){refSel.selectedIndex=i;break;}}
+loadPrefs();
 
 function calc(){
   var refIdx=parseInt(refSel.value);
-  var refTime=parseFloat(document.getElementById('refTime').value)||60;
-  if(refTime<1) refTime=1;
+  var refTime=parseFloat(document.getElementById('refTime').value)||60;if(refTime<1)refTime=1;
   var refStage=FARM_STAGES[refIdx];
-  var refHp=calcStageHp(refStage);
-  var refDelay=refStage.waves*3;
-  var dps=refHp/(refTime-refDelay);
+  var wr=parseInt(document.getElementById('waveReduce').value)||0;
+  var refHp=calcStageHp(refStage,wr);
+  var refWaves=Math.max(1,refStage.waves-wr);
+  var dps=refHp/(refTime-refWaves*3);
+
+  var goldPct=parseFloat(document.getElementById('goldPct').value)||0;
+  var goldFlat=parseFloat(document.getElementById('goldFlat').value)||0;
+  var bossGoldPct=parseFloat(document.getElementById('bossGoldPct').value)||0;
+  var bossGoldFlat=parseFloat(document.getElementById('bossGoldFlat').value)||0;
+  var expPct=parseFloat(document.getElementById('expPct').value)||0;
+  var expFlat=parseFloat(document.getElementById('expFlat').value)||0;
+  var bossExpPct=parseFloat(document.getElementById('bossExpPct').value)||0;
+  var bossExpFlat=parseFloat(document.getElementById('bossExpFlat').value)||0;
+  var petGoldFlat=0,petExpFlat=0;
+  if(document.getElementById('petEye').checked)petGoldFlat+=150;
+  if(document.getElementById('petButterfly').checked)petGoldFlat+=100;
+  if(document.getElementById('petDragon').checked){petGoldFlat+=150;petExpFlat+=200;}
+  if(document.getElementById('petBat').checked)petExpFlat+=150;
+  if(document.getElementById('petSword').checked)petExpFlat+=150;
 
   var target=document.getElementById('target').value;
   var fdiff=document.getElementById('fdiff').value;
@@ -198,54 +236,31 @@ function calc(){
   var rows=[];
   for(var i=0;i<FARM_STAGES.length;i++){
     var s=FARM_STAGES[i];
-    if(fdiff&&s.diff!==fdiff) continue;
-    if(fact&&s.act!==parseInt(fact)) continue;
-    var totalHp=calcStageHp(s);
-    if(totalHp<=0) continue;
+    if(fdiff&&s.diff!==fdiff)continue;
+    if(fact&&s.act!==parseInt(fact))continue;
+    var totalHp=calcStageHp(s,wr);if(totalHp<=0)continue;
     var lm=FARM_LEVEL_MUL[String(s.lv)];
-    var totalWeight=0;
-    for(var j=0;j<s.monsters.length;j++) totalWeight+=s.monsters[j].weight;
+    var tw=0;for(var j=0;j<s.monsters.length;j++)tw+=s.monsters[j].weight;
+    var waves=Math.max(1,s.waves-wr);
     var mGold=0,mExp=0;
-    for(var j=0;j<s.monsters.length;j++){
-      var m=FARM_MONSTERS[s.monsters[j].key];
-      if(!m) continue;
-      var pct=s.monsters[j].weight/totalWeight;
-      mGold+=m.gold*pct*s.waves*s.wma;
-      mExp+=m.exp*pct*s.waves*s.wma;
-    }
-    mGold=mGold*lm.gold/1000;
-    mExp=mExp*lm.exp/1000;
+    for(var j=0;j<s.monsters.length;j++){var m=FARM_MONSTERS[s.monsters[j].key];if(!m)continue;var pct=s.monsters[j].weight/tw;mGold+=m.gold*pct*waves*s.wma;mExp+=m.exp*pct*waves*s.wma;}
+    mGold=mGold*lm.gold/1000;mExp=mExp*lm.exp/1000;
     var bGold=0,bExp=0;
-    if(s.boss){
-      var bm=FARM_MONSTERS[s.boss];
-      if(bm){
-        bGold=bm.gold*(s.bossGoldMul||0)/1000;
-        bExp=bm.exp*(s.bossExpMul||0)/1000;
-      }
-    }
-    var totalGold=mGold+bGold;
-    var totalExp=mExp+bExp;
-    var time=totalHp/dps+s.waves*3;
-    var gph=totalGold/time*3600;
-    var eph=totalExp/time*3600;
-    rows.push({act:s.act,no:s.no,lv:s.lv,diff:s.diff,hp:totalHp,time:time,gph:gph,eph:eph});
+    if(s.boss){var bm=FARM_MONSTERS[s.boss];if(bm){bGold=bm.gold*(s.bossGoldMul||0)/1000;bExp=bm.exp*(s.bossExpMul||0)/1000;}}
+    var totalGold=mGold*(1+goldPct/100)+goldFlat+petGoldFlat+bGold*(1+bossGoldPct/100)+bossGoldFlat;
+    var totalExp=mExp*(1+expPct/100)+expFlat+petExpFlat+bExp*(1+bossExpPct/100)+bossExpFlat;
+    var time=totalHp/dps+waves*3;
+    rows.push({act:s.act,no:s.no,lv:s.lv,diff:s.diff,hp:totalHp,time:time,gph:totalGold/time*3600,eph:totalExp/time*3600});
   }
   rows.sort(function(a,b){return target==='exp'?b.eph-a.eph:b.gph-a.gph;});
   var h='<table><thead><tr><th>关卡</th><th>难度</th><th>等级</th><th>怪物HP</th><th>通关时间</th><th>经验/小时</th><th>金币/小时</th></tr></thead><tbody>';
-  for(var i=0;i<rows.length;i++){
-    var r=rows[i];
-    var cls=i<10?' class="top10"':'';
-    var dc=diffColors[r.diff]||'#888';
-    h+='<tr'+cls+'><td>'+r.act+'-'+r.no+'</td><td style="color:'+dc+';font-weight:600">'+r.diff+'</td><td>Lv'+r.lv+'</td><td>'+r.hp.toFixed(0)+'</td><td>'+r.time.toFixed(1)+'秒</td><td>'+r.eph.toFixed(0)+'</td><td>'+r.gph.toFixed(0)+'</td></tr>';
-  }
+  for(var i=0;i<rows.length;i++){var r=rows[i];var cls=i<10?' class="top10"':'';var dc=diffColors[r.diff]||'#888';h+='<tr'+cls+'><td>'+r.act+'-'+r.no+'</td><td style="color:'+dc+';font-weight:600">'+r.diff+'</td><td>Lv'+r.lv+'</td><td>'+r.hp.toFixed(0)+'</td><td>'+r.time.toFixed(1)+'秒</td><td>'+r.eph.toFixed(0)+'</td><td>'+r.gph.toFixed(0)+'</td></tr>';}
   h+='</tbody></table>';
   document.getElementById('result').innerHTML=h;
+  savePrefs();
 }
-document.getElementById('refStage').addEventListener('change',calc);
-document.getElementById('refTime').addEventListener('input',calc);
-document.getElementById('target').addEventListener('change',calc);
-document.getElementById('fdiff').addEventListener('change',calc);
-document.getElementById('fact').addEventListener('change',calc);
+var allIds=['refStage','refTime','target','fdiff','fact'].concat(bonusIds);
+for(var i=0;i<allIds.length;i++){var el=document.getElementById(allIds[i]);if(el)el.addEventListener(el.type==='checkbox'||el.tagName==='SELECT'?'change':'input',calc);}
 calc();
 </script>
 </body>
