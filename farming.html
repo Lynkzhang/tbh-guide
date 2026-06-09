@@ -189,7 +189,8 @@ function calc(){
   if(refTime<1) refTime=1;
   var refStage=FARM_STAGES[refIdx];
   var refHp=calcStageHp(refStage);
-  var dps=refHp/refTime;
+  var refDelay=refStage.waves*3;
+  var dps=refHp/(refTime-refDelay);
 
   var target=document.getElementById('target').value;
   var fdiff=document.getElementById('fdiff').value;
@@ -224,7 +225,7 @@ function calc(){
     }
     var totalGold=mGold+bGold;
     var totalExp=mExp+bExp;
-    var time=totalHp/dps;
+    var time=totalHp/dps+s.waves*3;
     var gph=totalGold/time*3600;
     var eph=totalExp/time*3600;
     rows.push({act:s.act,no:s.no,lv:s.lv,diff:s.diff,hp:totalHp,time:time,gph:gph,eph:eph});
