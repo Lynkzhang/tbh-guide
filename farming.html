@@ -199,18 +199,20 @@ function calc(){
     if(fact&&s.act!==parseInt(fact))continue;
     var lm=FARM_LEVEL_MUL[String(s.lv)];if(!lm)continue;
     var tw=0;for(var j=0;j<s.monsters.length;j++)tw+=s.monsters[j].weight;if(tw<=0)continue;
-    var mGold=0,mExp=0;
-    for(var j=0;j<s.monsters.length;j++){var m=FARM_MONSTERS[s.monsters[j].key];if(!m)continue;var pct=s.monsters[j].weight/tw;mGold+=m.gold*pct*s.waves*s.wma;mExp+=m.exp*pct*s.waves*s.wma;}
+    var avgHp=0,mGold=0,mExp=0;
+    for(var j=0;j<s.monsters.length;j++){var m=FARM_MONSTERS[s.monsters[j].key];if(!m)continue;var pct=s.monsters[j].weight/tw;avgHp+=m.hp*pct;mGold+=m.gold*pct*s.waves*s.wma;mExp+=m.exp*pct*s.waves*s.wma;}
+    var totalHp=avgHp*s.waves*s.wma*lm.hp/1000;
+    if(s.boss){var bm=FARM_MONSTERS[s.boss];if(bm)totalHp+=bm.hp*(s.bossHpMul||0)/1000;}
     mGold=mGold*lm.gold/1000;mExp=mExp*lm.exp/1000;
     var bGold=0,bExp=0;
     if(s.boss){var bm=FARM_MONSTERS[s.boss];if(bm){bGold=bm.gold*(s.bossGoldMul||0)/1000;bExp=bm.exp*(s.bossExpMul||0)/1000;}}
     var totalGold=mGold*(1+goldPct/100)+goldFlat+petGoldFlat+bGold*(1+bossGoldPct/100)+bossGoldFlat;
     var totalExp=mExp*(1+expPct/100)+expFlat+petExpFlat+bExp*(1+bossExpPct/100)+bossExpFlat;
-    rows.push({act:s.act,no:s.no,lv:s.lv,diff:s.diff,waves:s.waves,wma:s.wma,gold:totalGold,exp:totalExp,gpw:totalGold,eph:totalExp});
+    rows.push({act:s.act,no:s.no,lv:s.lv,diff:s.diff,waves:s.waves,wma:s.wma,hp:totalHp,gold:totalGold,exp:totalExp,gpe:totalGold/totalHp,epe:totalExp/totalHp});
   }
-  rows.sort(function(a,b){return target==='exp'?b.exp-a.exp:b.gold-a.gold;});
-  var h='<table><thead><tr><th>关卡</th><th>难度</th><th>等级</th><th>波数</th><th>每波怪</th><th>总经验</th><th>总金币</th></tr></thead><tbody>';
-  for(var i=0;i<rows.length;i++){var r=rows[i];var cls=i<10?' class="top10"':'';var dc=diffColors[r.diff]||'#888';h+='<tr'+cls+'><td>'+r.act+'-'+r.no+'</td><td style="color:'+dc+';font-weight:600">'+r.diff+'</td><td>Lv'+r.lv+'</td><td>'+r.waves+'</td><td>'+r.wma+'</td><td>'+r.exp.toFixed(0)+'</td><td>'+r.gold.toFixed(0)+'</td></tr>';}
+  rows.sort(function(a,b){return target==='exp'?b.epe-a.epe:b.gpe-a.gpe;});
+  var h='<table><thead><tr><th>关卡</th><th>难度</th><th>等级</th><th>总HP</th><th>总经验</th><th>总金币</th><th>金/HP</th><th>经/HP</th></tr></thead><tbody>';
+  for(var i=0;i<rows.length;i++){var r=rows[i];var cls=i<10?' class="top10"':'';var dc=diffColors[r.diff]||'#888';h+='<tr'+cls+'><td>'+r.act+'-'+r.no+'</td><td style="color:'+dc+';font-weight:600">'+r.diff+'</td><td>Lv'+r.lv+'</td><td>'+r.hp.toFixed(0)+'</td><td>'+r.exp.toFixed(0)+'</td><td>'+r.gold.toFixed(0)+'</td><td>'+r.gpe.toFixed(2)+'</td><td>'+r.epe.toFixed(2)+'</td></tr>';}
   h+='</tbody></table>';
   document.getElementById('result').innerHTML=h;
   savePrefs();
