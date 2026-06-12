@@ -249,13 +249,13 @@ function gc(g) {
 }
 
 // ===== 宝箱掉落计算器 =====
-// 宠物宝箱加成数据（来自 PetStatInfoData.csv，仅含影响宝箱的宠物）
+// 宠物宝箱加成数据（来自 PetStatInfoData.csv，仅含影响宝箱的宠物，Value已÷10）
 var PETS_CHEST = [
-  {key:1001, name:'蝙蝠',     norm:100, boss:0,   src:'击败蝙蝠 x5000'},
-  {key:1003, name:'燃烧骷髅', norm:0,   boss:100, src:'击败火元素 x5000'},
-  {key:1004, name:'蓝色魔像', norm:150, boss:0,   src:'击败地狱魔像 x5000'},
-  {key:1005, name:'黑暗精灵', norm:0,   boss:150, src:'击败幽灵 x5000'},
-  {key:6003, name:'龙',       norm:200, boss:0,   src:'Supporter Pack DLC'}
+  {key:1001, name:'蝙蝠',     norm:10, boss:0,   src:'击败蝙蝠 x5000'},
+  {key:1003, name:'燃烧骷髅', norm:0,  boss:10,  src:'击败火元素 x5000'},
+  {key:1004, name:'蓝色魔像', norm:15, boss:0,   src:'击败地狱魔像 x5000'},
+  {key:1005, name:'黑暗精灵', norm:0,  boss:15,  src:'击败幽灵 x5000'},
+  {key:6003, name:'龙',       norm:20, boss:0,   src:'Supporter Pack DLC'}
 ];
 
 function getPetSum() {
